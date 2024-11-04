@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  
+}
+
+@font-face {
+  font-family: 'Fira Code';
+  src: url('../pages/fonts/FiraCode-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+}
+
+div {
+  background-color: #0a0a0a;
+}
