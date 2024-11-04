@@ -1,0 +1,99 @@
+{
+  "experience": [
+    {
+      "title": "Digital Alchemist",
+      "company": "ByteBakers",
+      "description": "Led the team in developing innovative solutions."
+    },
+    {
+      "title": "TypeScript Wizard",
+      "company": "Shippr",
+      "description": "Implemented TypeScript across the codebase."
+    },
+    {
+      "title": "Digital Alchemist",
+      "company": "ByteBakers",
+      "description": "Led the team in developing innovative solutions."
+    },
+    {
+      "title": "TypeScript Wizard",
+      "company": "Shippr",
+      "description": "Implemented TypeScript across the codebase."
+    }
+  ],
+  "projects": [
+    {
+      "name": "Test1",
+      "link": "links",
+      "description": "A test project that demonstrates functionality."
+    },
+    {
+      "name": "Test2",
+      "link": "links2",
+      "description": "Another project showcasing skills."
+    },
+    {
+      "name": "Test1",
+      "link": "links",
+      "description": "A test project that demonstrates functionality."
+    },
+    {
+      "name": "Test2",
+      "link": "links2",
+      "description": "Another project showcasing skills."
+    },
+    {
+      "name": "Test1",
+      "link": "links",
+      "description": "A test project that demonstrates functionality."
+    },
+    {
+      "name": "Test2",
+      "link": "links2",
+      "description": "Another project showcasing skills."
+    },
+    {
+      "name": "Test1",
+      "link": "links",
+      "description": "A test project that demonstrates functionality."
+    },
+    {
+      "name": "Test2",
+      "link": "links2",
+      "description": "Another project showcasing skills."
+    },
+    {
+      "name": "Test1",
+      "link": "links",
+      "description": "A test project that demonstrates functionality."
+    },
+    {
+      "name": "Test2",
+      "link": "links2",
+      "description": "Another project showcasing skills."
+    }
+  ],
+
+  "skills": [
+    { "name": "php" },
+    { "name": "javascript" },
+    { "name": "laravel" },
+    { "name": "bootstrap" },
+    { "name": "ci-cd" },
+    { "name": "debian" },
+    { "name": "django" },
+    { "name": "e-commerce" },
+    { "name": "github" },
+    { "name": "inertia" },
+    { "name": "jquery" },
+    { "name": "mysql" },
+    { "name": "postgresql" },
+    { "name": "python" },
+    { "name": "rabbitmq" },
+    { "name": "react" },
+    { "name": "redis" },
+    { "name": "tailwind" },
+    { "name": "ubuntu" },
+    { "name": "vue" }
+  ]
+}
