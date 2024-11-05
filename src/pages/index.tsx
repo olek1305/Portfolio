@@ -8,12 +8,12 @@ export default function Home() {
   const [category, setCategory] = useState<string | null>(null);
   const [MdxComponent, setMdxComponent] = useState<React.FC | null>(null);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleSelectMarkdown = async (
     category: string,
     name: string,
     fileName?: string
   ) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     setCategory(category);
 
     const markdownFile =
@@ -31,6 +31,7 @@ export default function Home() {
     }
   };
 
+  // Automatyczne załadowanie strony głównej (home.mdx) przy pierwszym renderowaniu
   useEffect(() => {
     handleSelectMarkdown("home", "home");
   }, []);
@@ -61,7 +62,7 @@ export default function Home() {
                     key={idx}
                     experience={exp}
                     onSelect={() =>
-                      handleSelectMarkdown("experiences", exp.title)
+                      handleSelectMarkdown("experiences", exp.title, exp.fileName)
                     }
                   />
                 ))}
