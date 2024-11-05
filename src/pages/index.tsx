@@ -135,6 +135,7 @@ export default function Home() {
 
         {/* Main Content */}
         <div className="sp-container col-span-1 md:col-span-3 p-6">
+        <h3 className="sp-title">Main</h3>
           {MdxComponent ? (
             <MDXProvider components={components}>
               <MdxComponent />
