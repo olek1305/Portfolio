@@ -1,99 +1,59 @@
 {
   "experience": [
     {
-      "title": "Digital Alchemist",
-      "company": "ByteBakers",
-      "description": "Led the team in developing innovative solutions."
+      "title": "Web and Mobile Application Development",
+      "company": "TEB Edukacja"
     },
     {
-      "title": "TypeScript Wizard",
-      "company": "Shippr",
-      "description": "Implemented TypeScript across the codebase."
+      "title": "Fullstack Laravel 10 + Vue.js 3 (2023) - Build APIs and SPAs",
+      "company": "Udemy"
     },
     {
-      "title": "Digital Alchemist",
-      "company": "ByteBakers",
-      "description": "Led the team in developing innovative solutions."
+      "title": "Master Laravel, Vue 3 & Inertia Full Stack",
+      "company": "Udemy"
     },
     {
-      "title": "TypeScript Wizard",
-      "company": "Shippr",
-      "description": "Implemented TypeScript across the codebase."
+      "title": "Python",
+      "company": "TEB Edukacja"
     }
   ],
   "projects": [
     {
-      "name": "Test1",
-      "link": "links",
-      "description": "A test project that demonstrates functionality."
+      "name": "SimpleStore"
     },
     {
-      "name": "Test2",
-      "link": "links2",
-      "description": "Another project showcasing skills."
+      "name": "Laravel-qa"
     },
     {
-      "name": "Test1",
-      "link": "links",
-      "description": "A test project that demonstrates functionality."
+      "name": "larazillow"
     },
     {
-      "name": "Test2",
-      "link": "links2",
-      "description": "Another project showcasing skills."
+      "name": "AbexGuilds"
     },
     {
-      "name": "Test1",
-      "link": "links",
-      "description": "A test project that demonstrates functionality."
-    },
-    {
-      "name": "Test2",
-      "link": "links2",
-      "description": "Another project showcasing skills."
-    },
-    {
-      "name": "Test1",
-      "link": "links",
-      "description": "A test project that demonstrates functionality."
-    },
-    {
-      "name": "Test2",
-      "link": "links2",
-      "description": "Another project showcasing skills."
-    },
-    {
-      "name": "Test1",
-      "link": "links",
-      "description": "A test project that demonstrates functionality."
-    },
-    {
-      "name": "Test2",
-      "link": "links2",
-      "description": "Another project showcasing skills."
+      "name": "Freshly-Ecommerce"
     }
   ],
-
   "skills": [
-    { "name": "php" },
-    { "name": "javascript" },
-    { "name": "laravel" },
-    { "name": "bootstrap" },
-    { "name": "ci-cd" },
-    { "name": "debian" },
-    { "name": "django" },
-    { "name": "e-commerce" },
-    { "name": "github" },
-    { "name": "inertia" },
-    { "name": "jquery" },
-    { "name": "mysql" },
-    { "name": "postgresql" },
-    { "name": "python" },
-    { "name": "rabbitmq" },
-    { "name": "react" },
-    { "name": "redis" },
-    { "name": "tailwind" },
-    { "name": "ubuntu" },
-    { "name": "vue" }
+    { "name": "PHP" },
+    { "name": "Laravel" },
+    { "name": "RabbitMQ" },
+    { "name": "Redis" },
+    { "name": "JavaScript" },
+    { "name": "Inertia.js", "fileName": "inertia" },
+    { "name": "Vue.js", "fileName": "vue" },
+    { "name": "React" },
+    { "name": "JQuery" },
+    { "name": "CI/CD", "fileName": "ci-cd" },
+    { "name": "E-commerce" },
+    { "name": "GitHub" },
+    { "name": "MySQL" },
+    { "name": "PostgreSQL" },
+    { "name": "Python" },
+    { "name": "Django" },
+    { "name": "Tailwind" },
+    { "name": "Bootstrap" },
+    { "name": "Ubuntu" },
+    { "name": "Debian" }
   ]
 }
