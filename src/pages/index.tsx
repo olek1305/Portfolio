@@ -8,12 +8,12 @@ export default function Home() {
   const [category, setCategory] = useState<string | null>(null);
   const [MdxComponent, setMdxComponent] = useState<React.FC | null>(null);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleSelectMarkdown = async (
     category: string,
     name: string,
     fileName?: string
   ) => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     setCategory(category);
 
     const markdownFile =
@@ -31,7 +31,6 @@ export default function Home() {
     }
   };
 
-  // Automatyczne załadowanie strony głównej (home.mdx) przy pierwszym renderowaniu
   useEffect(() => {
     handleSelectMarkdown("home", "home");
   }, []);
@@ -62,7 +61,7 @@ export default function Home() {
                     key={idx}
                     experience={exp}
                     onSelect={() =>
-                      handleSelectMarkdown("experiences", exp.title, exp.fileName)
+                      handleSelectMarkdown("experiences", exp.title)
                     }
                   />
                 ))}
@@ -117,11 +116,21 @@ export default function Home() {
         </div>
       </div>
       <div className="flex justify-end space-x-4">
-        <a href="/cv/aleksander-zak.pdf" target="_blank" rel="noopener noreferrer" className="text-purple-400 hover:underline">
+        <a
+          href="/cv/aleksander-zak.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-purple-400 hover:underline"
+        >
           Resume
         </a>
 
-        <a href="https://github.com/olek1305" target="_blank" rel="noopener noreferrer" className="text-purple-400 hover:underline">
+        <a
+          href="https://github.com/olek1305"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-purple-400 hover:underline"
+        >
           GitHub
         </a>
       </div>
