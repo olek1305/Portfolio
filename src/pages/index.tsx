@@ -8,6 +8,7 @@ export default function Home() {
   const [category, setCategory] = useState<string | null>(null);
   const [MdxComponent, setMdxComponent] = useState<React.FC | null>(null);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleSelectMarkdown = async (
     category: string,
     name: string,
