@@ -5,17 +5,13 @@ import Project from "./components/Project";
 import Skill from "./components/Skill";
 
 export default function Home() {
-  const [category, setCategory] = useState<string | null>(null);
   const [MdxComponent, setMdxComponent] = useState<React.FC | null>(null);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleSelectMarkdown = async (
     category: string,
     name: string,
     fileName?: string
   ) => {
-    setCategory(category);
-
     const markdownFile =
       category === "home"
         ? `${name.toLowerCase().replace(/\s+/g, "-")}.mdx`
@@ -31,6 +27,7 @@ export default function Home() {
     }
   };
 
+  // Automatyczne załadowanie strony głównej (home.mdx) przy pierwszym renderowaniu
   useEffect(() => {
     handleSelectMarkdown("home", "home");
   }, []);
