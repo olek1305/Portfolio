@@ -9,16 +9,20 @@ const components = {
   h1: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h1 className="text-purple-400 text-2xl" {...props} />
   ),
-  h2: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
-    <h2 className="text-purple-400 text-3xl" {...props} />
-  ),
-  h3: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
-    <h3 className="" {...props} />
-  ),
   p: (props: React.HTMLAttributes<HTMLParagraphElement>) => (
-    <p className="text-yellow-400" {...props} />
+    <p className="text-white" {...props} />
+  ),
+  ul: (props: React.HTMLAttributes<HTMLUListElement>) => (
+    <ul className="text-green-400 list-none" {...props} />
+  ),
+  strong: (props: React.HTMLAttributes<HTMLElement>) => (
+    <strong className="text-red-400 font-bold" {...props} />
+  ),
+  a: (props: React.HTMLAttributes<HTMLSpanElement>) => (
+    <span className="text-green-400 hover:bg-gray-700 hover:text-white hover:cursor-pointer" {...props} />
   ),
 };
+
 
 export default function Home() {
   const [MdxComponent, setMdxComponent] = useState<React.FC | null>(null);
