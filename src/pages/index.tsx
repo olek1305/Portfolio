@@ -13,9 +13,11 @@ export default function Home() {
     fileName?: string
   ) => {
     const markdownFile =
-    category === "home"
-      ? `${name.toLowerCase().replace(/\s+/g, "-")}.mdx`
-      : `${category}/${fileName || name.toLowerCase().replace(/\s+/g, "-")}.mdx`;
+      category === "home"
+        ? `${name.toLowerCase().replace(/\s+/g, "-")}.mdx`
+        : `${category}/${
+            fileName || name.toLowerCase().replace(/\s+/g, "-")
+          }.mdx`;
 
     try {
       const MdxModule = await import(`./data/markdown/${markdownFile}`);
