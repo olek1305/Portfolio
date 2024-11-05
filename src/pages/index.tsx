@@ -1,66 +1,104 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import data from "./data/data.json";
 import Experience from "./components/Experience";
 import Project from "./components/Project";
 import Skill from "./components/Skill";
-import MainContent from "./components/MainContent";
 
 export default function Home() {
-  const [markdownPath, setMarkdownPath] = useState<string>("");
+  const [category, setCategory] = useState<string | null>(null);
+  const [MdxComponent, setMdxComponent] = useState<React.FC | null>(null);
 
-  const handleSelectMarkdown = (path: string) => {
-    setMarkdownPath(path);
+  const handleSelectMarkdown = async (
+    category: string,
+    name: string,
+    fileName?: string
+  ) => {
+    setCategory(category);
+
+    // Ustal ścieżkę pliku
+    const markdownFile =
+      category === "home"
+        ? `${name.toLowerCase().replace(/\s+/g, "-")}.mdx` // dla home.mdx w głównym katalogu
+        : fileName ||
+          `${category}/${name.toLowerCase().replace(/\s+/g, "-")}.mdx`; // dla plików w podkatalogach
+
+    try {
+      const MdxModule = await import(`./data/markdown/${markdownFile}`);
+      setMdxComponent(() => MdxModule.default);
+    } catch (error) {
+      console.error("Markdown file not found:", markdownFile);
+      setMdxComponent(null);
+    }
   };
 
+  useEffect(() => {
+    handleSelectMarkdown("home", "home");
+  }, []);
+
   return (
-    <div className="h-screen bg-gray-900 text-gray-300 p-4 sp-body text-sm lowercase">
-      <div className="grid grid-cols-1 md:grid-cols-3 h-full gap-2">
+    <div className="min-h-screen text-gray-300 p-4 sp-body text-base/5">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-2">
         {/* Sidebar */}
-        <div className="col-span-1 space-y-4 h-full flex flex-col">
-          <div className="bg-gray-800 p-4 rounded sp-div">
-            <h2 className="text-lg md:text-xl font-bold text-white">Aleksander Żak</h2>
-            <p className="text-sm md:text-base">a passionate developer php</p>
+        <div className="col-span-1 space-y-4 flex flex-col">
+          <div
+            className="sp-container p-4 rounded cursor-pointer"
+            onClick={() => handleSelectMarkdown("home", "home")}
+          >
+            <h3 className="sp-title">profile</h3>
+            <h2 className="text-lg md:text-xl font-bold text-white">
+              Aleksander Żak
+            </h2>
+            <p className="text-sm md:text-base">A passionate PHP developer</p>
           </div>
 
-          <div className="sp-container relative max-h-[calc(100vh/3)] md:max-h-[200px]">
+          {/* Experience Section */}
+          <div className="sp-container relative">
             <h3 className="sp-title">experience</h3>
-            <div className="sp-content overflow-y-auto">
+            <div className="sp-content">
               <ul className="space-y-1">
                 {data.experience.map((exp, idx) => (
                   <Experience
                     key={idx}
                     experience={exp}
-                    onSelect={() => setMarkdownPath(exp.title.replace(/\s+/g, '-').toLowerCase())}
+                    onSelect={() =>
+                      handleSelectMarkdown("experiences", exp.title)
+                    }
                   />
                 ))}
               </ul>
             </div>
           </div>
 
-          <div className="sp-container relative max-h-[calc(100vh/3)] md:max-h-[200px]">
+          {/* Projects Section */}
+          <div className="sp-container relative">
             <h3 className="sp-title">projects</h3>
-            <div className="sp-content overflow-y-auto">
+            <div className="sp-content">
               <ul className="space-y-1">
                 {data.projects.map((project, idx) => (
                   <Project
                     key={idx}
                     project={project}
-                    onSelect={() => setMarkdownPath(project.name.replace(/\s+/g, '-').toLowerCase())}
+                    onSelect={() =>
+                      handleSelectMarkdown("projects", project.name)
+                    }
                   />
                 ))}
               </ul>
             </div>
           </div>
 
-          <div className="sp-container relative max-h-[calc(100vh/3)] md:max-h-[200px]">
+          {/* Skills Section */}
+          <div className="sp-container relative">
             <h3 className="sp-title">skills</h3>
-            <div className="sp-content overflow-y-auto">
+            <div className="sp-content">
               <ul className="grid grid-cols-2 gap-2">
                 {data.skills.map((skill, idx) => (
                   <Skill
                     key={idx}
                     skill={skill}
-                    onSelect={() => setMarkdownPath(skill.name.replace(/\s+/g, '-').toLowerCase())}
+                    onSelect={() =>
+                      handleSelectMarkdown("skills", skill.name, skill.fileName)
+                    }
                   />
                 ))}
               </ul>
@@ -69,8 +107,12 @@ export default function Home() {
         </div>
 
         {/* Main Content */}
-        <div className="col-span-1 md:col-span-2 bg-gray-800 p-6 rounded space-y-4 h-full sp-border sp-div">
-          <MainContent markdownPath={markdownPath} />
+        <div className="sp-container col-span-1 md:col-span-3 p-6">
+          {MdxComponent ? (
+            <MdxComponent />
+          ) : (
+            <div className="text-center">Click on an item to load content.</div>
+          )}
         </div>
       </div>
     </div>

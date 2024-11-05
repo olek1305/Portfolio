@@ -1,18 +1,18 @@
 import React from "react";
 
 type ExperienceProps = {
-    experience: { title: string; company: string; description: string };
-    onSelect: (description: string) => void;
+    experience: { title: string; company: string; };
+    onSelect: (title: string) => void;
 };
 
 export default function Experience({ experience, onSelect }: ExperienceProps) {
     return (
         <div
-            className="ml-2 my-1 mx-1 rounded cursor-pointer"
-            onClick={() => onSelect(experience.description)}
+            className="ml-2 my-1 mx-1 rounded cursor-pointer flex justify-between items-center"
+            onClick={() => onSelect(experience.title)}
         >
-            <h3 className="text-md font-semibold">{experience.title}</h3>
-            <p className="text-gray-400">{experience.company}</p>
+            <span className="default-text text-left">{experience.title}</span>
+            <span className="default-text text-purple-400 text-right">{experience.company}</span>
         </div>
     );
 }
