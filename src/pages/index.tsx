@@ -27,7 +27,6 @@ export default function Home() {
     }
   };
 
-  // Automatyczne załadowanie strony głównej (home.mdx) przy pierwszym renderowaniu
   useEffect(() => {
     handleSelectMarkdown("home", "home");
   }, []);
