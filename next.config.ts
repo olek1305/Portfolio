@@ -1,5 +1,4 @@
 import type { NextConfig } from "next";
-import createMDX from '@next/mdx';
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -7,6 +6,8 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
 };
 
-const withMDX = createMDX();
+const withMDX = require('@next/mdx')({
+  extension: /\.mdx?$/
+});
 
 export default withMDX(nextConfig);

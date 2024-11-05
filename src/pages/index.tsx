@@ -1,8 +1,24 @@
+import { MDXProvider } from "@mdx-js/react";
 import { useState, useEffect } from "react";
 import data from "./data/data.json";
 import Experience from "./components/Experience";
 import Project from "./components/Project";
 import Skill from "./components/Skill";
+
+const components = {
+  h1: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
+    <h1 className="text-purple-400 text-2xl" {...props} />
+  ),
+  h2: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
+    <h2 className="text-purple-400 text-3xl" {...props} />
+  ),
+  h3: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
+    <h3 className="" {...props} />
+  ),
+  p: (props: React.HTMLAttributes<HTMLParagraphElement>) => (
+    <p className="text-yellow-400" {...props} />
+  ),
+};
 
 export default function Home() {
   const [MdxComponent, setMdxComponent] = useState<React.FC | null>(null);
@@ -120,7 +136,9 @@ export default function Home() {
         {/* Main Content */}
         <div className="sp-container col-span-1 md:col-span-3 p-6">
           {MdxComponent ? (
-            <MdxComponent />
+            <MDXProvider components={components}>
+              <MdxComponent />
+            </MDXProvider>
           ) : (
             <div className="text-center">Click on an item to load content.</div>
           )}
