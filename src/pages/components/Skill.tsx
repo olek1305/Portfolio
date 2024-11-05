@@ -9,12 +9,16 @@ interface SkillProps {
 }
 
 export default function Skill({ skill, onSelect }: SkillProps) {
+  if (!skill || !skill.name) {
+    return null;
+  }
+
   const iconSrc = `/icons/${(skill.fileName || skill.name).toLowerCase().replace(/\s+/g, '-')}.svg`;
 
   return (
     <li
       onClick={() => onSelect(skill.fileName || skill.name)}
-      className="items-center cursor-pointer skill-icon hover:bg-gray-700 hover:text-white transition duration-200 ease-in-out "
+      className="items-center cursor-pointer skill-icon hover:bg-gray-700 hover:text-white transition duration-200 ease-in-out"
     >
       <Image
         src={iconSrc}
