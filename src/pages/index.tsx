@@ -13,10 +13,9 @@ export default function Home() {
     fileName?: string
   ) => {
     const markdownFile =
-      category === "home"
-        ? `${name.toLowerCase().replace(/\s+/g, "-")}.mdx`
-        : fileName ||
-          `${category}/${name.toLowerCase().replace(/\s+/g, "-")}.mdx`;
+    category === "home"
+      ? `${name.toLowerCase().replace(/\s+/g, "-")}.mdx`
+      : `${category}/${fileName || name.toLowerCase().replace(/\s+/g, "-")}.mdx`;
 
     try {
       const MdxModule = await import(`./data/markdown/${markdownFile}`);
@@ -63,7 +62,11 @@ export default function Home() {
                     key={idx}
                     experience={exp}
                     onSelect={() =>
-                      handleSelectMarkdown("experiences", exp.title, exp.fileName)
+                      handleSelectMarkdown(
+                        "experiences",
+                        exp.title,
+                        exp.fileName
+                      )
                     }
                   />
                 ))}
@@ -81,7 +84,11 @@ export default function Home() {
                     key={idx}
                     project={project}
                     onSelect={() =>
-                      handleSelectMarkdown("projects", project.name)
+                      handleSelectMarkdown(
+                        "projects",
+                        project.name,
+                        project.fileName
+                      )
                     }
                   />
                 ))}
@@ -118,11 +125,21 @@ export default function Home() {
         </div>
       </div>
       <div className="flex justify-end space-x-4">
-        <a href="/cv/aleksander-zak.pdf" target="_blank" rel="noopener noreferrer" className="text-purple-400 hover:underline">
+        <a
+          href="/cv/aleksander-zak.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-purple-400 hover:underline"
+        >
           Resume
         </a>
 
-        <a href="https://github.com/olek1305" target="_blank" rel="noopener noreferrer" className="text-purple-400 hover:underline">
+        <a
+          href="https://github.com/olek1305"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-purple-400 hover:underline"
+        >
           GitHub
         </a>
       </div>

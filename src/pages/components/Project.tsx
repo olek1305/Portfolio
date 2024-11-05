@@ -1,7 +1,7 @@
 import React from "react";
 
 type ProjectProps = {
-  project?: { name: string };
+  project?: { name: string; fileName?: string };
   onSelect: (name: string) => void;
 };
 
