@@ -15,12 +15,11 @@ export default function Home() {
   ) => {
     setCategory(category);
 
-    // Ustal ścieżkę pliku
     const markdownFile =
       category === "home"
-        ? `${name.toLowerCase().replace(/\s+/g, "-")}.mdx` // dla home.mdx w głównym katalogu
+        ? `${name.toLowerCase().replace(/\s+/g, "-")}.mdx`
         : fileName ||
-          `${category}/${name.toLowerCase().replace(/\s+/g, "-")}.mdx`; // dla plików w podkatalogach
+          `${category}/${name.toLowerCase().replace(/\s+/g, "-")}.mdx`;
 
     try {
       const MdxModule = await import(`./data/markdown/${markdownFile}`);
@@ -36,10 +35,10 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen text-gray-300 p-4 sp-body text-base/5">
+    <div className="min-h-screen text-gray-300 p-4 sp-body text-base/5 ">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-2">
         {/* Sidebar */}
-        <div className="col-span-1 space-y-4 flex flex-col">
+        <div className="col-span-1 space-y-4 flex flex-col text-center">
           <div
             className="sp-container p-4 rounded cursor-pointer"
             onClick={() => handleSelectMarkdown("home", "home")}
@@ -55,7 +54,7 @@ export default function Home() {
           <div className="sp-container relative">
             <h3 className="sp-title">experience</h3>
             <div className="sp-content">
-              <ul className="space-y-1">
+              <ul className="space-y-2">
                 {data.experience.map((exp, idx) => (
                   <Experience
                     key={idx}
@@ -73,7 +72,7 @@ export default function Home() {
           <div className="sp-container relative">
             <h3 className="sp-title">projects</h3>
             <div className="sp-content">
-              <ul className="space-y-1">
+              <ul className="space-y-2">
                 {data.projects.map((project, idx) => (
                   <Project
                     key={idx}
