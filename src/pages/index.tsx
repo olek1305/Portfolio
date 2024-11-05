@@ -114,6 +114,15 @@ export default function Home() {
           )}
         </div>
       </div>
+      <div className="flex justify-end space-x-4">
+        <a href="/cv/aleksander-zak.pdf" target="_blank" rel="noopener noreferrer" className="text-purple-400 hover:underline">
+          Resume
+        </a>
+
+        <a href="https://github.com/olek1305" target="_blank" rel="noopener noreferrer" className="text-purple-400 hover:underline">
+          GitHub
+        </a>
+      </div>
     </div>
   );
 }
