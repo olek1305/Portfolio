@@ -72,7 +72,7 @@ export default function Home() {
 
           {/* Experience Section */}
           <div className="sp-container relative">
-            <h3 className="sp-title">experience</h3>
+            <h3 className="sp-title">experience ({data.experience.length} total)</h3>
             <div className="sp-content">
               <ul className="space-y-2">
                 {data.experience.map((exp, idx) => (
@@ -94,7 +94,7 @@ export default function Home() {
 
           {/* Projects Section */}
           <div className="sp-container relative">
-            <h3 className="sp-title">projects</h3>
+            <h3 className="sp-title">projects ({data.projects.length} total)</h3>
             <div className="sp-content">
               <ul className="space-y-2">
                 {data.projects.map((project, idx) => (
@@ -116,7 +116,7 @@ export default function Home() {
 
           {/* Skills Section */}
           <div className="sp-container relative">
-            <h3 className="sp-title">skills</h3>
+            <h3 className="sp-title">skills ({data.skills.length} total)</h3>
             <div className="sp-content">
               <ul className="grid grid-cols-2 gap-2">
                 {data.skills.map((skill, idx) => (
