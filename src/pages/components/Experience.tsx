@@ -1,7 +1,7 @@
 import React from "react";
 
 type ExperienceProps = {
-  experience?: { title: string; company: string };
+    experience?: { title: string; company: string; fileName?: string };
   onSelect: (title: string) => void;
 };
 

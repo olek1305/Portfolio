@@ -2,19 +2,23 @@
   "experience": [
     {
       "title": "Web and Mobile Application Development",
-      "company": "TEB Edukacja"
+      "company": "TEB Edukacja",
+      "fileName": "web-and-mobile-application-development"
     },
     {
       "title": "Fullstack Laravel 10 + Vue.js 3 (2023) - Build APIs and SPAs",
-      "company": "Udemy"
+      "company": "Udemy",
+      "fileName": "fullstack-laravel-vue"
     },
     {
       "title": "Master Laravel, Vue 3 & Inertia Full Stack",
-      "company": "Udemy"
+      "company": "Udemy",
+      "fileName": "master-laravel-vue-inertia"
     },
     {
       "title": "Python",
-      "company": "TEB Edukacja"
+      "company": "TEB Edukacja",
+      "fileName": "python"
     }
   ],
   "projects": [

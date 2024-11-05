@@ -23,7 +23,13 @@ export default function Home() {
       setMdxComponent(() => MdxModule.default);
     } catch (error) {
       console.error("Markdown file not found:", markdownFile);
-      setMdxComponent(null);
+      try {
+        const ErrorMdxModule = await import(`./data/markdown/error.mdx`);
+        setMdxComponent(() => ErrorMdxModule.default);
+      } catch (error) {
+        console.error("Error file not found:", error);
+        setMdxComponent(null);
+      }
     }
   };
 
@@ -57,7 +63,7 @@ export default function Home() {
                     key={idx}
                     experience={exp}
                     onSelect={() =>
-                      handleSelectMarkdown("experiences", exp.title)
+                      handleSelectMarkdown("experiences", exp.title, exp.fileName)
                     }
                   />
                 ))}
@@ -112,21 +118,11 @@ export default function Home() {
         </div>
       </div>
       <div className="flex justify-end space-x-4">
-        <a
-          href="/cv/aleksander-zak.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-purple-400 hover:underline"
-        >
+        <a href="/cv/aleksander-zak.pdf" target="_blank" rel="noopener noreferrer" className="text-purple-400 hover:underline">
           Resume
         </a>
 
-        <a
-          href="https://github.com/olek1305"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-purple-400 hover:underline"
-        >
+        <a href="https://github.com/olek1305" target="_blank" rel="noopener noreferrer" className="text-purple-400 hover:underline">
           GitHub
         </a>
       </div>
