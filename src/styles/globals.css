@@ -68,10 +68,6 @@
   margin-top: 1rem;
 }
 
-.default-text {
-  text-transform: none;
-}
-
 .dino-animation {
   position: absolute;
   bottom: 0;
@@ -86,6 +82,9 @@
   bottom: 4px;
   left: -100px;
   width: 100px;
+}
+
+.animate-run {
   animation: run 6s infinite linear;
 }
 
