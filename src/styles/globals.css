@@ -26,7 +26,7 @@
 .sp-container {
   position: relative;
   border: 1px solid #ffffff;
-  border-radius: 0.375rem;
+  border-radius: 0px;
   padding-top: 2rem;
   padding-bottom: 1rem;
 }
@@ -63,7 +63,7 @@
   font-size: 0.875rem;
   z-index: 10;
   white-space: nowrap;
-  margin-top: 1rem; /* Adds space above the count */
+  margin-top: 1rem;
 }
 
 .default-text {
