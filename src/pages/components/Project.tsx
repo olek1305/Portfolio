@@ -1,7 +1,7 @@
 import React from "react";
 
 type ProjectProps = {
-  project?: { name: string; fileName?: string };
+  project?: { name: string };
   onSelect: (name: string) => void;
 };
 
@@ -10,7 +10,7 @@ export default function Project({ project, onSelect }: ProjectProps) {
     return null;
   }
 
-  const projectSrc = `/projects/${(project.fileName || project.name)}
+  const projectSrc = `/projects/${( project.name)}
     .toLowerCase()
     .replace(/\s+/g, "-")}.mdx`;
 

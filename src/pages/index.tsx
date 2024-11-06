@@ -109,8 +109,7 @@ export default function Home() {
                     onSelect={() =>
                       handleSelectMarkdown(
                         "projects",
-                        project.name,
-                        project.fileName
+                        project.name
                       )
                     }
                   />
