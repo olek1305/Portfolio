@@ -22,24 +22,12 @@
     }
   ],
   "projects": [
-    {
-      "name": "SimpleStore"
-    },
-    {
-      "name": "Laravel-qa"
-    },
-    {
-      "name": "larazillow"
-    },
-    {
-      "name": "AbexGuilds"
-    },
-    {
-      "name": "Freshly-Ecommerce"
-    },
-    {
-      "name": "LessonRabbitMQRedis"
-    }
+    { "name": "SimpleStore" },
+    { "name": "Laravel-qa" },
+    { "name": "larazillow" },
+    { "name": "AbexGuilds" },
+    { "name": "Freshly-Ecommerce" },
+    { "name": "LessonRabbitMQRedis" }
   ],
   "skills": [
     { "name": "PHP" },
