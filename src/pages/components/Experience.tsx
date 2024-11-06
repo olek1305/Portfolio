@@ -10,7 +10,7 @@ export default function Experience({ experience, onSelect }: ExperienceProps) {
     return null;
   }
 
-  const ExperienceSrc = `/projects/${(experience.fileName || experience.name)}
+  const ExperienceSrc = `/projects/${(experience.fileName || experience.title)}
   .toLowerCase()
   .replace(/\s+/g, "-")}.mdx`;
 
