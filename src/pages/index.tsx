@@ -1,6 +1,7 @@
 import { MDXProvider } from "@mdx-js/react";
 import { useState, useEffect } from "react";
 import data from "./data/data.json";
+import DinoAnimation from "./components/DinoAnimation";
 import Experience from "./components/Experience";
 import Project from "./components/Project";
 import Skill from "./components/Skill";
@@ -147,6 +148,7 @@ export default function Home() {
           ) : (
             <div className="text-center">Click on an item to load content.</div>
           )}
+          <DinoAnimation />
         </div>
       </div>
       <div className="flex justify-end space-x-4">
