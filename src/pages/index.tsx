@@ -71,7 +71,7 @@ export default function Home() {
             <h2 className="text-lg md:text-xl font-bold text-white">
               Aleksander Żak
             </h2>
-            <p className="text-sm md:text-base">A passionate PHP developer</p>
+            <p className="text-sm md:text-base">PHP developer</p>
           </div>
 
           {/* Experience Section */}
