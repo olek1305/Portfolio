@@ -35,8 +35,10 @@
       "name": "AbexGuilds"
     },
     {
-      "name": "Freshly-Ecommerce",
-      "fileName": "freshly-ecommerce"
+      "name": "Freshly-Ecommerce"
+    },
+    {
+      "name": "LessonRabbitMQRedis"
     }
   ],
   "skills": [
