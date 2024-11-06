@@ -10,7 +10,7 @@ export default function Project({ project, onSelect }: ProjectProps) {
     return null;
   }
 
-  const projectSrc = `/projects/${( project.name)}
+  const projectSrc = `/projects/${project.name}
     .toLowerCase()
     .replace(/\s+/g, "-")}.mdx`;
 

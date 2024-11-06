@@ -20,10 +20,12 @@ const components = {
     <strong className="text-red-400 font-bold" {...props} />
   ),
   a: (props: React.HTMLAttributes<HTMLSpanElement>) => (
-    <span className="text-green-400 hover:bg-gray-700 hover:text-white hover:cursor-pointer" {...props} />
+    <span
+      className="text-green-400 hover:bg-gray-700 hover:text-white hover:cursor-pointer"
+      {...props}
+    />
   ),
 };
-
 
 export default function Home() {
   const [MdxComponent, setMdxComponent] = useState<React.FC | null>(null);
@@ -72,12 +74,17 @@ export default function Home() {
             <h2 className="text-lg md:text-xl font-bold text-white">
               Aleksander Żak
             </h2>
-            <p className="text-sm md:text-base"><span className="text-blue-300">PHP</span> developer. Poland, Bydgoszcz.</p>
+            <p className="text-sm md:text-base">
+              <span className="text-blue-300">PHP</span> developer. Poland,
+              Bydgoszcz.
+            </p>
           </div>
 
           {/* Experience Section */}
           <div className="sp-container relative">
-            <h3 className="sp-title">experience ({data.experience.length} total)</h3>
+            <h3 className="sp-title">
+              experience ({data.experience.length} total)
+            </h3>
             <div className="sp-content">
               <ul className="space-y-2">
                 {data.experience.map((exp, idx) => (
@@ -99,7 +106,9 @@ export default function Home() {
 
           {/* Projects Section */}
           <div className="sp-container relative">
-            <h3 className="sp-title">projects ({data.projects.length} total)</h3>
+            <h3 className="sp-title">
+              projects ({data.projects.length} total)
+            </h3>
             <div className="sp-content">
               <ul className="space-y-2">
                 {data.projects.map((project, idx) => (
@@ -107,10 +116,7 @@ export default function Home() {
                     key={idx}
                     project={project}
                     onSelect={() =>
-                      handleSelectMarkdown(
-                        "projects",
-                        project.name
-                      )
+                      handleSelectMarkdown("projects", project.name)
                     }
                   />
                 ))}
@@ -139,7 +145,7 @@ export default function Home() {
 
         {/* Main Content */}
         <div className="sp-container col-span-1 md:col-span-3 p-6">
-        <h3 className="sp-title">Main</h3>
+          <h3 className="sp-title">Main</h3>
           {MdxComponent ? (
             <MDXProvider components={components}>
               <MdxComponent />

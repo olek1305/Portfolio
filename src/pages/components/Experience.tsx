@@ -10,7 +10,7 @@ export default function Experience({ experience, onSelect }: ExperienceProps) {
     return null;
   }
 
-  const ExperienceSrc = `/projects/${(experience.fileName || experience.title)}
+  const ExperienceSrc = `/projects/${experience.fileName || experience.title}
   .toLowerCase()
   .replace(/\s+/g, "-")}.mdx`;
 
@@ -20,7 +20,9 @@ export default function Experience({ experience, onSelect }: ExperienceProps) {
       onClick={() => onSelect(ExperienceSrc)}
     >
       <span className="default-text text-left">{experience.title}</span>
-      <span className="default-text text-purple-400 text-right">{experience.company}</span>
+      <span className="default-text text-purple-400 text-right">
+        {experience.company}
+      </span>
     </div>
   );
 }
