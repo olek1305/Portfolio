@@ -13,7 +13,9 @@ export default function Skill({ skill, onSelect }: SkillProps) {
     return null;
   }
 
-  const iconSrc = `/icons/${(skill.fileName || skill.name).toLowerCase().replace(/\s+/g, '-')}.svg`;
+  const iconSrc = `/icons/${(skill.fileName || skill.name)
+    .toLowerCase()
+    .replace(/\s+/g, "-")}.svg`;
 
   return (
     <li

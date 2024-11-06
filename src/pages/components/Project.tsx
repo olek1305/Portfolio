@@ -10,10 +10,14 @@ export default function Project({ project, onSelect }: ProjectProps) {
     return null;
   }
 
+  const projectSrc = `/projects/${(project.fileName || project.name)}
+    .toLowerCase()
+    .replace(/\s+/g, "-")}.mdx`;
+
   return (
     <div
       className="ml-2 my-1 mx-1 rounded cursor-pointer hover:bg-gray-700 hover:text-white transition duration-200 ease-in-out"
-      onClick={() => onSelect(project.name)}
+      onClick={() => onSelect(projectSrc)}
     >
       <span className="default-text">{project.name}</span>
     </div>
