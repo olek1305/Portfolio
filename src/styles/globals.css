@@ -49,6 +49,8 @@
   padding-bottom: 2.5rem;
   max-height: 12.5rem;
   overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #ffffff #0d1117;
 }
 
 .sp-count {
