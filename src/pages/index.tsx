@@ -39,8 +39,9 @@ export default function Home() {
     const markdownFile =
       category === "home"
         ? `${name.toLowerCase().replace(/\s+/g, "-")}.mdx`
-        : `${category}/${fileName || name.toLowerCase().replace(/\s+/g, "-")
-        }.mdx`;
+        : `${category}/${
+            fileName || name.toLowerCase().replace(/\s+/g, "-")
+          }.mdx`;
 
     try {
       const MdxModule = await import(`./data/markdown/${markdownFile}`);
@@ -136,7 +137,11 @@ export default function Home() {
                       key={idx}
                       skill={skill}
                       onSelect={() =>
-                        handleSelectMarkdown("skills", skill.name, skill.fileName)
+                        handleSelectMarkdown(
+                          "skills",
+                          skill.name,
+                          skill.fileName
+                        )
                       }
                     />
                   ))}
@@ -153,18 +158,24 @@ export default function Home() {
                 <MdxComponent />
               </MDXProvider>
             ) : (
-              <div className="text-center">Click on an item to load content.</div>
+              <div className="text-center">
+                Click on an item to load content.
+              </div>
             )}
             {showDino && <DinoAnimation />}
           </div>
         </div>
         <div className="flex justify-end space-x-4 mt-4">
-        <button
-            onClick={() => setShowDino((prev) => !prev)} // Toggle Dino visibility
+          <button
+            onClick={(e) => {
+              setShowDino((prev) => !prev);
+              e.currentTarget.blur();
+            }}
             className="text-purple-400 hover:underline"
           >
             {showDino ? "Hide Dino" : "Show Dino"}
           </button>
+
           <a
             href="/cv/aleksander-zak.pdf"
             target="_blank"
