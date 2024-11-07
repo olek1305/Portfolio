@@ -14,7 +14,6 @@
 
 .skill-icon {
   display: flex;
-  align-items: center;
 }
 
 .sp-body {
@@ -45,7 +44,8 @@
 }
 
 .sp-content {
-  padding: 1rem;
+  margin-top: -2%;
+  padding: 0.7rem;
   padding-bottom: 2.5rem;
   max-height: 12.5rem;
   overflow-y: auto;
@@ -95,4 +95,11 @@
 .scrollbar-fixed {
   scrollbar-width: thin;
   scrollbar-color: #ffffff #0d1117;
+}
+
+@media (min-width: 2560px) {
+  .max-w-4k {
+    max-width: 1920px;
+    margin: 0 auto;
+  }
 }
