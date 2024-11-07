@@ -97,13 +97,6 @@
   scrollbar-color: #ffffff #0d1117;
 }
 
-@media (min-width: 2560px) {
-  .max-w-4k {
-    max-width: 1920px;
-    margin: 0 auto;
-  }
-}
-
 .animate-bounce-fade {
   animation: bounce-fade 2s ease-in-out forwards;
 }
