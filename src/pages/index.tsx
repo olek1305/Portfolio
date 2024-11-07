@@ -20,8 +20,8 @@ const components = {
   strong: (props: React.HTMLAttributes<HTMLElement>) => (
     <strong className="text-red-400 font-bold" {...props} />
   ),
-  a: (props: React.HTMLAttributes<HTMLSpanElement>) => (
-    <span
+  a: (props: React.HTMLAttributes<HTMLAnchorElement>) => (
+    <a
       className="text-green-400 hover:bg-gray-700 hover:text-white hover:cursor-pointer"
       {...props}
     />
