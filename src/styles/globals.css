@@ -5,7 +5,7 @@
 @font-face {
   font-family: "Fira Code";
   src: url("../styles/fonts/FiraCode-Regular.woff2") format("woff2");
-  font-style: normal;
+  font-style: swap;
 }
 
 .invert-icon {
@@ -28,6 +28,7 @@
   border-radius: 0px;
   padding-top: 2rem;
   padding-bottom: 1rem;
+  min-height: 100px;
 }
 
 .sp-title {
