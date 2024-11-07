@@ -6,6 +6,10 @@ import DinoAnimation from "./components/DinoAnimation";
 import Experience from "./components/Experience";
 import Project from "./components/Project";
 import Skill from "./components/Skill";
+import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { docco } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
+import React, { ReactNode } from 'react';
+
 
 const components = {
   h1: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
@@ -26,6 +30,18 @@ const components = {
       {...props}
     />
   ),
+  code: ({ className, children }: { className?: string; children: ReactNode }) => {
+    const language = className?.replace(/language-/, '') || 'text';
+    return (
+      <SyntaxHighlighter
+        language={language}
+        style={docco}
+        customStyle={{ backgroundColor: '#e5e7eb', border: '1px solid #ffffff', width: '40%'}}
+      >
+        {children}
+      </SyntaxHighlighter>
+    );
+  },
 };
 
 export default function Home() {
