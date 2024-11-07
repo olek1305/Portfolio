@@ -80,19 +80,19 @@
 .dino {
   position: absolute;
   bottom: 4px;
-  left: -100px;
   width: 100px;
+  transition: bottom 0.4s ease;
 }
 
 .animate-run {
   animation: run 6s infinite linear;
 }
 
-@keyframes run {
-  0% {
-    left: -110px;
-  }
-  100% {
-    left: 110%;
-  }
+.jump {
+  bottom: 80px;
+}
+
+.scrollbar-fixed {
+  scrollbar-width: thin;
+  scrollbar-color: #ffffff #0d1117;
 }
