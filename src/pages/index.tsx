@@ -107,17 +107,18 @@ export default function Home() {
               <div className="sp-content">
                 <ul className="space-y-2">
                   {data.experience.map((exp, idx) => (
-                    <Experience
-                      key={idx}
-                      experience={exp}
-                      onSelect={() =>
-                        handleSelectMarkdown(
-                          "experiences",
-                          exp.title,
-                          exp.fileName
-                        )
-                      }
-                    />
+                    <li key={idx}>
+                      <Experience
+                        experience={exp}
+                        onSelect={() =>
+                          handleSelectMarkdown(
+                            "experiences",
+                            exp.title,
+                            exp.fileName
+                          )
+                        }
+                      />
+                    </li>
                   ))}
                 </ul>
               </div>
@@ -131,13 +132,15 @@ export default function Home() {
               <div className="sp-content">
                 <ul className="space-y-2">
                   {data.projects.map((project, idx) => (
-                    <Project
-                      key={idx}
-                      project={project}
-                      onSelect={() =>
-                        handleSelectMarkdown("projects", project.name)
-                      }
-                    />
+                    <li key={idx}>
+                      <Project
+                        key={idx}
+                        project={project}
+                        onSelect={() =>
+                          handleSelectMarkdown("projects", project.name)
+                        }
+                      />
+                    </li>
                   ))}
                 </ul>
               </div>
@@ -149,17 +152,19 @@ export default function Home() {
               <div className="sp-content">
                 <ul className="grid grid-cols-2 gap-2">
                   {data.skills.map((skill, idx) => (
-                    <Skill
-                      key={idx}
-                      skill={skill}
-                      onSelect={() =>
-                        handleSelectMarkdown(
-                          "skills",
-                          skill.name,
-                          skill.fileName
-                        )
-                      }
-                    />
+                    <li key={idx}>
+                      <Skill
+                        key={idx}
+                        skill={skill}
+                        onSelect={() =>
+                          handleSelectMarkdown(
+                            "skills",
+                            skill.name,
+                            skill.fileName
+                          )
+                        }
+                      />
+                    </li>
                   ))}
                 </ul>
               </div>
