@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 
 export default function DinoAnimation() {
   const [leftPosition, setLeftPosition] = useState(-100); // Start dino off-screen
@@ -41,8 +42,8 @@ export default function DinoAnimation() {
 
   return (
     <div className="dino-animation">
-      <img
-        src={showSign ? "dino/dino-sign.svg" : "dino/dino.svg"} // Switch between sign and running dino SVGs
+      <Image
+        src={showSign ? "/dino/dino-sign.svg" : "/dino/dino.svg"}
         alt="Dino"
         className={`dino ${isJumping ? "jump" : ""}`}
         style={{
@@ -50,6 +51,8 @@ export default function DinoAnimation() {
           width: showSign ? "150px" : "100px", // Increase size of dino-sign.svg
           filter: "invert(1)"
         }}
+        width={showSign ? 150 : 100}
+        height={showSign ? 150 : 100}
       />
     </div>
   );
