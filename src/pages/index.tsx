@@ -1,5 +1,6 @@
 import { MDXProvider } from "@mdx-js/react";
 import { useState, useEffect } from "react";
+import Head from "next/head";
 import data from "./data/data.json";
 import DinoAnimation from "./components/DinoAnimation";
 import Experience from "./components/Experience";
@@ -72,6 +73,13 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[#0d1117] text-gray-300 p-4 scrollbar-fixed">
+      <Head>
+        <title>Home - Aleksander Żak | PHP Developer</title>
+        <meta
+          name="description"
+          content="Aleksander Żak's portfolio - PHP Developer based in Bydgoszcz, Poland."
+        />
+      </Head>
       {/* Centered Wrapper */}
       <div className="max-w-[1920px] mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-2">
