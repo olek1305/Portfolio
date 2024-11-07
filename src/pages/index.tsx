@@ -30,6 +30,7 @@ const components = {
 export default function Home() {
   const [MdxComponent, setMdxComponent] = useState<React.FC | null>(null);
   const [showDino, setShowDino] = useState(true);
+  const [showCopiedMessage, setShowCopiedMessage] = useState(false);
 
   const handleSelectMarkdown = async (
     category: string,
@@ -61,6 +62,13 @@ export default function Home() {
   useEffect(() => {
     handleSelectMarkdown("home", "home");
   }, []);
+
+  const handleCopyEmail = () => {
+    const email = "olek1305@gmail.com";
+    navigator.clipboard.writeText(email);
+    setShowCopiedMessage(true);
+    setTimeout(() => setShowCopiedMessage(false), 2000);
+  };
 
   return (
     <div className="min-h-screen bg-[#0d1117] text-gray-300 p-4 scrollbar-fixed">
@@ -193,6 +201,21 @@ export default function Home() {
           >
             GitHub
           </a>
+
+          <div className="relative">
+            <button
+              onClick={handleCopyEmail}
+              className="text-purple-400 hover:underline"
+            >
+              Email
+            </button>
+            {showCopiedMessage && (
+              <div className="absolute -top-20 -left-12 bg-gray-900 text-white text-xl px-2 py-1 rounded-md animate-bounce-fade border-white border-2">
+                {" "}
+                Copied email!
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
