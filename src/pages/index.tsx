@@ -32,6 +32,16 @@ export default function Home() {
   const [MdxComponent, setMdxComponent] = useState<React.FC | null>(null);
   const [showDino, setShowDino] = useState(true);
   const [showCopiedMessage, setShowCopiedMessage] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+    const timer = setTimeout(() => {
+      handleSelectMarkdown("home", "home");
+    }, 900);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleSelectMarkdown = async (
     category: string,
@@ -60,10 +70,6 @@ export default function Home() {
     }
   };
 
-  useEffect(() => {
-    handleSelectMarkdown("home", "home");
-  }, []);
-
   const handleCopyEmail = () => {
     const email = "olek1305@gmail.com";
     navigator.clipboard.writeText(email);
@@ -84,104 +90,102 @@ export default function Home() {
       <div className="max-w-[1920px] mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-2">
           {/* Sidebar */}
-          <div className="col-span-1 space-y-4 flex flex-col text-center">
-            <div
-              className="sp-container p-4 rounded cursor-pointer"
-              onClick={() => handleSelectMarkdown("home", "home")}
-            >
-              <h3 className="sp-title">profile</h3>
-              <h2 className="text-lg md:text-xl font-bold text-white">
-                Aleksander Żak
-              </h2>
-              <p className="text-sm md:text-base">
-                <span className="text-blue-300">PHP</span> developer. Poland,
-                Bydgoszcz.
-              </p>
-            </div>
+          {isClient && (
+            <div className="col-span-1 space-y-4 flex flex-col text-center">
+              <div
+                className="sp-container p-4 rounded cursor-pointer"
+                onClick={() => handleSelectMarkdown("home", "home")}
+              >
+                <h3 className="sp-title">profile</h3>
+                <h2 className="text-lg md:text-xl font-bold text-white">
+                  Aleksander Żak
+                </h2>
+                <p className="text-sm md:text-base">
+                  <span className="text-blue-300">PHP</span> developer. Poland,
+                  Bydgoszcz.
+                </p>
+              </div>
 
-            {/* Experience Section */}
-            <div className="sp-container relative">
-              <h3 className="sp-title">
-                experience ({data.experience.length} total)
-              </h3>
-              <div className="sp-content">
-                <ul className="space-y-2">
-                  {data.experience.map((exp, idx) => (
-                    <li key={idx}>
-                      <Experience
-                        experience={exp}
-                        onSelect={() =>
-                          handleSelectMarkdown(
-                            "experiences",
-                            exp.title,
-                            exp.fileName
-                          )
-                        }
-                      />
-                    </li>
-                  ))}
-                </ul>
+              {/* Experience Section */}
+              <div className="sp-container relative">
+                <h3 className="sp-title">
+                  experience ({data.experience.length} total)
+                </h3>
+                <div className="sp-content">
+                  <ul className="space-y-2">
+                    {data.experience.map((exp, idx) => (
+                      <li key={idx}>
+                        <Experience
+                          experience={exp}
+                          onSelect={() =>
+                            handleSelectMarkdown(
+                              "experiences",
+                              exp.title,
+                              exp.fileName
+                            )
+                          }
+                        />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              {/* Projects Section */}
+              <div className="sp-container relative">
+                <h3 className="sp-title">
+                  projects ({data.projects.length} total)
+                </h3>
+                <div className="sp-content">
+                  <ul className="space-y-2">
+                    {data.projects.map((project, idx) => (
+                      <li key={idx}>
+                        <Project
+                          project={project}
+                          onSelect={() =>
+                            handleSelectMarkdown("projects", project.name)
+                          }
+                        />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              {/* Skills Section */}
+              <div className="sp-container relative">
+                <h3 className="sp-title">skills ({data.skills.length} total)</h3>
+                <div className="sp-content">
+                  <ul className="grid grid-cols-2 gap-2">
+                    {data.skills.map((skill, idx) => (
+                      <li key={idx}>
+                        <Skill
+                          skill={skill}
+                          onSelect={() =>
+                            handleSelectMarkdown(
+                              "skills",
+                              skill.name,
+                              skill.fileName
+                            )
+                          }
+                        />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </div>
-
-            {/* Projects Section */}
-            <div className="sp-container relative">
-              <h3 className="sp-title">
-                projects ({data.projects.length} total)
-              </h3>
-              <div className="sp-content">
-                <ul className="space-y-2">
-                  {data.projects.map((project, idx) => (
-                    <li key={idx}>
-                      <Project
-                        key={idx}
-                        project={project}
-                        onSelect={() =>
-                          handleSelectMarkdown("projects", project.name)
-                        }
-                      />
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            {/* Skills Section */}
-            <div className="sp-container relative">
-              <h3 className="sp-title">skills ({data.skills.length} total)</h3>
-              <div className="sp-content">
-                <ul className="grid grid-cols-2 gap-2">
-                  {data.skills.map((skill, idx) => (
-                    <li key={idx}>
-                      <Skill
-                        key={idx}
-                        skill={skill}
-                        onSelect={() =>
-                          handleSelectMarkdown(
-                            "skills",
-                            skill.name,
-                            skill.fileName
-                          )
-                        }
-                      />
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
+          )}
 
           {/* Main Content */}
           <div className="sp-container col-span-1 md:col-span-3 p-6">
             <h3 className="sp-title">Main</h3>
-            {MdxComponent ? (
+            {isClient && MdxComponent ? (
               <MDXProvider components={components}>
                 <MdxComponent />
               </MDXProvider>
             ) : (
-              <div className="text-center">
-                Click on an item to load content.
-              </div>
+              <div>Click on an item to load content.</div>
             )}
             {showDino && <DinoAnimation />}
           </div>
@@ -224,7 +228,6 @@ export default function Home() {
             </button>
             {showCopiedMessage && (
               <div className="absolute -top-20 -left-12 bg-gray-900 text-white text-xl px-2 py-1 rounded-md animate-bounce-fade border-white border-2">
-                {" "}
                 Copied email!
               </div>
             )}
