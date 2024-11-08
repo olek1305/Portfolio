@@ -8,35 +8,35 @@ import Project from "./components/Project";
 import Skill from "./components/Skill";
 import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
-import React, { ReactNode } from 'react';
+import React, { HTMLAttributes, ReactNode } from 'react';
 
 
 const components = {
-  h1: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
+  h1: (props: HTMLAttributes<HTMLHeadingElement>): JSX.Element => (
     <h1 className="text-purple-400 text-2xl" {...props} />
   ),
-  p: (props: React.HTMLAttributes<HTMLParagraphElement>) => (
+  p: (props: HTMLAttributes<HTMLParagraphElement>): JSX.Element => (
     <p className="text-white" {...props} />
   ),
-  ul: (props: React.HTMLAttributes<HTMLUListElement>) => (
+  ul: (props: HTMLAttributes<HTMLUListElement>): JSX.Element => (
     <ul className="text-green-400 list-none" {...props} />
   ),
-  strong: (props: React.HTMLAttributes<HTMLElement>) => (
+  strong: (props: HTMLAttributes<HTMLElement>): JSX.Element => (
     <strong className="text-red-400 font-bold" {...props} />
   ),
-  a: (props: React.HTMLAttributes<HTMLAnchorElement>) => (
+  a: (props: HTMLAttributes<HTMLAnchorElement>): JSX.Element => (
     <a
       className="text-green-400 hover:bg-gray-700 hover:text-white hover:cursor-pointer"
       {...props}
     />
   ),
-  code: ({ className, children }: { className?: string; children: ReactNode }) => {
+  code: ({ className, children }: { className?: string; children?: ReactNode }): JSX.Element => { // Made `children` optional
     const language = className?.replace(/language-/, '') || 'text';
     return (
       <SyntaxHighlighter
         language={language}
         style={docco}
-        customStyle={{ backgroundColor: '#e5e7eb', border: '1px solid #ffffff', width: '40%'}}
+        customStyle={{ backgroundColor: '#e5e7eb', border: '1px solid #ffffff', width: '40%' }}
       >
         {children}
       </SyntaxHighlighter>
