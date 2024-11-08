@@ -30,7 +30,7 @@ const components = {
       {...props}
     />
   ),
-  code: ({ className, children }: { className?: string; children?: ReactNode }): JSX.Element => { // Made `children` optional
+  code: ({ className, children }: { className?: string; children?: ReactNode }): JSX.Element => {
     const language = className?.replace(/language-/, '') || 'text';
     return (
       <SyntaxHighlighter
