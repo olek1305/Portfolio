@@ -58,6 +58,7 @@ export default function Home() {
   const [showDino, setShowDino] = useState(true);
   const [showCopiedMessage, setShowCopiedMessage] = useState(false);
   const [isClient, setIsClient] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   useEffect(() => {
     setIsClient(true);
@@ -73,6 +74,10 @@ export default function Home() {
     name: string,
     fileName?: string
   ) => {
+    if (category !== "projects") {
+      setSelectedProject(null);
+    }
+
     const markdownFile =
       category === "home"
         ? `${name.toLowerCase().replace(/\s+/g, "-")}.mdx`
@@ -102,6 +107,22 @@ export default function Home() {
     setTimeout(() => setShowCopiedMessage(false), 2000);
   };
 
+  const handleProjectSelect = (project: { name: string; skills: string[] }) => {
+    setSelectedProject(project as Project);
+    handleSelectMarkdown("projects", project.name);
+  };
+  
+  type Project = {
+    name: string;
+    skills: string[];
+  };
+
+  type Skill = {
+    name: string;
+    category: string;
+    fileName?: string;
+  };
+
   return (
     <div className="min-h-screen bg-[#0d1117] text-gray-300 p-4 scrollbar-fixed">
       <Head>
@@ -118,7 +139,7 @@ export default function Home() {
           {isClient && (
             <div className="col-span-1 space-y-4 flex flex-col text-center">
               <div
-                className="sp-container p-4 rounded cursor-pointer"
+                className="sp-container p-4 rounded cursor-pointer hover:bg-gray-700"
                 onClick={() => handleSelectMarkdown("home", "home")}
               >
                 <h3 className="sp-title">profile</h3>
@@ -167,9 +188,7 @@ export default function Home() {
                       <li key={idx}>
                         <Project
                           project={project}
-                          onSelect={() =>
-                            handleSelectMarkdown("projects", project.name)
-                          }
+                          onSelect={() => handleProjectSelect(project)}
                         />
                       </li>
                     ))}
@@ -185,7 +204,14 @@ export default function Home() {
                 <div className="sp-content">
                   <ul className="grid grid-cols-2 gap-2">
                     {data.skills.map((skill, idx) => (
-                      <li key={idx}>
+                      <li
+                        key={idx}
+                        className={`${
+                          selectedProject?.skills?.includes(skill.name)
+                            ? "bg-purple-600"
+                            : ""
+                        }`}
+                      >
                         <Skill
                           skill={skill}
                           onSelect={() =>

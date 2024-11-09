@@ -23,12 +23,13 @@
   ],
 
   "projects": [
-    { "name": "SimpleStore", "tags": [""] },
-    { "name": "Laravel-qa" },
-    { "name": "larazillow" },
-    { "name": "AbexGuilds" },
-    { "name": "Freshly-Ecommerce" },
-    { "name": "LessonRabbitMQRedis" }
+    { "name": "SimpleStore", "skills": ["PHP", "Laravel", "Bootstrap", "JavaScript", "MySQL"] },
+    { "name": "Laravel-qa", "skills": ["PHP", "Vue.js", "Laravel", "Bootstrap", "JavaScript", "JQuery"] },
+    { "name": "larazillow", "skills": ["PHP", "Vue.js", "Laravel", "Tailwind", "JavaScript", "Inertia.js", "Docker", "MySQL"] },
+    { "name": "AbexGuilds", "skills": ["PHP", "Vue.js", "Laravel", "Tailwind", "JavaScript", "Inertia.js", "MySQL"] },
+    { "name": "Freshly-Ecommerce", "skills": ["PHP", "Laravel", "Bootstrap", "JavaScript", "YajraBox", "Docker", "MySQL"] },
+    { "name": "LessonRabbitMQRedis", "skills": ["PHP", "Laravel", "Tailwind", "JavaScript", "Docker", "React", "Next.js", "RabbitMQ", "Redis", "MySQL", "CI/CD"] },
+    { "name": "Portfolio", "skills": ["JavaScript", "React", "Next.js", "CI/CD"] }
   ],
   
   "skills": [
@@ -41,7 +42,9 @@
     { "name": "Inertia.js", "category": "Frameworks", "fileName": "inertia" },
     { "name": "Vue.js", "category": "Frameworks", "fileName": "vue" },
     { "name": "React", "category": "Frameworks" },
+    { "name": "Next.js", "category": "Frameworks", "fileName": "nextjs"  },
     { "name": "JQuery", "category": "Libraries" },
+    { "name": "YajraBox", "category": "Frameworks" },
     { "name": "CI/CD", "category": "Tools", "fileName": "ci-cd" },
     { "name": "E-commerce", "category": "Domains" },
     { "name": "GitHub", "category": "Tools" },
