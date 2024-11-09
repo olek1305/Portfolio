@@ -42,7 +42,7 @@
     { "name": "Inertia.js", "category": "Frameworks", "fileName": "inertia" },
     { "name": "Vue.js", "category": "Frameworks", "fileName": "vue" },
     { "name": "React", "category": "Frameworks" },
-    { "name": "Next.js", "category": "Frameworks", "fileName": "nextjs"  },
+    { "name": "Next.js", "category": "Frameworks", "fileName": "nextjs" },
     { "name": "JQuery", "category": "Libraries" },
     { "name": "YajraBox", "category": "Frameworks" },
     { "name": "CI/CD", "category": "Tools", "fileName": "ci-cd" },
