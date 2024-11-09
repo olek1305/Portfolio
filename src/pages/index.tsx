@@ -1,15 +1,14 @@
+import React, { HTMLAttributes, ReactNode } from "react";
+import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
+import { docco } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import { MDXProvider } from "@mdx-js/react";
 import { useState, useEffect } from "react";
-import Head from "next/head";
-import data from "./data/data.json";
 import DinoAnimation from "./components/DinoAnimation";
 import Experience from "./components/Experience";
 import Project from "./components/Project";
 import Skill from "./components/Skill";
-import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { docco } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
-import React, { HTMLAttributes, ReactNode } from 'react';
-
+import Head from "next/head";
+import data from "./data/data.json";
 
 const components = {
   h1: (props: HTMLAttributes<HTMLHeadingElement>): JSX.Element => (
@@ -30,13 +29,23 @@ const components = {
       {...props}
     />
   ),
-  code: ({ className, children }: { className?: string; children?: ReactNode }): JSX.Element => {
-    const language = className?.replace(/language-/, '') || 'text';
+  code: ({
+    className,
+    children,
+  }: {
+    className?: string;
+    children?: ReactNode;
+  }): JSX.Element => {
+    const language = className?.replace(/language-/, "") || "text";
     return (
       <SyntaxHighlighter
         language={language}
         style={docco}
-        customStyle={{ backgroundColor: '#e5e7eb', border: '1px solid #ffffff', width: '40%' }}
+        customStyle={{
+          backgroundColor: "#e5e7eb",
+          border: "1px solid #ffffff",
+          width: "40%",
+        }}
       >
         {children}
       </SyntaxHighlighter>
@@ -170,7 +179,9 @@ export default function Home() {
 
               {/* Skills Section */}
               <div className="sp-container relative">
-                <h3 className="sp-title">skills ({data.skills.length} total)</h3>
+                <h3 className="sp-title">
+                  skills ({data.skills.length} total)
+                </h3>
                 <div className="sp-content">
                   <ul className="grid grid-cols-2 gap-2">
                     {data.skills.map((skill, idx) => (
