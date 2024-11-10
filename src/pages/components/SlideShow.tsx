@@ -22,7 +22,7 @@ export default function MarkdownSlideshow({ images, altText = 'Slideshow image' 
         <Image
           src={images[currentIndex]}
           alt={altText}
-          width={800}
+          width={700}
           height={600}
           className="rounded-lg"
         />
