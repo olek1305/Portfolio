@@ -4,11 +4,14 @@ import { docco } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import { MDXProvider } from "@mdx-js/react";
 import { useState, useEffect } from "react";
 import DinoAnimation from "./components/DinoAnimation";
+import SlideShow from "./components/SlideShow";
 import Experience from "./components/Experience";
 import Project from "./components/Project";
 import Skill from "./components/Skill";
 import Head from "next/head";
 import data from "./data/data.json";
+import Image from "next/image";
+import { ImgHTMLAttributes } from "react";
 
 const components = {
   h1: (props: HTMLAttributes<HTMLHeadingElement>): JSX.Element => (
@@ -29,6 +32,17 @@ const components = {
       {...props}
     />
   ),
+  img: ((props: ImgHTMLAttributes<HTMLImageElement> & { src: string }): JSX.Element => {
+    const { src, alt, ...rest } = props;
+    const imageList = src.includes(",") ? src.split(",") : [src]; // Convert src to an array for slideshow if comma-separated
+
+    return imageList.length > 1 ? (
+      <SlideShow images={imageList} altText={alt || ""} />
+    ) : (
+      <Image src={imageList[0]} alt={alt || ""} {...rest} width={500} height={500} className="custom-image-class" />
+    );
+  }) as React.ComponentType, // Explicitly cast as ComponentType to satisfy MDX expectations
+
   code: ({
     className,
     children,
