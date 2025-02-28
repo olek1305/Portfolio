@@ -30,7 +30,8 @@
     { "name": "Freshly-Ecommerce", "skills": ["PHP", "Laravel", "Bootstrap", "JavaScript", "YajraBox", "Docker", "MySQL"] },
     { "name": "LessonRabbitMQRedis", "skills": ["PHP", "Laravel", "Tailwind", "JavaScript", "Docker", "React", "Next.js", "RabbitMQ", "Redis", "MySQL", "CI/CD"] },
     { "name": "Portfolio", "skills": ["Typescript", "React", "Next.js", "CI/CD"] },
-    { "name": "Rezervo", "skills": ["PHP", "Vue.js", "Laravel", "Tailwind", "JavaScript", "Inertia.js", "MySQL", "Docker", "Redis", "CI/CD", "Pest"] }
+    { "name": "Rezervo", "skills": ["PHP", "Vue.js", "Laravel", "Tailwind", "JavaScript", "Inertia.js", "MySQL", "Docker", "Redis", "CI/CD", "Pest"] },
+    { "name": "Pizzox", "skills": ["PHP", "Symfony", "JavaScript", "Tailwind", "MongoDB", "Stripe"] }
   ],
   
   "skills": [
@@ -53,6 +54,7 @@
     { "name": "GitHub", "category": "Tools" },
     { "name": "MySQL", "category": "Databases" },
     { "name": "PostgreSQL", "category": "Databases" },
+    { "name": "MongoDB", "category": "Databases" },
     { "name": "Python", "category": "Languages" },
     { "name": "Django", "category": "Frameworks" },
     { "name": "Tailwind", "category": "CSS Frameworks" },
