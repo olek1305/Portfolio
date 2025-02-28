@@ -1,24 +1,28 @@
-import React, { HTMLAttributes, ReactNode } from "react";
+import React, { HTMLAttributes, ReactNode, FC } from "react";
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import { docco } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import { MDXProvider } from "@mdx-js/react";
 import { useState, useEffect } from "react";
+import Head from "next/head";
+import Image from "next/image";
+import { ImgHTMLAttributes } from "react";
+
+// Components
 import DinoAnimation from "./components/DinoAnimation";
 import SlideShow from "./components/SlideShow";
 import Experience from "./components/Experience";
 import Project from "./components/Project";
 import Skill from "./components/Skill";
-import Head from "next/head";
+
+// Data
 import data from "./data/data.json";
-import Image from "next/image";
-import { ImgHTMLAttributes } from "react";
 
 const components = {
   h1: (props: HTMLAttributes<HTMLHeadingElement>): JSX.Element => (
     <h1 className="text-purple-400 text-2xl" {...props} />
   ),
   p: (props: HTMLAttributes<HTMLParagraphElement>): JSX.Element => (
-    <p className="text-white" {...props} />
+    <p className="text-green-400" {...props} />
   ),
   ul: (props: HTMLAttributes<HTMLUListElement>): JSX.Element => (
     <ul className="text-green-400 list-none" {...props} />
@@ -34,7 +38,7 @@ const components = {
   ),
   img: ((props: ImgHTMLAttributes<HTMLImageElement> & { src: string }): JSX.Element => {
     const { src, alt, ...rest } = props;
-    const imageList = src.includes(",") ? src.split(",") : [src]; // Convert src to an array for slideshow if comma-separated
+    const imageList = src.includes(",") ? src.split(",") : [src];
 
     return imageList.length > 1 ? (
       <SlideShow images={imageList} altText={alt || ""} />
