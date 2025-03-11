@@ -1,6 +1,4 @@
-import React, { HTMLAttributes, ReactNode, FC } from "react";
-import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
-import { docco } from "react-syntax-highlighter/dist/cjs/styles/hljs";
+import React, { HTMLAttributes } from "react";
 import { MDXProvider } from "@mdx-js/react";
 import { useState, useEffect } from "react";
 import Head from "next/head";
@@ -13,30 +11,31 @@ import SlideShow from "./components/SlideShow";
 import Experience from "./components/Experience";
 import Project from "./components/Project";
 import Skill from "./components/Skill";
+import Book from './components/Book';
 
 // Data
 import data from "./data/data.json";
 
 const components = {
-  h1: (props: HTMLAttributes<HTMLHeadingElement>): JSX.Element => (
-    <h1 className="text-purple-400 text-2xl" {...props} />
+  h1: (props: HTMLAttributes<HTMLHeadingElement>): React.ReactElement => (
+      <h1 className="text-purple-400 text-2xl" {...props} />
   ),
-  p: (props: HTMLAttributes<HTMLParagraphElement>): JSX.Element => (
-    <p className="text-green-400" {...props} />
+  p: (props: HTMLAttributes<HTMLParagraphElement>): React.ReactElement => (
+      <p className="text-green-400" {...props} />
   ),
-  ul: (props: HTMLAttributes<HTMLUListElement>): JSX.Element => (
-    <ul className="text-green-400 list-none" {...props} />
+  ul: (props: HTMLAttributes<HTMLUListElement>): React.ReactElement => (
+      <ul className="text-green-400 list-none" {...props} />
   ),
-  strong: (props: HTMLAttributes<HTMLElement>): JSX.Element => (
-    <strong className="text-red-400 font-bold" {...props} />
+  strong: (props: HTMLAttributes<HTMLElement>): React.ReactElement => (
+      <strong className="text-red-400 font-bold" {...props} />
   ),
-  a: (props: HTMLAttributes<HTMLAnchorElement>): JSX.Element => (
-    <a
-      className="text-green-400 hover:bg-gray-700 hover:text-white hover:cursor-pointer"
-      {...props}
-    />
+  a: (props: HTMLAttributes<HTMLAnchorElement>): React.ReactElement => (
+      <a
+          className="text-green-400 hover:bg-gray-700 hover:text-white hover:cursor-pointer"
+          {...props}
+      />
   ),
-  img: ((props: ImgHTMLAttributes<HTMLImageElement> & { src: string }): JSX.Element => {
+  img: ((props: ImgHTMLAttributes<HTMLImageElement> & { src: string }): React.ReactElement => {
     const { src, alt, ...rest } = props;
     const imageList = src.includes(",") ? src.split(",") : [src];
 
@@ -45,30 +44,7 @@ const components = {
     ) : (
       <Image src={imageList[0]} alt={alt || ""} {...rest} width={500} height={500} className="custom-image-class" />
     );
-  }) as React.ComponentType, // Explicitly cast as ComponentType to satisfy MDX expectations
-
-  code: ({
-    className,
-    children,
-  }: {
-    className?: string;
-    children?: ReactNode;
-  }): JSX.Element => {
-    const language = className?.replace(/language-/, "") || "text";
-    return (
-      <SyntaxHighlighter
-        language={language}
-        style={docco}
-        customStyle={{
-          backgroundColor: "#e5e7eb",
-          border: "1px solid #ffffff",
-          width: "40%",
-        }}
-      >
-        {children}
-      </SyntaxHighlighter>
-    );
-  },
+  }) as React.ComponentType,
 };
 
 export default function Home() {
@@ -81,7 +57,7 @@ export default function Home() {
   useEffect(() => {
     setIsClient(true);
     const timer = setTimeout(() => {
-      handleSelectMarkdown("home", "home");
+      handleSelectMarkdown("home", "home").then(() => {});
     }, 900);
 
     return () => clearTimeout(timer);
@@ -120,25 +96,25 @@ export default function Home() {
 
   const handleCopyEmail = () => {
     const email = "olek1305@gmail.com";
-    navigator.clipboard.writeText(email);
+    navigator.clipboard.writeText(email).then(() => {});
     setShowCopiedMessage(true);
     setTimeout(() => setShowCopiedMessage(false), 2000);
   };
 
   const handleProjectSelect = (project: { name: string; skills: string[] }) => {
     setSelectedProject(project as Project);
-    handleSelectMarkdown("projects", project.name);
+    handleSelectMarkdown("projects", project.name)
+        .then(() => {
+          console.log(`Project ${project.name} markdown loaded successfully`);
+        })
+        .catch((error) => {
+          console.error(`Error loading project ${project.name} markdown:`, error);
+        });
   };
-  
+
   type Project = {
     name: string;
     skills: string[];
-  };
-
-  type Skill = {
-    name: string;
-    category: string;
-    fileName?: string;
   };
 
   return (
@@ -247,6 +223,8 @@ export default function Home() {
               </div>
             </div>
           )}
+
+          <Book books={data.books} />
 
           {/* Main Content */}
           <div className="sp-container col-span-1 md:col-span-3 p-6">
