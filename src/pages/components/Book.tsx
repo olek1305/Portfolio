@@ -55,6 +55,10 @@ const Book: React.FC<{ books: BookData[] }> = ({ books }) => {
         };
     }, [isOpen]);
 
+    if (!books || books.length === 0) {
+        return null;
+    }
+
     const getImagePath = (path: string) => {
         return path.startsWith('/books/') ? path : `/books/${path}`;
     };
