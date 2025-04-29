@@ -45,8 +45,7 @@
 
 .sp-content {
   margin-top: -2%;
-  padding: 0.7rem;
-  padding-bottom: 2.5rem;
+  padding: 0.7rem 0.7rem 2.5rem;
   max-height: 12.5rem;
   overflow-y: auto;
   scrollbar-width: thin;
@@ -116,5 +115,53 @@
   100% {
     opacity: 0;
     transform: translateY(0) scale(0.9);
+  }
+}
+
+/* setup for 4k */
+@media screen and (min-width: 3840px) {
+  html, body, #__next, .main-content {
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  #__next {
+    width: 75% !important; /* Zredukowana szerokość dla __next */
+    margin: 0 auto !important; /* Wycentrowanie kontenera */
+    padding: 0 2rem !important; /* Dodatkowy padding */
+    max-width: 2880px !important; /* Maksymalna szerokość dla ekranów 4K */
+  }
+
+
+  .main-content > div,
+  .main-content > main {
+    margin: 10px !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+  }
+}
+
+html, body {
+  background-color: #0d1117;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+@media screen and (min-width: 1920px) {
+  .main-content {
+    max-width: 1800px !important;
+  }
+
+  .sp-container {
+    max-width: 1600px !important;
   }
 }

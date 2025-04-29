@@ -118,7 +118,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0d1117] text-gray-300 p-4 scrollbar-fixed">
+      <div className="bg-[#0d1117] text-gray-300 p-4 scrollbar-fixed main-content w-full h-full m-0">
       <Head>
         <title>Home - Aleksander Żak | PHP Developer</title>
         <meta
@@ -127,7 +127,7 @@ export default function Home() {
         />
       </Head>
       {/* Centered Wrapper */}
-      <div className="max-w-[1920px] mx-auto">
+      <div>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-2">
           {/* Sidebar */}
           {isClient && (
@@ -224,8 +224,6 @@ export default function Home() {
             </div>
           )}
 
-          <Book books={data.books} />
-
           {/* Main Content */}
           <div className="sp-container col-span-1 md:col-span-3 p-6">
             <h3 className="sp-title">Main</h3>
@@ -237,6 +235,10 @@ export default function Home() {
               <div>Click on an item to load content.</div>
             )}
             {showDino && <DinoAnimation />}
+
+            <div className="absolute top-20 right-[-10px]">
+              <Book books={data.books} />
+            </div>
           </div>
         </div>
         <div className="flex justify-end space-x-4 mt-4">

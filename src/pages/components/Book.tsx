@@ -78,12 +78,16 @@ const Book: React.FC<{ books: BookData[] }> = ({ books }) => {
     return (
         <div
             ref={componentRef}
-            className={`fixed right-0 top-1/3 flex z-50 transition-transform duration-500 ease-in-out ${isVisible ? 'translate-x-0' : 'translate-x-full'}`}
+            className={`flex w-[40px] transition-transform duration-500 ease-in-out ${
+                isVisible ? 'translate-x-0' : 'translate-x-full'
+            }`}
         >
+            {/* Book content panel */}
             <div
-                className={`p-4 transition-all duration-300 ease-in-out overflow-y-auto max-h-[80vh] border ${
-                    isOpen ? 'w-[300px] opacity-100' : 'w-0 opacity-0'
+                className={`absolute top-0 right-full mt-0 mr-2 p-4 bg-[#0d1117] border rounded-l-lg shadow-lg z-50 transition-opacity duration-300 ease-in-out ${
+                    isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
                 }`}
+                style={{ width: '260px', maxHeight: '80vh', overflowY: 'auto' }}
             >
                 <div className="flex flex-col gap-4">
                     <div className="flex justify-between items-start">
