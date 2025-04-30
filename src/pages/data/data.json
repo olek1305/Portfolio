@@ -31,12 +31,13 @@
     { "name": "LessonRabbitMQRedis", "skills": ["PHP", "Laravel", "Tailwind", "JavaScript", "Docker", "React", "Next.js", "RabbitMQ", "Redis", "MySQL", "CI/CD"] },
     { "name": "Portfolio", "skills": ["Typescript", "React", "Next.js", "CI/CD"] },
     { "name": "Rezervo", "skills": ["PHP", "Vue.js", "Laravel", "Tailwind", "JavaScript", "Inertia.js", "MySQL", "Docker", "Redis", "CI/CD", "Pest"] },
-    { "name": "Pizzox", "skills": ["PHP", "Symfony", "JavaScript", "Tailwind", "MongoDB", "Stripe"] }
+    { "name": "Pizzox", "skills": ["PHP", "Symfony", "JavaScript", "Vue.js", "CI/CD", "Tailwind", "MongoDB", "Stripe", "Mapbox"] }
   ],
   
   "skills": [
     { "name": "PHP", "category": "Languages" },
     { "name": "Laravel", "category": "Frameworks" },
+    { "name": "Symfony", "category": "Frameworks" },
     { "name": "RabbitMQ", "category": "Tools" },
     { "name": "Redis", "category": "Tools" },
     { "name": "Docker", "category": "Tools" },
@@ -49,6 +50,7 @@
     { "name": "Next.js", "category": "Frameworks", "fileName": "nextjs" },
     { "name": "JQuery", "category": "Libraries" },
     { "name": "YajraBox", "category": "Frameworks" },
+    { "name": "Mapbox", "category": "Frameworks" },
     { "name": "CI/CD", "category": "Tools", "fileName": "ci-cd" },
     { "name": "E-commerce", "category": "Domains" },
     { "name": "GitHub", "category": "Tools" },
