@@ -71,5 +71,24 @@
     { "title": "Git and GitHub. Version control, project management and teamwork principles", "imagePath": "git-and-github.jpg" },
     { "title": "Language SQL", "imagePath": "language-sql.jpg" },
     { "title": "Unix and Linux. A systems administrator's guide V edition", "imagePath": "unix-i-linux-przewodnik-administratora-systemow-wydanie-v.jpg" }
+  ],
+
+  "inProgress": [
+    {
+      "AWS": "Amazon Web Services",
+      "Wordpress": "woocommerce, Shopify",
+      "Docker": "Docker Mastery with Kubernetes + Swarm"
+    }
+  ],
+
+  "setup": [
+    {
+      "MOBO": "B450 AORUS Elite V2",
+      "CPU": "R5 5600x",
+      "GPU": "Arc B580",
+      "RAM": "48 GB, DDR4-3200Mhz",
+      "Monitor 1": "Samsung 72hz, 1080p",
+      "Monitor 2": "BenQ ZOWIE XL2730"
+    }
   ]
 }

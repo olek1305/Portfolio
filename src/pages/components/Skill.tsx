@@ -29,7 +29,7 @@ export default function Skill({ skill, onSelect }: SkillProps) {
         height={28}
         className="ml-10 mx-2 skill-icon-background invert-icon"
       />
-      <span className="default-text">{skill.name}</span>
+      <span className="text-lg">{skill.name}</span>
     </li>
   );
 }

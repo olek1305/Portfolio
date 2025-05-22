@@ -3,8 +3,9 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: "Fira Code";
-  src: url("../styles/fonts/FiraCode-Regular.woff2") format("woff2");
+  font-family: "Pixellari";
+  src: url("../styles/fonts/Pixellari.ttf") format("truetype");
+  font-weight: auto;
 }
 
 .invert-icon {
@@ -39,6 +40,7 @@
   padding: 0 0.5rem;
   color: #ffffff;
   font-weight: 600;
+  font-size: 1.2rem;
   z-index: 10;
   white-space: nowrap;
 }

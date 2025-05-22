@@ -1,15 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Image from 'next/image';
 
-interface BookData {
+interface SlideOverData {
     title: string;
-    imagePath: string;
+    description: string;
 }
 
-const Book: React.FC<{ books: BookData[] }> = ({ books }) => {
+interface SlideOverProps {
+    items: SlideOverData[] | Record<string, string>[];
+    name?: string;
+}
+
+const SlideOver: React.FC<SlideOverProps> = ({ items, name = "SlideOver" }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [isPinned, setIsPinned] = useState(false);
-    const [currentBookIndex, setCurrentBookIndex] = useState(0);
     const [isVisible, setIsVisible] = useState(false);
     const componentRef = useRef<HTMLDivElement>(null);
     const panelRef = useRef<HTMLDivElement>(null);
@@ -73,21 +76,9 @@ const Book: React.FC<{ books: BookData[] }> = ({ books }) => {
         }
     };
 
-    if (!books || books.length === 0) {
+    if (!items || items.length === 0) {
         return null;
     }
-
-    const getImagePath = (path: string) => {
-        return path.startsWith('/books/') ? path : `/books/${path}`;
-    };
-
-    const nextBook = () => {
-        setCurrentBookIndex((prev) => (prev + 1) % books.length);
-    };
-
-    const previousBook = () => {
-        setCurrentBookIndex((prev) => (prev - 1 + books.length) % books.length);
-    };
 
     const toggleOpen = () => {
         setIsOpen(!isOpen);
@@ -95,6 +86,42 @@ const Book: React.FC<{ books: BookData[] }> = ({ books }) => {
 
     const togglePin = () => {
         setIsPinned(!isPinned);
+    };
+
+    // Render the content differently based on data structure
+    const renderContent = () => {
+        // Check if we have a title / description structure or key/value structure
+        if ('title' in items[0] && 'description' in items[0]) {
+            // The standard SlideOverData format
+            return (
+                <div className="space-y-3">
+                    {(items as SlideOverData[]).map((item, index) => (
+                        <div key={index} className="border-b border-gray-700 pb-3 last:border-b-0 last:pb-0">
+                            <h3 className="text-purple-400 text-2xl font-medium mb-1">{item.title}</h3>
+                            <div className="text-green-400 text-lg p-1.5 rounded-lg bg-[#161b22] overflow-auto">
+                                {item.description}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            );
+        } else {
+            // Treat as a key-value record object
+            return (
+                <div className="space-y-2">
+                    {items.map((item, index) => (
+                        <div key={index} className="border-b border-gray-700 pb-2 last:border-b-0 last:pb-0">
+                            {Object.entries(item).map(([key, value]) => (
+                                <div key={key} className="flex py-0.5">
+                                    <span className="text-purple-400 text-lg font-medium w-1/3">{key}:</span>
+                                    <span className="text-green-400 text-lg w-2/3">{value}</span>
+                                </div>
+                            ))}
+                        </div>
+                    ))}
+                </div>
+            );
+        }
     };
 
     return (
@@ -105,7 +132,7 @@ const Book: React.FC<{ books: BookData[] }> = ({ books }) => {
             }`}
             onMouseEnter={cancelCloseTimer}
         >
-            {/* Book content panel */}
+            {/* SlideOver content panel */}
             <div
                 ref={panelRef}
                 className={`absolute top-0 right-full mt-0 mr-2 p-3 bg-[#0d1117] border rounded-l-lg shadow-lg z-50 transition-opacity duration-300 ease-in-out ${
@@ -114,33 +141,12 @@ const Book: React.FC<{ books: BookData[] }> = ({ books }) => {
                 style={{ width: '320px', maxHeight: '80vh', overflowY: 'auto' }}
                 onMouseEnter={cancelCloseTimer}
             >
-                <div className="flex flex-col gap-3">
-                    <div className="flex justify-between items-start">
-                        <button
-                            onClick={previousBook}
-                            className="text-white px-1.5 py-0.5 rounded hover:bg-gray-700 text-xs"
-                        >
-                            ←
-                        </button>
-                        <div className="overflow-hidden flex-1 mx-2">
-                            <h3 className="text-purple-400 text-sm break-words text-center flex items-center justify-center">
-                                {books[currentBookIndex].title}
-                            </h3>
-                        </div>
-                        <button
-                            onClick={nextBook}
-                            className="text-white px-1.5 py-0.5 rounded hover:bg-gray-700 text-xs"
-                        >
-                            →
-                        </button>
-                    </div>
-                    <div className="relative w-full aspect-[3/4]">
-                        <Image
-                            src={getImagePath(books[currentBookIndex].imagePath)}
-                            alt={books[currentBookIndex].title}
-                            fill
-                            className="object-cover rounded-lg"
-                        />
+                <div className="flex flex-col gap-2">
+                    <h3 className="text-purple-400 text-sm font-medium text-center">
+                        {name}
+                    </h3>
+                    <div className="text-green-400 p-2 rounded-lg bg-[#161b22] overflow-auto max-h-[400px]">
+                        {renderContent()}
                     </div>
                     <div className="flex justify-end">
                         <button
@@ -161,7 +167,7 @@ const Book: React.FC<{ books: BookData[] }> = ({ books }) => {
             <button
                 onClick={toggleOpen}
                 className="flex items-center justify-center px-2 py-6 rounded-l-lg hover:bg-purple-700 group
-                transition-all duration-200 min-w-[40px] h-32 relative bg-[#0d1117] border"
+                transition-all duration-200 min-w-[40px] h-32 relative bg-[#0d1117] border border-white"
                 onMouseEnter={cancelCloseTimer}
             >
                 <span
@@ -172,11 +178,11 @@ const Book: React.FC<{ books: BookData[] }> = ({ books }) => {
                         letterSpacing: '0.05em'
                     }}
                 >
-                    {isOpen ? 'Books ↓' : '↑ Books'}
+                    {isOpen ? `${name} ↓` : `↑ ${name}`}
                 </span>
             </button>
         </div>
     );
 };
 
-export default Book;
+export default SlideOver;

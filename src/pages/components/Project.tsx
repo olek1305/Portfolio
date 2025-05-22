@@ -19,7 +19,7 @@ export default function Project({ project, onSelect }: ProjectProps) {
       className="ml-2 my-1 mx-1 rounded cursor-pointer hover:bg-gray-700 hover:text-white transition duration-200 ease-in-out"
       onClick={() => onSelect(projectSrc)}
     >
-      <span className="default-text">{project.name}</span>
+      <span className="text-lg">{project.name}</span>
     </div>
   );
 }

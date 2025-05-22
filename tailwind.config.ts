@@ -9,7 +9,7 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Fira Code'],
+        sans: ['Pixellari'],
       },
     },
   },
