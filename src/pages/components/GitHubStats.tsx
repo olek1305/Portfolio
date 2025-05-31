@@ -88,8 +88,13 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, onClose, className 
           const isRateLimited = await checkForRateLimitError(userResponse);
           if (isRateLimited) return;
 
-          // If not a rate limit error, throw a general error
-          throw new Error(`GitHub API error: ${userResponse.status} ${userResponse.statusText}`);
+          // If not a rate limit error, handle it directly instead of throwing
+          setStats(prev => ({
+            ...prev,
+            loading: false,
+            error: `GitHub API error: ${userResponse.status} ${userResponse.statusText}`
+          }));
+          return; // Exit function early
         }
         const userData: GitHubUser = await userResponse.json();
 
@@ -100,8 +105,13 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, onClose, className 
           const isRateLimited = await checkForRateLimitError(reposResponse);
           if (isRateLimited) return;
 
-          // If not a rate limit error, throw a general error
-          throw new Error(`GitHub API error: ${reposResponse.status} ${reposResponse.statusText}`);
+          // If not a rate limit error, handle it directly instead of throwing
+          setStats(prev => ({
+            ...prev,
+            loading: false,
+            error: `GitHub API error: ${reposResponse.status} ${reposResponse.statusText}`
+          }));
+          return; // Exit function early
         }
         const reposData: Repository[] = await reposResponse.json();
 
@@ -126,7 +136,7 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, onClose, className 
 
         // Estimate total commits (this is an approximation as GitHub API limits)
         // For a more accurate count, you would need to call the commits API for each repo
-        const totalCommits = reposData.length * 15; // rough estimate
+        const totalCommits = reposData.length * 15;
 
         setStats({
           user: userData,
@@ -191,7 +201,7 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, onClose, className 
     return (
       <div className={`sp-container h-full ${className}`}>
         {/* Content */}
-        <div className="p-4 text-center block" style={{ height: 'calc(100% - 30px)', overflow: 'hidden' }}>
+        <div className="p-4 text-center block" style={{ height: 'calc(100% - 30px)', overflow: 'hidden !important' }}>
           {isRateLimitError ? (
             <div>
               <div className="bg-red-900/30 border border-red-700 rounded-md p-4 text-red-400 mb-4">
@@ -253,7 +263,7 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, onClose, className 
       )}
 
       {stats.user && (
-        <div className="p-4 h-full overflow-auto">
+        <div className="p-4 h-full overflow-visible">
           {/* User Profile Header */}
           <div className="flex items-center mb-4">
             <div className="relative mr-4">
@@ -296,7 +306,7 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, onClose, className 
 
           {/* Overview Tab Content */}
           {activeTab === 'overview' && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 overview-tab" style={{ overflow: 'hidden' }}>
               {/* Stats Cards */}
               <div className="bg-[#161b22] p-4 rounded-lg">
                 <h3 className="text-white text-lg mb-3">Activity Summary</h3>
@@ -353,8 +363,8 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, onClose, className 
 
           {/* Repositories Tab Content */}
           {activeTab === 'repos' && (
-            <div className="space-y-4 max-h-[calc(100vh-300px)] overflow-hidden pr-2">
-              {stats.repositories.slice(0, 5).map((repo) => (
+            <div className="space-y-4 pr-2 repos-tab" style={{ overflow: 'hidden' }}>
+              {stats.repositories.slice(0, 1).map((repo) => (
                 <div key={repo.id} className="bg-[#161b22] p-4 rounded-lg hover:bg-[#1c2129] transition duration-200">
                   <div className="flex justify-between items-start">
                     <a
@@ -390,7 +400,7 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, onClose, className 
                   </div>
                 </div>
               ))}
-              {stats.repositories.length > 5 && (
+              {stats.repositories.length > 1 && (
                 <div className="text-center">
                   <a
                     href={`https://github.com/${username}?tab=repositories`}

@@ -39,7 +39,7 @@ class ErrorBoundary extends Component<Props, State> {
       return (
         <div className="sp-container h-full">
           <h3 className="sp-title">Error</h3>
-          <div className="p-4 text-center block" style={{ height: 'calc(100% - 30px)', overflow: 'auto' }}>
+          <div className="p-4 text-center block" style={{ height: 'calc(100% - 30px)', overflow: 'visible' }}>
             <div className="bg-red-900/30 border border-red-700 rounded-md p-4 text-red-400 mb-4">
               <h4 className="text-lg font-bold mb-2">Something went wrong</h4>
 

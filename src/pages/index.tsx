@@ -253,14 +253,14 @@ export default function Home() {
                     <div className="col-span-1 md:col-span-3 h-full">
                         {/* GitHub Stats (shown by default) */}
                         {showGitHubStats && isClient && (
-                            <div className="w-full h-full fade-in main-section-container" style={{ height: 'calc(100% - 5px)' }}>
+                            <div className="w-full h-full fade-in main-section-container" style={{ height: 'calc(100% - 5px)', overflow: 'visible' }}>
                                 <ErrorBoundary
                                   onError={(error) => {
                                     console.error('GitHub Stats error caught by ErrorBoundary:', error);
                                   }}
                                   fallback={
                                     <div className="sp-container h-full overflow-visible">
-                                      <div className="p-4 text-center block" style={{ height: 'calc(100% - 30px)', overflow: 'auto' }}>
+                                      <div className="p-4 text-center block" style={{ height: 'calc(100% - 30px)', overflow: 'visible' }}>
                                         <div className="bg-red-900/30 border border-red-700 rounded-md p-4 text-red-400 mb-4">
                                           <h4 className="text-lg font-bold mb-2">GitHub Stats Error</h4>
                                           <p>Sorry, we couldn&#39;t load the GitHub stats at this time.</p>
@@ -300,7 +300,7 @@ export default function Home() {
                                   <div className="relative h-full w-full">
                                     <GitHubStats 
                                       username="olek1305"
-                                      className="h-full pr-[120px]" /* Add padding to make room for side elements */
+                                      className="h-full pr-[120px] overflow-hidden" /* Add padding to make room for side elements and prevent scrolling */
                                       onClose={() => {
                                         setShowGitHubStats(false);
                                         setShowMain(true);

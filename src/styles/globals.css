@@ -49,7 +49,23 @@
 
 .h-full.sp-container > div {
   flex-grow: 1;
-  overflow: auto; /* Content is scrollable but doesn't clip header */
+  overflow: visible; /* Show all content without scrolling */
+}
+
+/* Specific override for GitHubStats container */
+.sp-container[class*='github'] > div,
+div:has(> div.github-stats-container) > div {
+  overflow: visible;
+}
+
+/* Ensure overflow visible for GitHub Stats container but prevent content scrolling */
+.github-stats-container {
+  overflow: visible !important;
+}
+
+.github-stats-container .overview-tab,
+.github-stats-container .repos-tab {
+  overflow: hidden !important;
 }
 
 .sp-title {
@@ -140,6 +156,14 @@
   transition: all 0.3s ease-in-out;
 }
 
+/* Limit height of content to prevent excessive scrolling */
+.github-stats-container .overview-tab,
+.github-stats-container .repos-tab {
+  height: auto;
+  max-height: none;
+  overflow: visible;
+}
+
 .github-stats-card {
   background-color: #161b22;
   border-radius: 0.5rem;
@@ -157,10 +181,18 @@
   overflow: visible;
 }
 
-/* Inner container scrollable content */
+/* Inner container content */
 .main-section-container > div {
-  overflow: auto;
   height: 100%;
+  overflow: visible;
+}
+
+/* Only hide overflow for content areas, not headers */
+.sp-container.h-full > div > div.overview-tab,
+.sp-container.h-full > div > div.repos-tab,
+[class*="github"] > div > div.overview-tab,
+[class*="github"] > div > div.repos-tab {
+  overflow: hidden !important;
 }
 
 /* Ensure main section titles are clearly visible */
@@ -240,6 +272,16 @@ div:has(> div.github-stats-container) .sp-title {
   height: calc(100% - 2rem);
   display: block;
   padding-top: 1rem;
+  overflow: hidden !important;
+}
+
+/* Allow containers to be visible while preventing scrolling in content */
+.GitHubStats .overview-tab,
+.GitHubStats .repos-tab,
+div[class*="GitHubStats"] .overview-tab,
+div[class*="GitHubStats"] .repos-tab {
+  overflow: hidden !important;
+  max-height: 100% !important;
 }
 
 /* Side elements container styling */
