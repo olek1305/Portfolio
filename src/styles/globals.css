@@ -46,7 +46,7 @@
 
 .h-full.sp-container > div {
   flex-grow: 1;
-  overflow-y: auto;
+  overflow: hidden;
 }
 
 .sp-title {
@@ -149,7 +149,7 @@
 .main-section-container {
   display: block;
   height: 100%;
-  overflow-y: auto;
+  overflow: hidden;
 }
 
 /* Ensure main section titles are clearly visible */
@@ -222,6 +222,20 @@
   height: calc(100% - 2rem);
   display: block;
   padding-top: 1rem;
+}
+
+/* Side elements container styling */
+.side-elements-container {
+  position: absolute;
+  top: 14px;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  height: calc(100% - 18px);
+  width: 40px;
+  margin-right: -5px;
+  z-index: 10;
 }
 
 /* setup for 4k */

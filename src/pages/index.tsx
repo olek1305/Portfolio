@@ -287,24 +287,40 @@ export default function Home() {
                                       </div>
                                       {/* Title rendered last to be on top */}
                                       <h3 className="sp-title">GitHub Stats</h3>
+
+                                      {/* Side elements */}
+                                        <div className="absolute top-14 right-0 flex flex-col gap-4 h-full" style={{ width: '40px', marginRight: '-5px' }}>
+                                            <Book books={data.books}/>
+                                            <SlideOver items={data.inProgress} name="in Progress"/>
+                                            <SlideOver items={data.setup} name="Setup"/>
+                                        </div>
                                     </div>
                                   }
                                 >
-                                  <GitHubStats 
-                                    username="olek1305"
-                                    className="h-full"
-                                    onClose={() => {
-                                      setShowGitHubStats(false);
-                                      setShowMain(true);
-                                    }}
-                                  />
+                                  <div className="relative h-full w-full">
+                                    <GitHubStats 
+                                      username="olek1305"
+                                      className="h-full pr-[120px]" /* Add padding to make room for side elements */
+                                      onClose={() => {
+                                        setShowGitHubStats(false);
+                                        setShowMain(true);
+                                      }}
+                                    />
+
+                                    {/* Side elements */}
+                                    <div className="absolute top-14 right-0 flex flex-col gap-4 h-full" style={{ width: '40px', marginRight: '-5px' }}>
+                                      <Book books={data.books}/>
+                                      <SlideOver items={data.inProgress} name="in Progress"/>
+                                      <SlideOver items={data.setup} name="Setup"/>
+                                    </div>
+                                  </div>
                                 </ErrorBoundary>
                             </div>
                         )}
 
                         {/* Main Content */}
                         {showMain && (
-                        <div className="sp-container p-6 fade-in h-full main-section-container">
+                        <div className="sp-container p-6 fade-in h-full main-section-container relative">
                                 <h3 className="sp-title">Main</h3>
                                 <button
                                     onClick={() => {
@@ -318,22 +334,20 @@ export default function Home() {
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                                     </svg>
                                 </button>
-                                {isClient && MdxComponent ? (
-                                    <MDXProvider components={components}>
-                                        <MdxComponent />
-                                    </MDXProvider>
-                                ) : (
-                                    <div>Click on an item to load content.</div>
-                                )}
-                                {showDino && <DinoAnimation/>}
+
+                                {/* Main content with padding to make room for side elements */}
+                                <div className="pr-[120px] h-full overflow-hidden">
+                                  {isClient && MdxComponent ? (
+                                      <MDXProvider components={components}>
+                                          <MdxComponent />
+                                      </MDXProvider>
+                                  ) : (
+                                      <div>Click on an item to load content.</div>
+                                  )}
+                                  {showDino && <DinoAnimation/>}
+                                </div>
                             </div>
                         )}
-
-                        <div className="absolute top-20 right-[-10px] flex flex-col gap-4">
-                            <Book books={data.books}/>
-                            <SlideOver items={data.inProgress} name="in Progress"/>
-                            <SlideOver items={data.setup} name="Setup"/>
-                        </div>
                     </div>
                 </div>
                 <div className="flex justify-end space-x-4 mt-4">

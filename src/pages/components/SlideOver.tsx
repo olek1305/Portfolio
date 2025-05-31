@@ -33,13 +33,21 @@ const SlideOver: React.FC<SlideOverProps> = ({ items, name = "SlideOver" }) => {
             if (!componentRef.current || !panelRef.current) return;
 
             const buttonRect = componentRef.current.getBoundingClientRect();
+            // Add extra margin around button for better detection
+            const extendedButtonRect = {
+                left: buttonRect.left - 10,
+                right: buttonRect.right + 10,
+                top: buttonRect.top - 10,
+                bottom: buttonRect.bottom + 10
+            };
+
             const panelRect = panelRef.current.getBoundingClientRect();
 
             const isOverButton =
-                e.clientX >= buttonRect.left &&
-                e.clientX <= buttonRect.right &&
-                e.clientY >= buttonRect.top &&
-                e.clientY <= buttonRect.bottom;
+                e.clientX >= extendedButtonRect.left &&
+                e.clientX <= extendedButtonRect.right &&
+                e.clientY >= extendedButtonRect.top &&
+                e.clientY <= extendedButtonRect.bottom;
 
             const isOverPanel =
                 e.clientX >= panelRect.left &&
@@ -56,7 +64,7 @@ const SlideOver: React.FC<SlideOverProps> = ({ items, name = "SlideOver" }) => {
                     if (!isPinned) {
                         setIsOpen(false);
                     }
-                }, 500);
+                }, 1000);
             }
         };
 
@@ -135,7 +143,7 @@ const SlideOver: React.FC<SlideOverProps> = ({ items, name = "SlideOver" }) => {
             {/* SlideOver content panel */}
             <div
                 ref={panelRef}
-                className={`absolute top-0 right-full mt-0 mr-2 p-3 bg-[#0d1117] border rounded-l-lg shadow-lg z-50 transition-opacity duration-300 ease-in-out ${
+                className={`absolute top-0 right-full mt-0 mr-2 p-3 bg-[#0d1117] border rounded-l-lg shadow-lg z-100 transition-opacity duration-300 ease-in-out ${
                     isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
                 } ${isPinned ? 'border-purple-500 border-2' : ''}`}
                 style={{ width: '320px', maxHeight: '80vh', overflowY: 'auto' }}

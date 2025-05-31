@@ -191,7 +191,7 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, onClose, className 
     return (
       <div className={`sp-container h-full ${className}`}>
         {/* Content */}
-        <div className="p-4 text-center block" style={{ height: 'calc(100% - 30px)', overflow: 'auto' }}>
+        <div className="p-4 text-center block" style={{ height: 'calc(100% - 30px)', overflow: 'hidden' }}>
           {isRateLimitError ? (
             <div>
               <div className="bg-red-900/30 border border-red-700 rounded-md p-4 text-red-400 mb-4">
@@ -243,7 +243,7 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, onClose, className 
       {onClose && (
         <button
           onClick={onClose}
-          className="absolute top-2 right-2 text-gray-400 hover:text-white z-10"
+          className="absolute top-2 right-2 text-gray-400 hover:text-white z-10" /* Moved right to make room for side elements */
           aria-label="Close GitHub Stats"
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -253,7 +253,7 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, onClose, className 
       )}
 
       {stats.user && (
-        <div className="p-4 h-full overflow-y-auto">
+        <div className="p-4 h-full overflow-hidden">
           {/* User Profile Header */}
           <div className="flex items-center mb-4">
             <div className="relative mr-4">
@@ -353,7 +353,7 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, onClose, className 
 
           {/* Repositories Tab Content */}
           {activeTab === 'repos' && (
-            <div className="space-y-4 max-h-[calc(100vh-300px)] overflow-y-auto pr-2">
+            <div className="space-y-4 max-h-[calc(100vh-300px)] overflow-hidden pr-2">
               {stats.repositories.slice(0, 5).map((repo) => (
                 <div key={repo.id} className="bg-[#161b22] p-4 rounded-lg hover:bg-[#1c2129] transition duration-200">
                   <div className="flex justify-between items-start">
