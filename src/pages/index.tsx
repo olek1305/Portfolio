@@ -1,4 +1,4 @@
-import React, {HTMLAttributes, Component, ErrorInfo} from "react";
+import React, { HTMLAttributes } from "react";
 import {MDXProvider} from "@mdx-js/react";
 import {useState, useEffect} from "react";
 import Head from "next/head";
@@ -263,13 +263,13 @@ export default function Home() {
                                       <div className="p-4 text-center block" style={{ height: 'calc(100% - 30px)', overflow: 'auto' }}>
                                         <div className="bg-red-900/30 border border-red-700 rounded-md p-4 text-red-400 mb-4">
                                           <h4 className="text-lg font-bold mb-2">GitHub Stats Error</h4>
-                                          <p>Sorry, we couldn't load the GitHub stats at this time.</p>
+                                          <p>Sorry, we couldn&#39;t load the GitHub stats at this time.</p>
                                         </div>
 
                                         <div className="bg-[#161b22] p-4 rounded-lg mb-4">
                                           <h4 className="text-white font-medium mb-2">Possible reasons:</h4>
                                           <ul className="text-left text-gray-300 list-disc pl-5 space-y-2">
-                                            <li>GitHub API rate limit exceeded</li>
+                                            <li>GitHub API rate limit exceeded (resets after 60 minutes)</li>
                                             <li>Network connectivity issues</li>
                                             <li>GitHub API service disruption</li>
                                           </ul>

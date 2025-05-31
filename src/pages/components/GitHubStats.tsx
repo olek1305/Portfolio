@@ -208,17 +208,17 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, onClose, className 
               <div className="bg-[#161b22] p-4 rounded-lg mb-4">
                 <h4 className="text-white font-medium mb-2">What does this mean?</h4>
                 <ul className="text-left text-gray-300 list-disc pl-5 space-y-2">
-                  <li>GitHub allows only a limited number of API requests per hour for anonymous users</li>
+                  <li>GitHub allows only <strong className="text-purple-400">60 requests per hour</strong> for anonymous users</li>
                   <li>Your IP address has reached this limit</li>
-                  <li>This is temporary and will reset after some time</li>
+                  <li>This is temporary and will reset automatically after 60 minutes</li>
                 </ul>
               </div>
 
               <div className="bg-[#161b22] p-4 rounded-lg">
                 <h4 className="text-white font-medium mb-2">What can you do?</h4>
                 <ul className="text-left text-gray-300 list-disc pl-5 space-y-2">
-                  <li>Wait for an hour for the limit to reset</li>
-                  <li>Try again later</li>
+                  <li>Wait for exactly 60 minutes for the rate limit to reset</li>
+                  <li>The reset is based on a rolling 60-minute window from your first request</li>
                   <li>Visit <a href="https://github.com/olek1305" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">my GitHub profile</a> directly</li>
                 </ul>
               </div>
