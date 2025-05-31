@@ -238,7 +238,7 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, onClose, className 
   }
 
   return (
-    <div className={`sp-container relative overflow-hidden h-full ${className}`}>
+    <div className={`sp-container relative h-full ${className}`}>
       <h3 className="sp-title">GitHub Stats</h3>
       {onClose && (
         <button
@@ -253,7 +253,7 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, onClose, className 
       )}
 
       {stats.user && (
-        <div className="p-4 h-full overflow-hidden">
+        <div className="p-4 h-full overflow-auto">
           {/* User Profile Header */}
           <div className="flex items-center mb-4">
             <div className="relative mr-4">

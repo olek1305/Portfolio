@@ -35,6 +35,8 @@
   padding-bottom: 1rem;
   min-height: 100px;
   margin-top: 12px;
+  /* Allow title to be visible outside container */
+  overflow: visible;
 }
 
 /* Full-height container */
@@ -42,11 +44,12 @@
   height: calc(100% - 12px);
   display: flex;
   flex-direction: column;
+  overflow: visible; /* Allow titles to be visible */
 }
 
 .h-full.sp-container > div {
   flex-grow: 1;
-  overflow: hidden;
+  overflow: auto; /* Content is scrollable but doesn't clip header */
 }
 
 .sp-title {
@@ -59,13 +62,15 @@
   color: #ffffff;
   font-weight: 600;
   font-size: 1.2rem;
-  z-index: 10;
+  z-index: 50;
   white-space: nowrap;
   /* Make container taller to fully contain the text */
   line-height: 24px;
   height: 24px;
   /* Add a bit of margin at the top to push content down */
   margin-top: 2px;
+  /* Prevent clipping by parent overflow */
+  clip-path: none;
 }
 
 .sp-content {
@@ -149,7 +154,13 @@
 .main-section-container {
   display: block;
   height: 100%;
-  overflow: hidden;
+  overflow: visible;
+}
+
+/* Inner container scrollable content */
+.main-section-container > div {
+  overflow: auto;
+  height: 100%;
 }
 
 /* Ensure main section titles are clearly visible */
@@ -160,7 +171,14 @@
   line-height: 24px;
   padding: 0 15px;
   font-size: 1.25rem;
-  z-index: 30;
+  z-index: 50;
+}
+
+/* Specific styling for GitHub Stats title */
+.sp-container[class*='github'] .sp-title,
+div:has(> div.github-stats-container) .sp-title {
+  z-index: 100;
+  clip-path: none;
 }
 
 /* Transition animations for GitHub Stats and Main content */

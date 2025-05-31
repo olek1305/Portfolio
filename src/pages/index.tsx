@@ -259,7 +259,7 @@ export default function Home() {
                                     console.error('GitHub Stats error caught by ErrorBoundary:', error);
                                   }}
                                   fallback={
-                                    <div className="sp-container h-full">
+                                    <div className="sp-container h-full overflow-visible">
                                       <div className="p-4 text-center block" style={{ height: 'calc(100% - 30px)', overflow: 'auto' }}>
                                         <div className="bg-red-900/30 border border-red-700 rounded-md p-4 text-red-400 mb-4">
                                           <h4 className="text-lg font-bold mb-2">GitHub Stats Error</h4>
