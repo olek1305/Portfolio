@@ -12,6 +12,7 @@ import Experience from "./components/Experience";
 import Project from "./components/Project";
 import Skill from "./components/Skill";
 import Book from './components/Book';
+import GitHubStats from './components/GitHubStats';
 
 // Data
 import data from "./data/data.json";
@@ -55,11 +56,15 @@ export default function Home() {
     const [showCopiedMessage, setShowCopiedMessage] = useState(false);
     const [isClient, setIsClient] = useState(false);
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+    const [showGitHubStats, setShowGitHubStats] = useState(true);
+    const [showMain, setShowMain] = useState(false);
 
     useEffect(() => {
         setIsClient(true);
+        // Load home.mdx content, but don't show it initially
         const timer = setTimeout(() => {
             handleSelectMarkdown("home", "home").then(() => {
+                // Don't change showMain to true to keep GitHub stats as the default view
             });
         }, 900);
 
@@ -73,6 +78,17 @@ export default function Home() {
     ) => {
         if (category !== "projects") {
             setSelectedProject(null);
+        }
+
+        // If clicking on profile, show GitHub stats and hide main content
+        if (category === "home" && name === "home") {
+            setShowGitHubStats(true);
+            setShowMain(false);
+            return;
+        } else {
+            // Otherwise show main content and hide GitHub stats
+            setShowGitHubStats(false);
+            setShowMain(true);
         }
 
         const markdownFile =
@@ -107,6 +123,10 @@ export default function Home() {
 
     const handleProjectSelect = (project: { name: string; skills: string[] }) => {
         setSelectedProject(project as Project);
+        // Hide GitHub stats and show main content
+        setShowGitHubStats(false);
+        setShowMain(true);
+
         handleSelectMarkdown("projects", project.name)
             .then(() => {
                 console.log(`Project ${project.name} markdown loaded successfully`);
@@ -132,10 +152,10 @@ export default function Home() {
             </Head>
             {/* Centered Wrapper */}
             <div>
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-2">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-2" style={{ height: 'calc(100vh - 120px)' }}>
                     {/* Sidebar */}
                     {isClient && (
-                        <div className="col-span-1 space-y-4 flex flex-col text-center">
+                        <div className="col-span-1 space-y-4 flex flex-col text-center h-full overflow-y-auto">
                             <div
                                 className="sp-container p-4 rounded cursor-pointer hover:bg-gray-700"
                                 onClick={() => handleSelectMarkdown("home", "home")}
@@ -228,17 +248,48 @@ export default function Home() {
                         </div>
                     )}
 
-                    {/* Main Content */}
-                    <div className="sp-container col-span-1 md:col-span-3 p-6">
-                        <h3 className="sp-title">Main</h3>
-                        {isClient && MdxComponent ? (
-                            <MDXProvider components={components}>
-                                <MdxComponent/>
-                            </MDXProvider>
-                        ) : (
-                            <div>Click on an item to load content.</div>
+                    {/* Main Content Area - Shows either GitHubStats or Main Content */}
+                    <div className="col-span-1 md:col-span-3 h-full">
+                        {/* GitHub Stats (shown by default) */}
+                        {showGitHubStats && isClient && (
+                            <div className="w-full h-full fade-in main-section-container">
+                                <GitHubStats 
+                                    username="olek1305"
+                                    className="p-2"
+                                    onClose={() => {
+                                        setShowGitHubStats(false);
+                                        setShowMain(true);
+                                    }}
+                                />
+                            </div>
                         )}
-                        {showDino && <DinoAnimation/>}
+
+                        {/* Main Content */}
+                        {showMain && (
+                        <div className="sp-container p-6 fade-in h-full main-section-container">
+                                <h3 className="sp-title">Main</h3>
+                                <button
+                                    onClick={() => {
+                                        setShowMain(false);
+                                        setShowGitHubStats(true);
+                                    }}
+                                    className="absolute top-2 right-2 text-gray-400 hover:text-white z-10"
+                                    aria-label="Show GitHub Stats"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                                {isClient && MdxComponent ? (
+                                    <MDXProvider components={components}>
+                                        <MdxComponent />
+                                    </MDXProvider>
+                                ) : (
+                                    <div>Click on an item to load content.</div>
+                                )}
+                                {showDino && <DinoAnimation/>}
+                            </div>
+                        )}
 
                         <div className="absolute top-20 right-[-10px] flex flex-col gap-4">
                             <Book books={data.books}/>

@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Global text rendering */
+* {
+  text-rendering: optimizeLegibility;
+}
+
 @font-face {
   font-family: "Pixellari";
   src: url("../styles/fonts/Pixellari.ttf") format("truetype");
@@ -29,20 +34,38 @@
   padding-top: 2rem;
   padding-bottom: 1rem;
   min-height: 100px;
+  margin-top: 12px;
+}
+
+/* Full-height container */
+.h-full.sp-container {
+  height: calc(100% - 12px);
+  display: flex;
+  flex-direction: column;
+}
+
+.h-full.sp-container > div {
+  flex-grow: 1;
+  overflow-y: auto;
 }
 
 .sp-title {
   position: absolute;
-  top: -10px;
+  top: -12px;
   left: 50%;
   transform: translateX(-50%);
   background-color: #0d1117;
-  padding: 0 0.5rem;
+  padding: 0 10px;
   color: #ffffff;
   font-weight: 600;
   font-size: 1.2rem;
   z-index: 10;
   white-space: nowrap;
+  /* Make container taller to fully contain the text */
+  line-height: 24px;
+  height: 24px;
+  /* Add a bit of margin at the top to push content down */
+  margin-top: 2px;
 }
 
 .sp-content {
@@ -52,6 +75,11 @@
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: #ffffff #0d1117;
+}
+
+/* Increased height for main sections */
+.main-section-container .sp-content {
+  max-height: calc(100% - 60px);
 }
 
 .sp-count {
@@ -102,6 +130,58 @@
   animation: bounce-fade 2s ease-in-out forwards;
 }
 
+/* GitHub Stats styling */
+.github-stats-container {
+  transition: all 0.3s ease-in-out;
+}
+
+.github-stats-card {
+  background-color: #161b22;
+  border-radius: 0.5rem;
+  transition: transform 0.2s ease;
+}
+
+.github-stats-card:hover {
+  transform: translateY(-2px);
+}
+
+/* Main content and GitHub Stats containers */
+.main-section-container {
+  display: block;
+  height: 100%;
+  overflow-y: auto;
+}
+
+/* Ensure main section titles are clearly visible */
+.main-section-container .sp-title {
+  top: -12px;
+  background-color: #0d1117;
+  height: 24px;
+  line-height: 24px;
+  padding: 0 15px;
+  font-size: 1.25rem;
+  z-index: 30;
+}
+
+/* Transition animations for GitHub Stats and Main content */
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out forwards;
+}
+
+.fade-out {
+  animation: fadeOut 0.3s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
 @keyframes bounce-fade {
   0% {
     opacity: 0;
@@ -130,10 +210,10 @@
   }
 
   #__next {
-    width: 75% !important; /* Zredukowana szerokość dla __next */
-    margin: 0 auto !important; /* Wycentrowanie kontenera */
-    padding: 0 2rem !important; /* Dodatkowy padding */
-    max-width: 2880px !important; /* Maksymalna szerokość dla ekranów 4K */
+    width: 75% !important; /* Reduced width for __next */
+    margin: 0 auto !important; /* Center the container */
+    padding: 0 2rem !important; /* Additional padding */
+    max-width: 2880px !important; /* Maximum width for 4K screens */
   }
 
 
