@@ -1,4 +1,4 @@
-import React, {HTMLAttributes} from "react";
+import React, {HTMLAttributes, Component, ErrorInfo} from "react";
 import {MDXProvider} from "@mdx-js/react";
 import {useState, useEffect} from "react";
 import Head from "next/head";
@@ -13,6 +13,7 @@ import Project from "./components/Project";
 import Skill from "./components/Skill";
 import Book from './components/Book';
 import GitHubStats from './components/GitHubStats';
+import ErrorBoundary from './components/ErrorBoundary';
 
 // Data
 import data from "./data/data.json";
@@ -252,15 +253,51 @@ export default function Home() {
                     <div className="col-span-1 md:col-span-3 h-full">
                         {/* GitHub Stats (shown by default) */}
                         {showGitHubStats && isClient && (
-                            <div className="w-full h-full fade-in main-section-container">
-                                <GitHubStats 
+                            <div className="w-full h-full fade-in main-section-container" style={{ height: 'calc(100% - 5px)' }}>
+                                <ErrorBoundary
+                                  fallback={
+                                    <div className="sp-container h-full">
+                                      <h3 className="sp-title">GitHub Stats</h3>
+                                      <div className="p-4 text-center block" style={{ height: 'calc(100% - 30px)', overflow: 'auto' }}>
+                                        <div className="bg-red-900/30 border border-red-700 rounded-md p-4 text-red-400 mb-4">
+                                          <h4 className="text-lg font-bold mb-2">GitHub API Rate Limit Exceeded</h4>
+                                          <p>You've reached GitHub's API rate limit for unauthenticated requests.</p>
+                                          <div className="mt-4 text-sm text-gray-400">
+                                            <p>"API rate limit exceeded for your IP address. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)"</p>
+                                          </div>
+                                        </div>
+
+                                        <div className="bg-[#161b22] p-4 rounded-lg mb-4">
+                                          <h4 className="text-white font-medium mb-2">What does this mean?</h4>
+                                          <ul className="text-left text-gray-300 list-disc pl-5 space-y-2">
+                                            <li>GitHub allows only a limited number of API requests per hour for anonymous users</li>
+                                            <li>Your IP address has reached this limit</li>
+                                            <li>This is temporary and will reset after some time</li>
+                                          </ul>
+                                        </div>
+
+                                        <button 
+                                          onClick={() => {
+                                            setShowGitHubStats(false);
+                                            setShowMain(true);
+                                          }}
+                                          className="mt-4 px-4 py-2 bg-purple-700 hover:bg-purple-800 text-white rounded-md"
+                                        >
+                                          Show Main Content Instead
+                                        </button>
+                                      </div>
+                                    </div>
+                                  }
+                                >
+                                  <GitHubStats 
                                     username="olek1305"
-                                    className="p-2"
+                                    className="h-full"
                                     onClose={() => {
-                                        setShowGitHubStats(false);
-                                        setShowMain(true);
+                                      setShowGitHubStats(false);
+                                      setShowMain(true);
                                     }}
-                                />
+                                  />
+                                </ErrorBoundary>
                             </div>
                         )}
 

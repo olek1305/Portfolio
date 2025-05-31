@@ -200,6 +200,30 @@
   }
 }
 
+/* GitHub API error styling */
+.api-rate-limit-error {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(220, 38, 38, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0);
+  }
+}
+
+/* Ensure GitHub Stats error containers maintain full height */
+.sp-container.h-full > div {
+  height: calc(100% - 2rem);
+  display: block;
+  padding-top: 1rem;
+}
+
 /* setup for 4k */
 @media screen and (min-width: 3840px) {
   html, body, #__next, .main-content {

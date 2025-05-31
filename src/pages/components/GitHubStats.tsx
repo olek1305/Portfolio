@@ -62,6 +62,31 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, onClose, className 
         // Fetch user data
         const userResponse = await fetch(`https://api.github.com/users/${username}`);
         if (!userResponse.ok) {
+          // Check specifically for rate limit errors
+          if (userResponse.status === 403) {
+            const responseText = await userResponse.text();
+            try {
+              const errorData = JSON.parse(responseText);
+              if (errorData.message && errorData.message.includes('API rate limit exceeded')) {
+                setStats({
+                  ...stats,
+                  loading: false,
+                  error: 'API rate limit exceeded for your IP address. (But here\'s the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)'
+                });
+                return; // Exit early
+              }
+            } catch (parseError) {
+              // If JSON parsing fails, check the raw text
+              if (responseText.includes('API rate limit exceeded')) {
+                setStats({
+                  ...stats,
+                  loading: false,
+                  error: 'API rate limit exceeded for your IP address. (But here\'s the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)'
+                });
+                return; // Exit early
+              }
+            }
+          }
           throw new Error(`GitHub API error: ${userResponse.statusText}`);
         }
         const userData: GitHubUser = await userResponse.json();
@@ -69,6 +94,31 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, onClose, className 
         // Fetch repositories
         const reposResponse = await fetch(`https://api.github.com/users/${username}/repos?per_page=100`);
         if (!reposResponse.ok) {
+          // Check specifically for rate limit errors
+          if (reposResponse.status === 403) {
+            const responseText = await reposResponse.text();
+            try {
+              const errorData = JSON.parse(responseText);
+              if (errorData.message && errorData.message.includes('API rate limit exceeded')) {
+                setStats({
+                  ...stats,
+                  loading: false,
+                  error: 'API rate limit exceeded for your IP address. (But here\'s the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)'
+                });
+                return; // Exit early
+              }
+            } catch (parseError) {
+              // If JSON parsing fails, check the raw text
+              if (responseText.includes('API rate limit exceeded')) {
+                setStats({
+                  ...stats,
+                  loading: false,
+                  error: 'API rate limit exceeded for your IP address. (But here\'s the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)'
+                });
+                return; // Exit early
+              }
+            }
+          }
           throw new Error(`GitHub API error: ${reposResponse.statusText}`);
         }
         const reposData: Repository[] = await reposResponse.json();
@@ -107,11 +157,26 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, onClose, className 
         });
       } catch (error) {
         console.error('Error fetching GitHub stats:', error);
-        setStats({
-          ...stats,
+        let errorMessage = 'Unknown error';
+
+        // Handle different error types
+        if (error instanceof Error) {
+          errorMessage = error.message;
+
+          // Check for rate limit message in the error
+          if (errorMessage.includes('API rate limit exceeded')) {
+            errorMessage = 'API rate limit exceeded for your IP address. (But here\'s the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)';
+          }
+        }
+
+        // Set the error state
+        setStats(prev => ({
+          ...prev,
+          user: null,
+          repositories: [],
           loading: false,
-          error: error instanceof Error ? error.message : 'Unknown error',
-        });
+          error: errorMessage,
+        }));
       }
     };
 
@@ -125,9 +190,9 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, onClose, className 
 
   if (stats.loading) {
     return (
-      <div className={`sp-container p-4 text-center animate-pulse ${className}`}>
+      <div className={`sp-container h-full text-center animate-pulse ${className}`}>
         <h3 className="sp-title">GitHub Stats</h3>
-        <div className="h-40 flex items-center justify-center">
+        <div className="h-full flex items-center justify-center">
           <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-purple-400 border-r-transparent">
             <span className="sr-only">Loading...</span>
           </div>
@@ -137,13 +202,53 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, onClose, className 
   }
 
   if (stats.error) {
+    const isRateLimitError = stats.error.includes('API rate limit exceeded');
+
     return (
-      <div className={`sp-container p-4 ${className}`}>
-        <h3 className="sp-title">GitHub Stats</h3>
-        <div className="text-red-400 p-4 text-center">
-          <p>Error loading GitHub stats: {stats.error}</p>
-          <p className="text-sm mt-2">Note: GitHub API has rate limits. Please try again later.</p>
+      <div className={`sp-container h-full ${className}`}>
+        {/* Content */}
+        <div className="p-4 text-center block" style={{ height: 'calc(100% - 30px)', overflow: 'auto' }}>
+          {isRateLimitError ? (
+            <div>
+              <div className="bg-red-900/30 border border-red-700 rounded-md p-4 text-red-400 mb-4">
+                <svg className="w-12 h-12 mx-auto mb-2" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
+                </svg>
+                <h4 className="text-lg font-bold mb-2">GitHub API Rate Limit Exceeded</h4>
+                <p>You've reached GitHub's API rate limit for unauthenticated requests.</p>
+                <div className="mt-4 text-sm text-gray-400">
+                  <p>"API rate limit exceeded for your IP address. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)"</p>
+                </div>
+              </div>
+
+              <div className="bg-[#161b22] p-4 rounded-lg mb-4">
+                <h4 className="text-white font-medium mb-2">What does this mean?</h4>
+                <ul className="text-left text-gray-300 list-disc pl-5 space-y-2">
+                  <li>GitHub allows only a limited number of API requests per hour for anonymous users</li>
+                  <li>Your IP address has reached this limit</li>
+                  <li>This is temporary and will reset after some time</li>
+                </ul>
+              </div>
+
+              <div className="bg-[#161b22] p-4 rounded-lg">
+                <h4 className="text-white font-medium mb-2">What can you do?</h4>
+                <ul className="text-left text-gray-300 list-disc pl-5 space-y-2">
+                  <li>Wait for an hour for the limit to reset</li>
+                  <li>Try again later</li>
+                  <li>Visit <a href="https://github.com/olek1305" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">my GitHub profile</a> directly</li>
+                </ul>
+              </div>
+            </div>
+          ) : (
+            <div className="text-red-400 block" style={{ padding: '30px 0' }}>
+              <p>Error loading GitHub stats: {stats.error}</p>
+              <p className="text-sm mt-2">Note: GitHub API has rate limits. Please try again later.</p>
+            </div>
+          )}
         </div>
+
+        {/* Title rendered last to be on top */}
+        <h3 className="sp-title">GitHub Stats</h3>
       </div>
     );
   }
