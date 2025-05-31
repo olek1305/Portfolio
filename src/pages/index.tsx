@@ -255,24 +255,23 @@ export default function Home() {
                         {showGitHubStats && isClient && (
                             <div className="w-full h-full fade-in main-section-container" style={{ height: 'calc(100% - 5px)' }}>
                                 <ErrorBoundary
+                                  onError={(error) => {
+                                    console.error('GitHub Stats error caught by ErrorBoundary:', error);
+                                  }}
                                   fallback={
                                     <div className="sp-container h-full">
-                                      <h3 className="sp-title">GitHub Stats</h3>
                                       <div className="p-4 text-center block" style={{ height: 'calc(100% - 30px)', overflow: 'auto' }}>
                                         <div className="bg-red-900/30 border border-red-700 rounded-md p-4 text-red-400 mb-4">
-                                          <h4 className="text-lg font-bold mb-2">GitHub API Rate Limit Exceeded</h4>
-                                          <p>You've reached GitHub's API rate limit for unauthenticated requests.</p>
-                                          <div className="mt-4 text-sm text-gray-400">
-                                            <p>"API rate limit exceeded for your IP address. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)"</p>
-                                          </div>
+                                          <h4 className="text-lg font-bold mb-2">GitHub Stats Error</h4>
+                                          <p>Sorry, we couldn't load the GitHub stats at this time.</p>
                                         </div>
 
                                         <div className="bg-[#161b22] p-4 rounded-lg mb-4">
-                                          <h4 className="text-white font-medium mb-2">What does this mean?</h4>
+                                          <h4 className="text-white font-medium mb-2">Possible reasons:</h4>
                                           <ul className="text-left text-gray-300 list-disc pl-5 space-y-2">
-                                            <li>GitHub allows only a limited number of API requests per hour for anonymous users</li>
-                                            <li>Your IP address has reached this limit</li>
-                                            <li>This is temporary and will reset after some time</li>
+                                            <li>GitHub API rate limit exceeded</li>
+                                            <li>Network connectivity issues</li>
+                                            <li>GitHub API service disruption</li>
                                           </ul>
                                         </div>
 
@@ -286,6 +285,8 @@ export default function Home() {
                                           Show Main Content Instead
                                         </button>
                                       </div>
+                                      {/* Title rendered last to be on top */}
+                                      <h3 className="sp-title">GitHub Stats</h3>
                                     </div>
                                   }
                                 >

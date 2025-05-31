@@ -57,69 +57,51 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, onClose, className 
   useEffect(() => {
     const controller = new AbortController();
 
-    const fetchGitHubStats = async () => {
+          // Helper function to check for rate limit errors
+          const checkForRateLimitError = async (response: Response): Promise<boolean> => {
+      if (response.status === 403) {
+        try {
+          const responseText = await response.text();
+          const isRateLimitError = responseText.includes('API rate limit exceeded');
+
+          if (isRateLimitError) {
+            setStats(prev => ({
+              ...prev,
+              loading: false,
+              error: 'API rate limit exceeded for your IP address. (But here\'s the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)'
+            }));
+            return true;
+          }
+        } catch (error) {
+          console.error('Error checking for rate limit:', error);
+        }
+      }
+      return false;
+          };
+
+          const fetchGitHubStats = async () => {
       try {
         // Fetch user data
         const userResponse = await fetch(`https://api.github.com/users/${username}`);
         if (!userResponse.ok) {
-          // Check specifically for rate limit errors
-          if (userResponse.status === 403) {
-            const responseText = await userResponse.text();
-            try {
-              const errorData = JSON.parse(responseText);
-              if (errorData.message && errorData.message.includes('API rate limit exceeded')) {
-                setStats({
-                  ...stats,
-                  loading: false,
-                  error: 'API rate limit exceeded for your IP address. (But here\'s the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)'
-                });
-                return; // Exit early
-              }
-            } catch (parseError) {
-              // If JSON parsing fails, check the raw text
-              if (responseText.includes('API rate limit exceeded')) {
-                setStats({
-                  ...stats,
-                  loading: false,
-                  error: 'API rate limit exceeded for your IP address. (But here\'s the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)'
-                });
-                return; // Exit early
-              }
-            }
-          }
-          throw new Error(`GitHub API error: ${userResponse.statusText}`);
+          // Check for rate limit errors
+          const isRateLimited = await checkForRateLimitError(userResponse);
+          if (isRateLimited) return;
+
+          // If not a rate limit error, throw a general error
+          throw new Error(`GitHub API error: ${userResponse.status} ${userResponse.statusText}`);
         }
         const userData: GitHubUser = await userResponse.json();
 
         // Fetch repositories
         const reposResponse = await fetch(`https://api.github.com/users/${username}/repos?per_page=100`);
         if (!reposResponse.ok) {
-          // Check specifically for rate limit errors
-          if (reposResponse.status === 403) {
-            const responseText = await reposResponse.text();
-            try {
-              const errorData = JSON.parse(responseText);
-              if (errorData.message && errorData.message.includes('API rate limit exceeded')) {
-                setStats({
-                  ...stats,
-                  loading: false,
-                  error: 'API rate limit exceeded for your IP address. (But here\'s the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)'
-                });
-                return; // Exit early
-              }
-            } catch (parseError) {
-              // If JSON parsing fails, check the raw text
-              if (responseText.includes('API rate limit exceeded')) {
-                setStats({
-                  ...stats,
-                  loading: false,
-                  error: 'API rate limit exceeded for your IP address. (But here\'s the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)'
-                });
-                return; // Exit early
-              }
-            }
-          }
-          throw new Error(`GitHub API error: ${reposResponse.statusText}`);
+          // Check for rate limit errors
+          const isRateLimited = await checkForRateLimitError(reposResponse);
+          if (isRateLimited) return;
+
+          // If not a rate limit error, throw a general error
+          throw new Error(`GitHub API error: ${reposResponse.status} ${reposResponse.statusText}`);
         }
         const reposData: Repository[] = await reposResponse.json();
 
@@ -169,14 +151,16 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, onClose, className 
           }
         }
 
-        // Set the error state
-        setStats(prev => ({
-          ...prev,
+        // Set the error state without referencing previous state to avoid potential issues
+        setStats({
           user: null,
           repositories: [],
+          totalCommits: 0,
+          totalStars: 0,
+          topLanguages: {},
           loading: false,
           error: errorMessage,
-        }));
+        });
       }
     };
 
@@ -215,9 +199,9 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, onClose, className 
                   <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
                 </svg>
                 <h4 className="text-lg font-bold mb-2">GitHub API Rate Limit Exceeded</h4>
-                <p>You've reached GitHub's API rate limit for unauthenticated requests.</p>
+                <p>You&#39;ve reached GitHub&#39;s API rate limit for unauthenticated requests.</p>
                 <div className="mt-4 text-sm text-gray-400">
-                  <p>"API rate limit exceeded for your IP address. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)"</p>
+                  <p>&#34;API rate limit exceeded for your IP address. (But here&#39;s the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)&#34;</p>
                 </div>
               </div>
 
