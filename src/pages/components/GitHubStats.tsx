@@ -364,7 +364,7 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, onClose, className 
           {/* Repositories Tab Content */}
           {activeTab === 'repos' && (
             <div className="space-y-4 pr-2 repos-tab" style={{ overflow: 'hidden' }}>
-              {stats.repositories.slice(0, 1).map((repo) => (
+              {stats.repositories.slice(0, 2).map((repo) => (
                 <div key={repo.id} className="bg-[#161b22] p-4 rounded-lg hover:bg-[#1c2129] transition duration-200">
                   <div className="flex justify-between items-start">
                     <a
