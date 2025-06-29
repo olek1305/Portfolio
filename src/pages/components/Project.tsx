@@ -1,25 +1,18 @@
 import React from "react";
+import { Project } from "../types";
 
 type ProjectProps = {
-  project?: { name: string };
-  onSelect: (name: string) => void;
+  project: Project;
+  onSelect: () => void;
 };
 
-export default function Project({ project, onSelect }: ProjectProps) {
-  if (!project || !project.name) {
-    return null;
-  }
-
-  const projectSrc = `/projects/${project.name}
-    .toLowerCase()
-    .replace(/\s+/g, "-")}.mdx`;
-
+export default function ProjectComponent({ project, onSelect }: ProjectProps) {
   return (
-    <div
-      className="ml-2 my-1 mx-1 rounded cursor-pointer hover:bg-gray-700 hover:text-white transition duration-200 ease-in-out"
-      onClick={() => onSelect(projectSrc)}
-    >
-      <span className="text-lg">{project.name}</span>
-    </div>
+      <div
+          className="ml-2 my-1 mx-1 rounded cursor-pointer hover:bg-gray-700 hover:text-white transition duration-200 ease-in-out"
+          onClick={onSelect}
+      >
+        <span className="text-lg">{project.name}</span>
+      </div>
   );
 }

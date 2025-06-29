@@ -1,0 +1,36 @@
+{
+  "experience": [
+    {
+      "title": "Web and Mobile Application Development",
+      "company": "TEB Edukacja",
+      "fileName": "general-teb"
+    },
+    {
+      "title": "Fullstack Laravel 10 + Vue.js 3 (2023) - Build APIs and SPAs",
+      "company": "Udemy",
+      "fileName": "fullstack-laravel-vue"
+    },
+    {
+      "title": "Master Laravel, Vue 3 & Inertia Full Stack",
+      "company": "Udemy",
+      "fileName": "master-laravel-vue-inertia"
+    },
+    {
+      "title": "Python",
+      "company": "TEB Edukacja",
+      "fileName": "python-teb"
+    }
+  ],
+
+  "projects": [
+    { "name": "SimpleStore", "skills": ["PHP", "Laravel", "Bootstrap", "JavaScript", "MySQL"] },
+    { "name": "Laravel-qa", "skills": ["PHP", "Vue.js", "Laravel", "Bootstrap", "JavaScript", "JQuery"] },
+    { "name": "larazillow", "skills": ["PHP", "Vue.js", "Laravel", "Tailwind", "JavaScript", "Inertia.js", "Docker", "MySQL"] },
+    { "name": "AbexGuilds", "skills": ["PHP", "Vue.js", "Laravel", "Tailwind", "JavaScript", "Inertia.js", "MySQL"] },
+    { "name": "Freshly-Ecommerce", "skills": ["PHP", "Laravel", "Bootstrap", "JavaScript", "YajraBox", "Docker", "MySQL"] },
+    { "name": "LessonRabbitMQRedis", "skills": ["PHP", "Laravel", "Tailwind", "JavaScript", "Docker", "React", "Next.js", "RabbitMQ", "Redis", "MySQL", "CI/CD"] },
+    { "name": "Portfolio", "skills": ["Typescript", "React", "Next.js", "CI/CD"] },
+    { "name": "Rezervo", "skills": ["PHP", "Vue.js", "Laravel", "Tailwind", "JavaScript", "Inertia.js", "MySQL", "Docker", "Redis", "CI/CD", "Pest"] },
+    { "name": "Pizzox", "skills": ["PHP", "Symfony", "JavaScript", "Vue.js", "CI/CD", "Tailwind", "MongoDB", "Stripe", "Mapbox"] }
+  ]
+}

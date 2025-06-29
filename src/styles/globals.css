@@ -2,346 +2,205 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Global text rendering */
-* {
-  text-rendering: optimizeLegibility;
-}
-
 @font-face {
-  font-family: "Pixellari";
-  src: url("../styles/fonts/Pixellari.ttf") format("truetype");
-  font-weight: auto;
-}
-
-.invert-icon {
-  filter: invert(1);
+  font-family: 'HalfLife';
+  src: url('../styles/fonts/Pixellari.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
 .skill-icon {
-  display: flex;
+  transition: all 0.2s ease-in-out;
 }
 
-.sp-body {
-  background-color: #0d1117;
-  height: 90vh;
-  overflow-y: auto;
+.skill-icon:hover {
+  transform: scale(1.05);
 }
 
-.sp-container {
-  position: relative;
-  border: 1px solid #ffffff;
-  border-radius: 0;
-  padding-top: 2rem;
-  padding-bottom: 1rem;
-  min-height: 100px;
-  margin-top: 12px;
-  /* Allow title to be visible outside container */
-  overflow: visible;
+
+.font-hl {
+  font-family: 'HalfLife', sans-serif;
 }
 
-/* Full-height container */
-.h-full.sp-container {
-  height: calc(100% - 12px);
-  display: flex;
-  flex-direction: column;
-  overflow: visible; /* Allow titles to be visible */
-}
-
-.h-full.sp-container > div {
-  flex-grow: 1;
-  overflow: visible; /* Show all content without scrolling */
-}
-
-/* Specific override for GitHubStats container */
-.sp-container[class*='github'] > div,
-div:has(> div.github-stats-container) > div {
-  overflow: visible;
-}
-
-/* Ensure overflow visible for GitHub Stats container but prevent content scrolling */
-.github-stats-container {
-  overflow: visible !important;
-}
-
-.github-stats-container .overview-tab,
-.github-stats-container .repos-tab {
-  overflow: hidden !important;
-}
-
-.sp-title {
-  position: absolute;
-  top: -12px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #0d1117;
-  padding: 0 10px;
-  color: #ffffff;
-  font-weight: 600;
-  font-size: 1.2rem;
-  z-index: 50;
-  white-space: nowrap;
-  /* Make container taller to fully contain the text */
-  line-height: 24px;
-  height: 24px;
-  /* Add a bit of margin at the top to push content down */
-  margin-top: 2px;
-  /* Prevent clipping by parent overflow */
-  clip-path: none;
-}
-
-.sp-content {
-  margin-top: -2%;
-  padding: 0.7rem 0.7rem 2.5rem;
-  max-height: 12.5rem;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: #ffffff #0d1117;
-}
-
-/* Increased height for main sections */
-.main-section-container .sp-content {
-  max-height: calc(100% - 60px);
-}
-
-.sp-count {
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #0d1117;
-  padding: 0 0.5rem;
-  color: #ffffff;
-  font-weight: 400;
-  font-size: 0.875rem;
-  z-index: 10;
-  white-space: nowrap;
-  margin-top: 1rem;
-}
-
-.dino-animation {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 200px;
+body {
+  background-color: #1a1a1a;
+  color: #e0e0e0;
+  font-family: 'HalfLife', sans-serif;
   overflow: hidden;
 }
 
-.dino {
+.hl-container {
+  background-color: rgba(10, 10, 10, 0.8);
+  border: 1px solid #5a3a2a;
+  border-radius: 2px;
+  padding: 12px;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.hl-title {
   position: absolute;
-  bottom: 4px;
-  width: 100px;
-  transition: bottom 0.4s ease;
+  top: -10px;
+  left: 10px;
+  background-color: #1a1a1a;
+  padding: 0 5px;
+  color: #f0a060;
+  font-size: 14px;
 }
 
-.animate-run {
-  animation: run 6s infinite linear;
-}
-
-.jump {
-  bottom: 80px;
-}
-
-.scrollbar-fixed {
-  scrollbar-width: thin;
-  scrollbar-color: #ffffff #0d1117;
-}
-
-.animate-bounce-fade {
-  animation: bounce-fade 2s ease-in-out forwards;
-}
-
-/* GitHub Stats styling */
-.github-stats-container {
-  transition: all 0.3s ease-in-out;
-}
-
-/* Limit height of content to prevent excessive scrolling */
-.github-stats-container .overview-tab,
-.github-stats-container .repos-tab {
-  height: auto;
-  max-height: none;
-  overflow: visible;
-}
-
-.github-stats-card {
-  background-color: #161b22;
-  border-radius: 0.5rem;
-  transition: transform 0.2s ease;
-}
-
-.github-stats-card:hover {
-  transform: translateY(-2px);
-}
-
-/* Main content and GitHub Stats containers */
-.main-section-container {
-  display: block;
-  height: 100%;
-  overflow: visible;
-}
-
-/* Inner container content */
-.main-section-container > div {
-  height: 100%;
-  overflow: visible;
-}
-
-/* Only hide overflow for content areas, not headers */
-.sp-container.h-full > div > div.overview-tab,
-.sp-container.h-full > div > div.repos-tab,
-[class*="github"] > div > div.overview-tab,
-[class*="github"] > div > div.repos-tab {
-  overflow: hidden !important;
-}
-
-/* Ensure main section titles are clearly visible */
-.main-section-container .sp-title {
-  top: -12px;
-  background-color: #0d1117;
-  height: 24px;
-  line-height: 24px;
-  padding: 0 15px;
-  font-size: 1.25rem;
-  z-index: 50;
-}
-
-/* Specific styling for GitHub Stats title */
-.sp-container[class*='github'] .sp-title,
-div:has(> div.github-stats-container) .sp-title {
-  z-index: 100;
-  clip-path: none;
-}
-
-/* Transition animations for GitHub Stats and Main content */
-.fade-in {
-  animation: fadeIn 0.3s ease-in-out forwards;
-}
-
-.fade-out {
-  animation: fadeOut 0.3s ease-in-out forwards;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes fadeOut {
-  from { opacity: 1; }
-  to { opacity: 0; }
+.hl-content {
+  margin-top: 5px;
 }
 
 @keyframes bounce-fade {
-  0% {
-    opacity: 0;
-    transform: translateY(0) scale(0.9);
-  }
-  30% {
-    opacity: 1;
-    transform: translateY(-5px) scale(1);
-  }
-  60% {
-    transform: translateY(0) scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(0) scale(0.9);
-  }
+  0%, 100% { opacity: 0; transform: translateY(-5px); }
+  50% { opacity: 1; transform: translateY(0); }
 }
 
-/* GitHub API error styling */
-.api-rate-limit-error {
-  animation: pulse 2s infinite;
+.animate-bounce-fade {
+  animation: bounce-fade 1s ease-in-out;
+}
+
+/* Health bar style for active elements */
+.active-health {
+  position: relative;
+}
+
+.active-health::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #ff5500, #ffaa00);
+  animation: pulse 1.5s infinite;
 }
 
 @keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4);
-  }
-  70% {
-    box-shadow: 0 0 0 10px rgba(220, 38, 38, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0);
-  }
+  0% { opacity: 0.7; }
+  50% { opacity: 1; }
+  100% { opacity: 0.7; }
 }
 
-/* Ensure GitHub Stats error containers maintain full height */
-.sp-container.h-full > div {
-  height: calc(100% - 2rem);
-  display: block;
-  padding-top: 1rem;
-  overflow: hidden !important;
-}
-
-/* Allow containers to be visible while preventing scrolling in content */
-.GitHubStats .overview-tab,
-.GitHubStats .repos-tab,
-div[class*="GitHubStats"] .overview-tab,
-div[class*="GitHubStats"] .repos-tab {
-  overflow: hidden !important;
-  max-height: 100% !important;
-}
-
-/* Side elements container styling */
-.side-elements-container {
-  position: absolute;
-  top: 14px;
-  right: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  height: calc(100% - 18px);
-  width: 40px;
-  margin-right: -5px;
-  z-index: 10;
-}
-
-/* setup for 4k */
-@media screen and (min-width: 3840px) {
-  html, body, #__next, .main-content {
-    width: 100% !important;
-    height: 100% !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-
-  #__next {
-    width: 75% !important; /* Reduced width for __next */
-    margin: 0 auto !important; /* Center the container */
-    padding: 0 2rem !important; /* Additional padding */
-    max-width: 2880px !important; /* Maximum width for 4K screens */
-  }
-
-
-  .main-content > div,
-  .main-content > main {
-    margin: 10px !important;
-    padding: 0 !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    justify-content: flex-start !important;
-  }
-}
-
-html, body {
-  background-color: #0d1117;
-  margin: 0;
-  padding: 0;
+/* start Loading Screen */
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
+  background-color: #0a0a0a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
 }
 
-@media screen and (min-width: 1920px) {
-  .main-content {
-    max-width: 1800px !important;
-  }
-
-  .sp-container {
-    max-width: 1600px !important;
-  }
+.loading-bar {
+  width: 200px;
+  height: 4px;
+  background-color: #333;
+  position: relative;
+  overflow: hidden;
 }
+
+.loading-bar::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, #ff5500, #ffaa00);
+  animation: loading 1.5s ease-in-out infinite;
+}
+
+@keyframes loading {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+/* end Loading Screen */
+
+/* start Health Bar */
+.active-tab {
+  position: relative;
+  color: #ff5500;
+}
+
+.active-tab::before {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #ff5500, #ffaa00);
+  animation: health-pulse 1.5s infinite;
+}
+
+@keyframes health-pulse {
+  0% { opacity: 0.5; width: 100%; }
+  50% { opacity: 1; width: 80%; }
+  100% { opacity: 0.5; width: 100%; }
+}
+/* end Health Bar */
+
+/* start Damage Flash */
+.error-flash {
+  animation: damage-flash 0.3s linear 2;
+}
+
+@keyframes damage-flash {
+  0% { background-color: transparent; }
+  50% { background-color: rgba(255, 0, 0, 0.3); }
+  100% { background-color: transparent; }
+}
+/* end Damage Flash */
+
+/* start typical effect from Half-Life */
+.hl-fade-in {
+  animation: hl-fade 0.5s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes hl-fade {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+/* end typical effect from Half-Life */
+
+/* start ammo pickup */
+.ammo-pickup {
+  animation: ammo-pickup 1s ease-out forwards;
+}
+
+@keyframes ammo-pickup {
+  0% { transform: scale(0.8); opacity: 0; }
+  50% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+/* end ammo pickup */
+
+/* start low health warning */
+.low-health-warning {
+  animation: low-health 1.5s infinite alternate;
+}
+
+@keyframes low-health {
+  0% { box-shadow: 0 0 5px rgba(255, 50, 0, 0.5); }
+  100% { box-shadow: 0 0 15px rgba(255, 50, 0, 0.8); }
+}
+/* end low health warning */
+
+/* start weapon switch */
+.tab-switch {
+  animation: weapon-switch 0.3s ease-out;
+}
+
+@keyframes weapon-switch {
+  0% { transform: translateX(-20px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+/* end weapon switch */

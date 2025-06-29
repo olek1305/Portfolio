@@ -6,35 +6,44 @@ import Image from "next/image";
 import {ImgHTMLAttributes} from "react";
 
 // Components
-import DinoAnimation from "./components/DinoAnimation";
 import SlideShow from "./components/SlideShow";
-import Experience from "./components/Experience";
-import Project from "./components/Project";
-import Skill from "./components/Skill";
-import Book from './components/Book';
 import GitHubStats from './components/GitHubStats';
 import ErrorBoundary from './components/ErrorBoundary';
+import HalfLifeMenu from './components/HalfLifeMenu';
+import TransitionEffect from './components/TransitionEffect';
 
 // Data
 import data from "./data/data.json";
-import SlideOver from "@/pages/components/SlideOver";
+import phpData from './data/PHP.json';
+import csharpData from './data/CSharp.json';
+import devopsData from './data/DevOps.json';
+import skillsData from './data/skills.json';
+import booksData from './data/books.json';
+
+
+// Types
+import type { Project, TabData } from './types';
+import ExperienceComponent from "@/pages/components/Experience";
+import ProjectComponent from "@/pages/components/Project";
+import SkillComponent from "@/pages/components/Skill";
+import BookComponent from "@/pages/components/Book";
 
 const components = {
     h1: (props: HTMLAttributes<HTMLHeadingElement>): React.ReactElement => (
-        <h1 className="text-purple-400 text-2xl" {...props} />
+        <h1 className="text-orange-400 text-2xl font-hl" {...props} />
     ),
     p: (props: HTMLAttributes<HTMLParagraphElement>): React.ReactElement => (
-        <p className="text-green-400 text-lg" {...props} />
+        <p className="text-gray-200 text-lg font-hl" {...props} />
     ),
     ul: (props: HTMLAttributes<HTMLUListElement>): React.ReactElement => (
-        <ul className="text-green-400 list-none text-lg" {...props} />
+        <ul className="text-gray-200 list-disc pl-5 text-lg font-hl" {...props} />
     ),
     strong: (props: HTMLAttributes<HTMLElement>): React.ReactElement => (
-        <strong className="text-red-400 font-bold text-lg" {...props} />
+        <strong className="text-orange-400 font-bold text-lg font-hl" {...props} />
     ),
     a: (props: HTMLAttributes<HTMLAnchorElement>): React.ReactElement => (
         <a
-            className="text-green-400 hover:bg-gray-700 hover:text-white hover:cursor-pointer"
+            className="text-orange-400 hover:text-white hover:cursor-pointer font-hl"
             {...props}
         />
     ),
@@ -46,64 +55,122 @@ const components = {
             <SlideShow images={imageList} altText={alt || ""}/>
         ) : (
             <Image src={imageList[0]} alt={alt || ""} {...rest} width={500} height={500}
-                   className="custom-image-class"/>
+                   className="border-2 border-orange-600 rounded-md"/>
         );
     }) as React.ComponentType,
 };
 
 export default function Home() {
     const [MdxComponent, setMdxComponent] = useState<React.FC | null>(null);
-    const [showDino, setShowDino] = useState(true);
     const [showCopiedMessage, setShowCopiedMessage] = useState(false);
     const [isClient, setIsClient] = useState(false);
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
     const [showGitHubStats, setShowGitHubStats] = useState(true);
     const [showMain, setShowMain] = useState(false);
+    const [activeTab, setActiveTab] = useState("Developer PHP");
+    const [isLoading, setIsLoading] = useState(true);
+    const [tabChanged, setTabChanged] = useState(false);
+    const [currentData, setCurrentData] = useState<TabData>(phpData);
 
     useEffect(() => {
         setIsClient(true);
-        // Load home.mdx content, but don't show it initially
         const timer = setTimeout(() => {
-            handleSelectMarkdown("home", "home").then(() => {
-                // Don't change showMain to true to keep GitHub stats as the default view
-            });
+            handleSelectMarkdown("home", "home").then(() => {});
         }, 900);
 
         return () => clearTimeout(timer);
     }, []);
 
+    // Loading
+    useEffect(() => {
+        const timer = setTimeout(() => setIsLoading(false), 1500);
+        return () => clearTimeout(timer);
+    }, []);
+
+    // JSON
+    useEffect(() => {
+        switch(activeTab) {
+            case "Developer PHP":
+                setCurrentData(phpData);
+                break;
+            case "Developer C#":
+                setCurrentData(csharpData);
+                break;
+            case "DevOps":
+                setCurrentData(devopsData);
+                break;
+            case "Skills":
+                setCurrentData(skillsData);
+                break;
+            case "Books":
+                setCurrentData(booksData);
+                break;
+            default:
+                setCurrentData(phpData);
+        }
+    }, [activeTab]);
+
+// In your main component
     const handleSelectMarkdown = async (
         category: string,
         name: string,
-        fileName?: string
+        fileName?: string,
+        tab?: string
     ) => {
         if (category !== "projects") {
             setSelectedProject(null);
         }
 
-        // If clicking on profile, show GitHub stats and hide main content
+        if (category === "skills") {
+            const skillFileName = fileName || name.toLowerCase().replace(/\s+/g, "-");
+            const markdownFile = `skills/${skillFileName}.mdx`;
+
+            try {
+                console.log("Loading skill MDX from:", `./data/markdown/${markdownFile}`);
+                const MdxModule = await import(`./data/markdown/${markdownFile}`);
+                setMdxComponent(() => MdxModule.default);
+                return;
+            } catch (error) {
+                console.error("Skill MDX file not found:", markdownFile, error);
+                try {
+                    const ErrorMdxModule = await import(`./data/markdown/error.mdx`);
+                    setMdxComponent(() => ErrorMdxModule.default);
+                } catch (error) {
+                    console.error("Error file not found:", error);
+                    setMdxComponent(null);
+                }
+                return;
+            }
+        }
+
         if (category === "home" && name === "home") {
             setShowGitHubStats(true);
             setShowMain(false);
             return;
         } else {
-            // Otherwise show main content and hide GitHub stats
             setShowGitHubStats(false);
             setShowMain(true);
         }
 
-        const markdownFile =
-            category === "home"
-                ? `${name.toLowerCase().replace(/\s+/g, "-")}.mdx`
-                : `${category}/${
-                    fileName || name.toLowerCase().replace(/\s+/g, "-")
-                }.mdx`;
+        let subcategory = '';
+        if (tab) {
+            if (tab.includes("PHP")) subcategory = 'php';
+            else if (tab.includes("C#")) subcategory = 'csharp';
+            else if (tab.includes("DevOps")) subcategory = 'devops';
+        }
+
+        const basePath = subcategory
+            ? `${category}/${subcategory}/${fileName || name.toLowerCase().replace(/\s+/g, "-")}`
+            : `${category}/${fileName || name.toLowerCase().replace(/\s+/g, "-")}`;
+
+        const markdownFile = `${basePath}.mdx`;
 
         try {
+            console.log("Loading MDX from:", `./data/markdown/${markdownFile}`); // Logowanie ścieżki
             const MdxModule = await import(`./data/markdown/${markdownFile}`);
             setMdxComponent(() => MdxModule.default);
         } catch (error) {
-            console.error("Markdown file not found:", markdownFile);
+            console.error("Markdown file not found:", markdownFile, error);
             try {
                 const ErrorMdxModule = await import(`./data/markdown/error.mdx`);
                 setMdxComponent(() => ErrorMdxModule.default);
@@ -122,13 +189,12 @@ export default function Home() {
         setTimeout(() => setShowCopiedMessage(false), 2000);
     };
 
-    const handleProjectSelect = (project: { name: string; skills: string[] }) => {
-        setSelectedProject(project as Project);
-        // Hide GitHub stats and show main content
+    const handleProjectSelect = (project: Project) => {
+        setSelectedProject(project);
         setShowGitHubStats(false);
         setShowMain(true);
 
-        handleSelectMarkdown("projects", project.name)
+        handleSelectMarkdown("projects", project.name, undefined, activeTab)
             .then(() => {
                 console.log(`Project ${project.name} markdown loaded successfully`);
             })
@@ -137,56 +203,30 @@ export default function Home() {
             });
     };
 
-    type Project = {
-        name: string;
-        skills: string[];
-    };
-
-    return (
-        <div className="bg-[#0d1117] text-gray-300 p-4 scrollbar-fixed main-content w-full h-full m-0">
-            <Head>
-                <title>Home - Aleksander Żak | PHP Developer</title>
-                <meta
-                    name="description"
-                    content="Aleksander Żak's portfolio - PHP Developer based in Bydgoszcz, Poland."
-                />
-            </Head>
-            {/* Centered Wrapper */}
-            <div>
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-2" style={{ height: 'calc(100vh - 120px)' }}>
-                    {/* Sidebar */}
-                    {isClient && (
-                        <div className="col-span-1 space-y-4 flex flex-col text-center h-full overflow-y-auto">
-                            <div
-                                className="sp-container p-4 rounded cursor-pointer hover:bg-gray-700"
-                                onClick={() => handleSelectMarkdown("home", "home")}
-                            >
-                                <h3 className="sp-title">profile</h3>
-                                <h2 className="text-3xl font-bold text-white">
-                                    Aleksander Żak
-                                </h2>
-                                <p className="text-xl">
-                                    <span className="text-blue-300">PHP</span> developer. Poland,
-                                    Bydgoszcz.
-                                </p>
-                            </div>
-
-                            {/* Experience Section */}
-                            <div className="sp-container relative">
-                                <h3 className="sp-title">
-                                    experience ({data.experience.length} total)
+    const renderContentForTab = (tab: string) => {
+        switch(tab) {
+            case "Developer PHP":
+            case "Developer C#":
+            case "DevOps":
+                return (
+                    <div className="space-y-4">
+                        {currentData.experience && currentData.experience.length > 0 && (
+                            <div className="hl-container relative">
+                                <h3 className="hl-title">
+                                    {tab} Experience ({currentData.experience.length})
                                 </h3>
-                                <div className="sp-content">
+                                <div className="hl-content">
                                     <ul className="space-y-2">
-                                        {data.experience.map((exp, idx) => (
+                                        {currentData.experience.map((exp, idx) => (
                                             <li key={idx}>
-                                                <Experience
+                                                <ExperienceComponent
                                                     experience={exp}
                                                     onSelect={() =>
                                                         handleSelectMarkdown(
                                                             "experiences",
                                                             exp.title,
-                                                            exp.fileName
+                                                            exp.fileName,
+                                                            activeTab
                                                         )
                                                     }
                                                 />
@@ -195,17 +235,18 @@ export default function Home() {
                                     </ul>
                                 </div>
                             </div>
+                        )}
 
-                            {/* Projects Section */}
-                            <div className="sp-container relative">
-                                <h3 className="sp-title">
-                                    projects ({data.projects.length} total)
+                        {currentData.projects && currentData.projects.length > 0 && (
+                            <div className="hl-container relative">
+                                <h3 className="hl-title">
+                                    {tab} Projects ({currentData.projects.length})
                                 </h3>
-                                <div className="sp-content">
+                                <div className="hl-content">
                                     <ul className="space-y-2">
-                                        {data.projects.map((project, idx) => (
+                                        {currentData.projects.map((project, idx) => (
                                             <li key={idx}>
-                                                <Project
+                                                <ProjectComponent
                                                     project={project}
                                                     onSelect={() => handleProjectSelect(project)}
                                                 />
@@ -214,187 +255,204 @@ export default function Home() {
                                     </ul>
                                 </div>
                             </div>
-
-                            {/* Skills Section */}
-                            <div className="sp-container relative">
-                                <h3 className="sp-title">
-                                    skills ({data.skills.length} total)
-                                </h3>
-                                <div className="sp-content">
-                                    <ul className="grid grid-cols-2 gap-2">
-                                        {data.skills.map((skill, idx) => (
-                                            <li
-                                                key={idx}
-                                                className={`${
-                                                    selectedProject?.skills?.includes(skill.name)
-                                                        ? "bg-purple-600"
-                                                        : ""
-                                                }`}
-                                            >
-                                                <Skill
-                                                    skill={skill}
-                                                    onSelect={() =>
-                                                        handleSelectMarkdown(
-                                                            "skills",
-                                                            skill.name,
-                                                            skill.fileName
-                                                        )
-                                                    }
-                                                />
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-
-                    {/* Main Content Area - Shows either GitHubStats or Main Content */}
-                    <div className="col-span-1 md:col-span-3 h-full">
-                        {/* GitHub Stats (shown by default) */}
-                        {showGitHubStats && isClient && (
-                            <div className="w-full h-full fade-in main-section-container" style={{ height: 'calc(100% - 5px)', overflow: 'visible' }}>
-                                <ErrorBoundary
-                                  onError={(error) => {
-                                    console.error('GitHub Stats error caught by ErrorBoundary:', error);
-                                  }}
-                                  fallback={
-                                    <div className="sp-container h-full overflow-visible">
-                                      <div className="p-4 text-center block" style={{ height: 'calc(100% - 30px)', overflow: 'visible' }}>
-                                        <div className="bg-red-900/30 border border-red-700 rounded-md p-4 text-red-400 mb-4">
-                                          <h4 className="text-lg font-bold mb-2">GitHub Stats Error</h4>
-                                          <p>Sorry, we couldn&#39;t load the GitHub stats at this time.</p>
-                                        </div>
-
-                                        <div className="bg-[#161b22] p-4 rounded-lg mb-4">
-                                          <h4 className="text-white font-medium mb-2">Possible reasons:</h4>
-                                          <ul className="text-left text-gray-300 list-disc pl-5 space-y-2">
-                                            <li>GitHub API rate limit exceeded (resets after 60 minutes)</li>
-                                            <li>Network connectivity issues</li>
-                                            <li>GitHub API service disruption</li>
-                                          </ul>
-                                        </div>
-
-                                        <button 
-                                          onClick={() => {
-                                            setShowGitHubStats(false);
-                                            setShowMain(true);
-                                          }}
-                                          className="mt-4 px-4 py-2 bg-purple-700 hover:bg-purple-800 text-white rounded-md"
-                                        >
-                                          Show Main Content Instead
-                                        </button>
-                                      </div>
-                                      {/* Title rendered last to be on top */}
-                                      <h3 className="sp-title">GitHub Stats</h3>
-
-                                      {/* Side elements */}
-                                        <div className="absolute top-14 right-0 flex flex-col gap-4 h-full" style={{ width: '40px', marginRight: '-5px' }}>
-                                            <Book books={data.books}/>
-                                            <SlideOver items={data.inProgress} name="in Progress"/>
-                                            <SlideOver items={data.setup} name="Setup"/>
-                                        </div>
-                                    </div>
-                                  }
-                                >
-                                  <div className="relative h-full w-full">
-                                    <GitHubStats 
-                                      username="olek1305"
-                                      className="h-full pr-[120px] overflow-hidden" /* Add padding to make room for side elements and prevent scrolling */
-                                      onClose={() => {
-                                        setShowGitHubStats(false);
-                                        setShowMain(true);
-                                      }}
-                                    />
-
-                                    {/* Side elements */}
-                                    <div className="absolute top-14 right-0 flex flex-col gap-4 h-full" style={{ width: '40px', marginRight: '-5px' }}>
-                                      <Book books={data.books}/>
-                                      <SlideOver items={data.inProgress} name="in Progress"/>
-                                      <SlideOver items={data.setup} name="Setup"/>
-                                    </div>
-                                  </div>
-                                </ErrorBoundary>
-                            </div>
-                        )}
-
-                        {/* Main Content */}
-                        {showMain && (
-                        <div className="sp-container p-6 fade-in h-full main-section-container relative">
-                                <h3 className="sp-title">Main</h3>
-                                <button
-                                    onClick={() => {
-                                        setShowMain(false);
-                                        setShowGitHubStats(true);
-                                    }}
-                                    className="absolute top-2 right-2 text-gray-400 hover:text-white z-10"
-                                    aria-label="Show GitHub Stats"
-                                >
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
-                                </button>
-
-                                {/* Main content with padding to make room for side elements */}
-                                <div className="pr-[120px] h-full overflow-hidden">
-                                  {isClient && MdxComponent ? (
-                                      <MDXProvider components={components}>
-                                          <MdxComponent />
-                                      </MDXProvider>
-                                  ) : (
-                                      <div>Click on an item to load content.</div>
-                                  )}
-                                  {showDino && <DinoAnimation/>}
-                                </div>
-                            </div>
                         )}
                     </div>
-                </div>
-                <div className="flex justify-end space-x-4 mt-4">
-                    <button
-                        onClick={(e) => {
-                            setShowDino((prev) => !prev);
-                            e.currentTarget.blur();
-                        }}
-                        className="text-purple-400 hover:underline"
-                    >
-                        {showDino ? "Hide Dino" : "Show Dino"}
-                    </button>
+                );
+            case "Skills":
+                return currentData.skills && currentData.skills.length > 0 && (
+                    <div className="hl-container relative">
+                        <h3 className="hl-title">Skills ({currentData.skills.length})</h3>
+                        <div className="hl-content">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-2 p-2">
+                                {currentData.skills.map((skill, idx) => (
+                                    <SkillComponent
+                                        key={idx}
+                                        skill={skill}
+                                        onSelect={() => handleSelectMarkdown("skills", skill.name, skill.fileName)}
+                                        hasDetails={!!skill.fileName || true}
+                                        iconOnly={false}
+                                    />
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                );
+            case "Books":
+                return currentData.books && currentData.books.length > 0 && (
+                    <div className="hl-container relative">
+                        <h3 className="hl-title">Books ({currentData.books.length})</h3>
+                        <div className="hl-content p-4">
+                            <BookComponent books={currentData.books} />
+                        </div>
+                    </div>
+                );
+            default:
+                return null;
+        }
+    };
 
+    return (
+        <div className="relative">
+            {isLoading && (
+                <div className="loading-screen">
+                    <div className="loading-bar" />
+                </div>
+            )}
+            <div className="bg-[#1a1a1a] text-gray-300 h-screen flex flex-col overflow-hidden font-hl">
+                <Head>
+                    <title>Home - Aleksander Żak | PHP Developer</title>
+                    <meta
+                        name="description"
+                        content="Aleksander Żak's portfolio - PHP Developer based in Bydgoszcz, Poland."
+                    />
+                </Head>
+
+                <header className="bg-[#0a0a0a] border-b-2 border-orange-600 py-3 px-6">
+                    <div
+                        className="text-orange-400 text-2xl cursor-pointer hover:text-white"
+                        onClick={() => {
+                            setShowMain(false);
+                            setShowGitHubStats(true);
+                            setActiveTab("Developer PHP");
+                        }}
+                    >
+                        Aleksander Żak
+                    </div>
+                </header>
+
+                <div className="flex flex-1 overflow-hidden">
+                    {/* Half-Life-style Left Menu */}
+                    <div className="w-64 bg-[#0a0a0a] border-r-2 border-orange-600 p-4 flex-shrink-0">
+                        <HalfLifeMenu
+                            tabs={["Developer PHP", "Developer C#", "DevOps", "Skills", "Books"]}
+                            activeTab={activeTab}
+                            onTabChange={(tab) => {
+                                setTabChanged(true);
+                                setActiveTab(tab);
+                                setTimeout(() => setTabChanged(false), 300);
+                            }}
+                            githubOpen={showGitHubStats}
+                            onToggleGithub={() => {
+                                setShowGitHubStats(!showGitHubStats);
+                                setShowMain(showGitHubStats);
+                            }}
+                        />
+
+                        {/* Profile Section */}
+                        <div
+                            className="mt-4 p-4 bg-[#1a1a1a] border border-orange-600 rounded cursor-pointer hover:bg-orange-600/10"
+                            onClick={() => {
+                                handleSelectMarkdown("home", "home");
+                                setActiveTab("Developer PHP");
+                            }}
+                        >
+                            <h2 className="text-2xl text-orange-400">Profile</h2>
+                            <p className="text-orange-400 text-xl">PHP <span className={"text-gray-200"}>&</span> DevOps</p>
+                            <p className="text-gray-400 text-sm">Bydgoszcz, Poland</p>
+                        </div>
+                    </div>
+
+                    {/* Main Content Area */}
+                    <div className="flex-1 flex overflow-hidden">
+                        {/* Left Content - Dynamic based on active tab */}
+                        <div className="w-1/3 bg-[#121212] p-4 overflow-y-auto border-r border-orange-600/30">
+                            <div className={tabChanged ? "tab-switch" : ""}>
+                                {renderContentForTab(activeTab)}
+                            </div>
+                        </div>
+
+                        {/* Right Content - GitHub Stats or Main Content */}
+                        <div className="w-2/3 bg-[#1a1a1a] p-4 overflow-y-auto">
+                            {showGitHubStats && isClient && (
+                                <div className="relative h-full">
+                                    <ErrorBoundary
+                                        onError={(error) => {
+                                            console.error('GitHub Stats error caught by ErrorBoundary:', error);
+                                        }}
+                                        fallback={
+                                            <div className="p-4 text-center">
+                                                <div className="bg-red-900/30 border border-red-700 rounded-md p-4 text-red-400 mb-4">
+                                                    <h4 className="text-lg font-bold mb-2">GitHub Stats Error</h4>
+                                                    <p>Sorry, we couldn&#39;t load the GitHub stats at this time.</p>
+                                                </div>
+                                            </div>
+                                        }
+                                    >
+                                        <GitHubStats
+                                            username="olek1305"
+                                            className="h-full"
+                                        />
+                                    </ErrorBoundary>
+                                </div>
+                            )}
+
+                            {showMain && (
+                                <div className="relative h-full">
+                                    <button
+                                        onClick={() => {
+                                            setShowMain(false);
+                                            setShowGitHubStats(true);
+                                        }}
+                                        className="absolute top-2 right-2 text-orange-400 hover:text-white z-10"
+                                        aria-label="Show GitHub Stats"
+                                    >
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+
+                                    <div className="h-full overflow-auto">
+                                        {isClient && MdxComponent ? (
+                                            <MDXProvider components={components}>
+                                                <MdxComponent />
+                                            </MDXProvider>
+                                        ) : (
+                                            <div className="text-orange-400 text-center mt-10">Select an item to view details</div>
+                                        )}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+
+                {/* Half-Life-style Footer */}
+                <footer className="bg-[#0a0a0a] border-t-2 border-orange-600 py-2 px-6 flex justify-center gap-6 items-center">
                     <a
                         href="/cv/aleksander-zak.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-purple-400 hover:underline"
+                        className="text-orange-400 hover:text-white text-sm"
                     >
-                        Resume
+                        ▼ Resume
                     </a>
 
                     <a
                         href="https://github.com/olek1305"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-purple-400 hover:underline"
+                        className="text-orange-400 hover:text-white text-sm"
                     >
-                        GitHub
+                        ▼ GitHub
                     </a>
 
-                    <div className="relative">
+                    <div className="relative h-6 flex items-center">
                         <button
                             onClick={handleCopyEmail}
-                            className="text-purple-400 hover:underline"
+                            className="text-orange-400 hover:text-white text-sm"
                         >
-                            Email
+                            ▼ Email
                         </button>
                         {showCopiedMessage && (
-                            <div
-                                className="absolute -top-20 -left-12 bg-gray-900 text-white text-xl px-2 py-1 rounded-md animate-bounce-fade border-white border-2">
-                                Copied email!
+                            <div className="ammo-pickup absolute -top-8 left-0 right-0 mx-auto w-fit bg-orange-600 text-black px-2 py-1 rounded-md text-xs">
+                                Copied!
                             </div>
                         )}
                     </div>
-                </div>
+                    <TransitionEffect />
+                </footer>
             </div>
         </div>
+
     );
 }

@@ -1,77 +1,7 @@
 {
-  "experience": [
-    {
-      "title": "Web and Mobile Application Development",
-      "company": "TEB Edukacja",
-      "fileName": "general-teb"
-    },
-    {
-      "title": "Fullstack Laravel 10 + Vue.js 3 (2023) - Build APIs and SPAs",
-      "company": "Udemy",
-      "fileName": "fullstack-laravel-vue"
-    },
-    {
-      "title": "Master Laravel, Vue 3 & Inertia Full Stack",
-      "company": "Udemy",
-      "fileName": "master-laravel-vue-inertia"
-    },
-    {
-      "title": "Python",
-      "company": "TEB Edukacja",
-      "fileName": "python-teb"
-    }
-  ],
 
-  "projects": [
-    { "name": "SimpleStore", "skills": ["PHP", "Laravel", "Bootstrap", "JavaScript", "MySQL"] },
-    { "name": "Laravel-qa", "skills": ["PHP", "Vue.js", "Laravel", "Bootstrap", "JavaScript", "JQuery"] },
-    { "name": "larazillow", "skills": ["PHP", "Vue.js", "Laravel", "Tailwind", "JavaScript", "Inertia.js", "Docker", "MySQL"] },
-    { "name": "AbexGuilds", "skills": ["PHP", "Vue.js", "Laravel", "Tailwind", "JavaScript", "Inertia.js", "MySQL"] },
-    { "name": "Freshly-Ecommerce", "skills": ["PHP", "Laravel", "Bootstrap", "JavaScript", "YajraBox", "Docker", "MySQL"] },
-    { "name": "LessonRabbitMQRedis", "skills": ["PHP", "Laravel", "Tailwind", "JavaScript", "Docker", "React", "Next.js", "RabbitMQ", "Redis", "MySQL", "CI/CD"] },
-    { "name": "Portfolio", "skills": ["Typescript", "React", "Next.js", "CI/CD"] },
-    { "name": "Rezervo", "skills": ["PHP", "Vue.js", "Laravel", "Tailwind", "JavaScript", "Inertia.js", "MySQL", "Docker", "Redis", "CI/CD", "Pest"] },
-    { "name": "Pizzox", "skills": ["PHP", "Symfony", "JavaScript", "Vue.js", "CI/CD", "Tailwind", "MongoDB", "Stripe", "Mapbox"] }
-  ],
-  
-  "skills": [
-    { "name": "PHP", "category": "Languages" },
-    { "name": "Laravel", "category": "Frameworks" },
-    { "name": "Symfony", "category": "Frameworks" },
-    { "name": "RabbitMQ", "category": "Tools" },
-    { "name": "Redis", "category": "Tools" },
-    { "name": "Docker", "category": "Tools" },
-    { "name": "Pest", "category": "Tools" },
-    { "name": "JavaScript", "category": "Languages" },
-    { "name": "Typescript", "category": "Languages" },
-    { "name": "Inertia.js", "category": "Frameworks", "fileName": "inertia" },
-    { "name": "Vue.js", "category": "Frameworks", "fileName": "vue" },
-    { "name": "React", "category": "Frameworks" },
-    { "name": "Next.js", "category": "Frameworks", "fileName": "nextjs" },
-    { "name": "JQuery", "category": "Libraries" },
-    { "name": "YajraBox", "category": "Frameworks" },
-    { "name": "Mapbox", "category": "Frameworks" },
-    { "name": "CI/CD", "category": "Tools", "fileName": "ci-cd" },
-    { "name": "E-commerce", "category": "Domains" },
-    { "name": "GitHub", "category": "Tools" },
-    { "name": "MySQL", "category": "Databases" },
-    { "name": "PostgreSQL", "category": "Databases" },
-    { "name": "MongoDB", "category": "Databases" },
-    { "name": "Python", "category": "Languages" },
-    { "name": "Django", "category": "Frameworks" },
-    { "name": "Tailwind", "category": "CSS Frameworks" },
-    { "name": "Bootstrap", "category": "CSS Frameworks" },
-    { "name": "Ubuntu", "category": "Operating Systems" },
-    { "name": "Debian", "category": "Operating Systems" }
-  ],
 
-  "books": [
-    { "title": "Self-Taught Programmer. A professional guide to learning coding on your own (Python)", "imagePath": "self-taught.jpg" },
-    { "title": "PHP 8 and SQL for beginners", "imagePath": "php-8-and-sql.jpg" },
-    { "title": "Git and GitHub. Version control, project management and teamwork principles", "imagePath": "git-and-github.jpg" },
-    { "title": "Language SQL", "imagePath": "language-sql.jpg" },
-    { "title": "Unix and Linux. A systems administrator's guide V edition", "imagePath": "unix-i-linux-przewodnik-administratora-systemow-wydanie-v.jpg" }
-  ],
+
 
   "inProgress": [
     {
@@ -91,5 +21,12 @@
       "Monitor 2": "BenQ ZOWIE XL2730",
       "OS": "Arch (garuda), Windows 11 24h2"
     }
+  ],
+
+  "DevOps": [
+    {
+
+    }
   ]
+
 }

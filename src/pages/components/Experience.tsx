@@ -1,28 +1,21 @@
 import React from "react";
+import { Experience } from "../types";
 
 type ExperienceProps = {
-  experience?: { title: string; company: string; fileName?: string };
-  onSelect: (title: string) => void;
+  experience: Experience;
+  onSelect: () => void;
 };
 
-export default function Experience({ experience, onSelect }: ExperienceProps) {
-  if (!experience || !experience.title || !experience.company) {
-    return null;
-  }
-
-  const ExperienceSrc = `/projects/${experience.fileName || experience.title}
-  .toLowerCase()
-  .replace(/\s+/g, "-")}.mdx`;
-
+export default function ExperienceComponent({ experience, onSelect }: ExperienceProps) {
   return (
-    <div
-      className="ml-2 my-1 mx-1 rounded cursor-pointer flex justify-between items-center hover:bg-gray-700 hover:text-white transition duration-200 ease-in-out"
-      onClick={() => onSelect(ExperienceSrc)}
-    >
-      <span className="text-lg text-left">{experience.title}</span>
-      <span className="text-purple-400 text-right">
+      <div
+          className="ml-2 my-1 mx-1 rounded cursor-pointer flex justify-between items-center hover:bg-gray-700 hover:text-white transition duration-200 ease-in-out"
+          onClick={onSelect}
+      >
+        <span className="text-lg text-left">{experience.title}</span>
+        <span className="text-orange-400 text-right">
         {experience.company}
       </span>
-    </div>
+      </div>
   );
 }

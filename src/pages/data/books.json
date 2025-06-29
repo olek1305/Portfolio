@@ -1,0 +1,9 @@
+{
+  "books": [
+    { "title": "Self-Taught Programmer. A professional guide to learning coding on your own (Python)", "imagePath": "self-taught.jpg" },
+    { "title": "PHP 8 and SQL for beginners", "imagePath": "php-8-and-sql.jpg" },
+    { "title": "Git and GitHub. Version control, project management and teamwork principles", "imagePath": "git-and-github.jpg" },
+    { "title": "Language SQL", "imagePath": "language-sql.jpg" },
+    { "title": "Unix and Linux. A systems administrator's guide V edition", "imagePath": "unix-i-linux-przewodnik-administratora-systemow-wydanie-v.jpg" }
+  ]
+}
