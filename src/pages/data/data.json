@@ -76,7 +76,7 @@
   "inProgress": [
     {
       "AWS": "Amazon Web Services",
-      "Wordpress": "woocommerce, Shopify",
+      "C#": "ASP.NET",
       "Docker": "Docker Mastery with Kubernetes + Swarm"
     }
   ],
@@ -84,11 +84,12 @@
   "setup": [
     {
       "MOBO": "B450 AORUS Elite V2",
-      "CPU": "R5 5600x",
+      "CPU": "R5 5600x OC",
       "GPU": "Arc B580",
       "RAM": "48 GB, DDR4-3200Mhz",
       "Monitor 1": "Samsung 72hz, 1080p",
-      "Monitor 2": "BenQ ZOWIE XL2730"
+      "Monitor 2": "BenQ ZOWIE XL2730",
+      "OS": "Arch (garuda), Windows 11 24h2"
     }
   ]
 }
