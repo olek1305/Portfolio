@@ -24,7 +24,7 @@ import todoData from './data/ToDo.json';
 import phpData from './data/PHP.json';
 import csharpData from './data/CSharp.json';
 import devopsData from './data/DevOps.json';
-import skillsData from './data/skills.json';
+import skillsData from './data/Skills.json';
 import booksData from './data/Books.json';
 
 const components = {
