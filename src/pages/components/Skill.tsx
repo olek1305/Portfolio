@@ -48,7 +48,7 @@ const SkillComponent: React.FC<SkillProps> = ({
             }`}
             title={hasDetails ? `Click for ${skill.name} details` : `No details available for ${skill.name}`}
         >
-            <div className={`relative ${iconOnly ? 'w-12 h-12' : 'w-10 h-10'} skill-icon`}>
+            <div className={`relative ${iconOnly ? 'w-12 h-12' : 'w-10 h-10'} skill-icon flex items-center justify-center`}>
                 {iconExists ? (
                     <NextImage
                         src={iconSrc}
@@ -56,7 +56,7 @@ const SkillComponent: React.FC<SkillProps> = ({
                         width={iconOnly ? 48 : 40}
                         height={iconOnly ? 48 : 40}
                         quality={100}
-                        className="object-contain"
+                        className="object-contain mx-auto"
                         style={{
                             filter: 'invert(0.9)'
                         }}

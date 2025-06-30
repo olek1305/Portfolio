@@ -27,3 +27,9 @@ export type TabData = {
     skills?: Skill[];
     books?: Book[];
 };
+
+declare global {
+    interface Window {
+        setLightboxImage?: (src: string | null) => void;
+    }
+}

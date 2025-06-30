@@ -24,9 +24,10 @@ import booksData from './data/books.json';
 // Types
 import type { Project, TabData } from './types';
 import ExperienceComponent from "@/pages/components/Experience";
-import ProjectComponent from "@/pages/components/Project";
+import { ProjectComponent} from "@/pages/components/Project";
 import SkillComponent from "@/pages/components/Skill";
 import BookComponent from "@/pages/components/Book";
+import {ImageLightbox} from "@/pages/components/ImageLightbox";
 
 const components = {
     h1: (props: HTMLAttributes<HTMLHeadingElement>): React.ReactElement => (
@@ -50,12 +51,39 @@ const components = {
     img: ((props: ImgHTMLAttributes<HTMLImageElement> & { src: string }): React.ReactElement => {
         const {src, alt, ...rest} = props;
         const imageList = src.includes(",") ? src.split(",") : [src];
+        const [lightboxOpen, setLightboxOpen] = useState(false);
+        const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-        return imageList.length > 1 ? (
-            <SlideShow images={imageList} altText={alt || ""}/>
-        ) : (
-            <Image src={imageList[0]} alt={alt || ""} {...rest} width={500} height={500}
-                   className="border-2 border-orange-600 rounded-md"/>
+        return (
+            <>
+                {lightboxOpen && (
+                    <ImageLightbox
+                        src={imageList[currentImageIndex]}
+                        alt={alt || "Enlarged image view"}
+                        onClose={() => setLightboxOpen(false)}
+                    />
+                )}
+
+                {imageList.length > 1 ? (
+                    <SlideShow images={imageList} altText={alt || "Slideshow images"}/>
+                ) : (
+                    <div className="relative group">
+                        <Image
+                            src={imageList[0]}
+                            alt={alt || "Image"}
+                            width={800}
+                            height={600}
+                            className="border-2 border-orange-600 rounded-md cursor-zoom-in transition-transform group-hover:scale-105"
+                            onClick={() => setLightboxOpen(true)}
+                        />
+                        <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                  <span className="text-white bg-orange-600/80 px-2 py-1 rounded text-sm">
+                    Click to enlarge
+                  </span>
+                        </div>
+                    </div>
+                )}
+            </>
         );
     }) as React.ComponentType,
 };
@@ -110,7 +138,7 @@ export default function Home() {
         }
     }, [activeTab]);
 
-// In your main component
+    // In your main component
     const handleSelectMarkdown = async (
         category: string,
         name: string,
@@ -308,6 +336,7 @@ export default function Home() {
                 </Head>
 
                 <header className="bg-[#0a0a0a] border-b-2 border-orange-600 py-3 px-6">
+                    {/* Profile Section */}
                     <div
                         className="text-orange-400 text-2xl cursor-pointer hover:text-white"
                         onClick={() => {
@@ -316,7 +345,8 @@ export default function Home() {
                             setActiveTab("Developer PHP");
                         }}
                     >
-                        Aleksander Żak
+                        Aleksander Żak, PHP <span className={"text-gray-200"}>&</span> DevOps
+                        <p className="text-gray-400 text-sm">Bydgoszcz, Poland</p>
                     </div>
                 </header>
 
@@ -337,19 +367,6 @@ export default function Home() {
                                 setShowMain(showGitHubStats);
                             }}
                         />
-
-                        {/* Profile Section */}
-                        <div
-                            className="mt-4 p-4 bg-[#1a1a1a] border border-orange-600 rounded cursor-pointer hover:bg-orange-600/10"
-                            onClick={() => {
-                                handleSelectMarkdown("home", "home");
-                                setActiveTab("Developer PHP");
-                            }}
-                        >
-                            <h2 className="text-2xl text-orange-400">Profile</h2>
-                            <p className="text-orange-400 text-xl">PHP <span className={"text-gray-200"}>&</span> DevOps</p>
-                            <p className="text-gray-400 text-sm">Bydgoszcz, Poland</p>
-                        </div>
                     </div>
 
                     {/* Main Content Area */}

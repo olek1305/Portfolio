@@ -204,3 +204,8 @@ body {
   100% { transform: translateX(0); opacity: 1; }
 }
 /* end weapon switch */
+
+.tech-icon {
+  filter: invert(1);
+  transition: all 0.3s ease;
+}
