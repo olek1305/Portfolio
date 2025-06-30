@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import Image from 'next/image';
 
 interface GitHubStatsProps {
@@ -56,15 +56,16 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, onClose, className 
   const CACHE_KEY = `github_stats_${username}`;
   const CACHE_EXPIRY = 60 * 60 * 1000;
 
-  const saveToCache = (data: GitHubStats) => {
+  const saveToCache = useCallback((data: GitHubStats) => {
     const cacheData = {
       timestamp: new Date().getTime(),
       data: data
     };
     localStorage.setItem(CACHE_KEY, JSON.stringify(cacheData));
-  };
+  }, [CACHE_KEY]);
 
-  const loadFromCache = (): GitHubStats | null => {
+
+  const loadFromCache = useCallback((): GitHubStats | null => {
     const cached = localStorage.getItem(CACHE_KEY);
     if (!cached) return null;
 
@@ -76,7 +77,7 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, onClose, className 
     }
 
     return null;
-  };
+  }, [CACHE_KEY, CACHE_EXPIRY]);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -195,7 +196,7 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, onClose, className 
     return () => {
       controller.abort();
     };
-  }, [username]);
+  }, [username, loadFromCache, saveToCache]);
 
   if (stats.loading) {
     return (

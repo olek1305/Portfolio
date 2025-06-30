@@ -1,16 +1,14 @@
-import React, { HTMLAttributes } from "react";
+import React, { ImgHTMLAttributes, HTMLAttributes, useState, useEffect } from "react";
 import {MDXProvider} from "@mdx-js/react";
-import {useState, useEffect} from "react";
 import Head from "next/head";
 import Image from "next/image";
-import {ImgHTMLAttributes} from "react";
 
 // Components
-import SlideShow from "./components/SlideShow";
-import GitHubStats from './components/GitHubStats';
-import ErrorBoundary from './components/ErrorBoundary';
-import HalfLifeMenu from './components/HalfLifeMenu';
-import TransitionEffect from './components/TransitionEffect';
+import SlideShow from "@/components/SlideShow";
+import GitHubStats from '@/components/GitHubStats';
+import ErrorBoundary from '@/components/ErrorBoundary';
+import HalfLifeMenu from '@/components/HalfLifeMenu';
+import TransitionEffect from '@/components/TransitionEffect';
 
 // Data
 import data from "./data/data.json";
@@ -18,16 +16,16 @@ import phpData from './data/PHP.json';
 import csharpData from './data/CSharp.json';
 import devopsData from './data/DevOps.json';
 import skillsData from './data/skills.json';
-import booksData from './data/books.json';
+import booksData from './data/Books.json';
 
 
 // Types
-import type { Project, TabData } from './types';
-import ExperienceComponent from "@/pages/components/Experience";
-import { ProjectComponent} from "@/pages/components/Project";
-import SkillComponent from "@/pages/components/Skill";
-import BookComponent from "@/pages/components/Book";
-import {ImageLightbox} from "@/pages/components/ImageLightbox";
+import type { Project, TabData } from '@/lib/types';
+import ExperienceComponent from "@/components/Experience";
+import ProjectComponent from "@/components/Project";
+import SkillComponent from "@/components/Skill";
+import BookComponent from "@/components/Book";
+import ImageLightbox from "@/components/ImageLightbox";
 
 const components = {
     h1: (props: HTMLAttributes<HTMLHeadingElement>): React.ReactElement => (
@@ -49,7 +47,7 @@ const components = {
         />
     ),
     img: ((props: ImgHTMLAttributes<HTMLImageElement> & { src: string }): React.ReactElement => {
-        const {src, alt, ...rest} = props;
+        const {src, alt} = props;
         const imageList = src.includes(",") ? src.split(",") : [src];
         const [lightboxOpen, setLightboxOpen] = useState(false);
         const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -145,7 +143,7 @@ export default function Home() {
         fileName?: string,
         tab?: string
     ) => {
-        if (category !== "projects") {
+        if (category !== "projects" && category !== "devops") {
             setSelectedProject(null);
         }
 
@@ -194,7 +192,7 @@ export default function Home() {
         const markdownFile = `${basePath}.mdx`;
 
         try {
-            console.log("Loading MDX from:", `./data/markdown/${markdownFile}`); // Logowanie ścieżki
+            console.log("Loading MDX from:", `./data/markdown/${markdownFile}`);
             const MdxModule = await import(`./data/markdown/${markdownFile}`);
             setMdxComponent(() => MdxModule.default);
         } catch (error) {
@@ -235,7 +233,6 @@ export default function Home() {
         switch(tab) {
             case "Developer PHP":
             case "Developer C#":
-            case "DevOps":
                 return (
                     <div className="space-y-4">
                         {currentData.experience && currentData.experience.length > 0 && (
@@ -284,6 +281,39 @@ export default function Home() {
                                 </div>
                             </div>
                         )}
+                    </div>
+                );
+            case "DevOps":
+                return currentData.devopsItems && currentData.devopsItems.length > 0 && (
+                    <div className="hl-container relative">
+                        <h3 className="hl-title">DevOps Topics ({currentData.devopsItems.length})</h3>
+                        <div className="hl-content">
+                            <ul className="space-y-4">
+                                {currentData.devopsItems.map((item, idx) => (
+                                    <li key={idx} className="p-3 hover:bg-gray-800 rounded-lg transition-colors">
+                                        <div>
+                                            <div className="flex justify-between items-center">
+                                                <h4 className="text-orange-400 text-lg font-bold">{item.title}</h4>
+                                                <p className="text-orange-400 text-sm">{item.date}</p>
+                                            </div>
+                                            <p className="text-gray-300 mb-2">{item.info}</p>
+                                            {item.skills && item.skills.length > 0 && (
+                                                <div className="flex flex-wrap gap-2">
+                                                    {item.skills.map((skill, skillIdx) => (
+                                                        <span
+                                                            key={skillIdx}
+                                                            className="bg-gray-700 text-gray-200 px-2 py-1 rounded text-xs"
+                                                        >
+                                                        {skill}
+                                                    </span>
+                                                    ))}
+                                                </div>
+                                            )}
+                                        </div>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
                     </div>
                 );
             case "Skills":

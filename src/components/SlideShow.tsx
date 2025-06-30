@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { ImageLightbox } from './ImageLightbox';
+import ImageLightbox from './ImageLightbox';
 
 type SlideshowProps = {
     images: string[];

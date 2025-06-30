@@ -21,12 +21,21 @@ export type Book = {
     imagePath: string;
 };
 
+export type DevOpsItem = {
+    title: string;
+    date: string;
+    info: string;
+    skills?: string[];
+};
+
 export type TabData = {
     experience?: Experience[];
     projects?: Project[];
     skills?: Skill[];
     books?: Book[];
+    devopsItems?: DevOpsItem[];
 };
+
 
 declare global {
     interface Window {

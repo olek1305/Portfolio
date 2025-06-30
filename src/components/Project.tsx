@@ -1,7 +1,7 @@
 import Image from 'next/image';
-import { Project } from "../types";
+import { Project } from "../lib/types";
 
-export const ProjectComponent = ({ project, onSelect }: {
+const ProjectComponent = ({ project, onSelect }: {
     project: Project;
     onSelect: () => void;
 }) => {
@@ -47,3 +47,5 @@ export const ProjectComponent = ({ project, onSelect }: {
         </div>
     );
 };
+
+export default ProjectComponent;

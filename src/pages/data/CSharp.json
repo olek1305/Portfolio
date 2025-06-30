@@ -1,16 +1,9 @@
 {
-  "experience": [
-    {
-      "title": ".NET Developer",
-      "company": "TEST",
-      "fileName": "1",
-      "skills": ["C#", "ASP.NET"]
-    }
-  ],
+  "experience": [],
   "projects": [
     {
-      "name": "TEST",
-      "skills": ["C#", "SQL Server"]
+      "name": "Currently learning ASP.NET",
+      "skills": ["C#", "ASP.NET", "SQL Server", "Entity Framework"]
     }
   ]
 }

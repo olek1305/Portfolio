@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import Image from 'next/image';
 
-export const ImageLightbox = ({ src, alt, onClose }: {
+const ImageLightbox = ({ src, alt, onClose }: {
     src: string;
     alt: string;
     onClose: () => void
@@ -40,3 +40,5 @@ export const ImageLightbox = ({ src, alt, onClose }: {
         </div>
     );
 };
+
+export default ImageLightbox;
