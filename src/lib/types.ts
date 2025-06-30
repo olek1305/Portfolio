@@ -28,14 +28,19 @@ export type DevOpsItem = {
     skills?: string[];
 };
 
+export interface ToDoItem {
+    title: string;
+    description: string;
+}
+
 export type TabData = {
     experience?: Experience[];
     projects?: Project[];
     skills?: Skill[];
     books?: Book[];
     devopsItems?: DevOpsItem[];
+    todos?: ToDoItem[];
 };
-
 
 declare global {
     interface Window {

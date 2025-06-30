@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { Project } from "../lib/types";
+import { Project } from "@/lib/types";
 
 const ProjectComponent = ({ project, onSelect }: {
     project: Project;

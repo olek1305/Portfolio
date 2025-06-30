@@ -3,29 +3,29 @@ import {MDXProvider} from "@mdx-js/react";
 import Head from "next/head";
 import Image from "next/image";
 
+// Types
+import type { Project, TabData } from '@/lib/types';
+
 // Components
 import SlideShow from "@/components/SlideShow";
 import GitHubStats from '@/components/GitHubStats';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import HalfLifeMenu from '@/components/HalfLifeMenu';
 import TransitionEffect from '@/components/TransitionEffect';
-
-// Data
-import data from "./data/data.json";
-import phpData from './data/PHP.json';
-import csharpData from './data/CSharp.json';
-import devopsData from './data/DevOps.json';
-import skillsData from './data/skills.json';
-import booksData from './data/Books.json';
-
-
-// Types
-import type { Project, TabData } from '@/lib/types';
 import ExperienceComponent from "@/components/Experience";
 import ProjectComponent from "@/components/Project";
 import SkillComponent from "@/components/Skill";
 import BookComponent from "@/components/Book";
 import ImageLightbox from "@/components/ImageLightbox";
+
+
+// Data
+import todoData from './data/ToDo.json';
+import phpData from './data/PHP.json';
+import csharpData from './data/CSharp.json';
+import devopsData from './data/DevOps.json';
+import skillsData from './data/skills.json';
+import booksData from './data/Books.json';
 
 const components = {
     h1: (props: HTMLAttributes<HTMLHeadingElement>): React.ReactElement => (
@@ -130,6 +130,9 @@ export default function Home() {
                 break;
             case "Books":
                 setCurrentData(booksData);
+                break;
+            case "ToDo":
+                setCurrentData(todoData);
                 break;
             default:
                 setCurrentData(phpData);
@@ -344,6 +347,24 @@ export default function Home() {
                         </div>
                     </div>
                 );
+            case "ToDo":
+                return currentData.todos && currentData.todos.length > 0 && (
+                    <div className="hl-container relative">
+                        <h3 className="hl-title">My To-Do Plan ({currentData.todos.length})</h3>
+                        <div className="hl-content">
+                            <ul className="space-y-4">
+                                {currentData.todos.map((item, idx) => (
+                                    <li key={idx} className="p-3 hover:bg-gray-800 rounded-lg transition-colors">
+                                        <div>
+                                            <h4 className="text-orange-400 text-lg font-bold">{item.title}</h4>
+                                            <p className="text-gray-300">{item.description}</p>
+                                        </div>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                );
             default:
                 return null;
         }
@@ -384,7 +405,7 @@ export default function Home() {
                     {/* Half-Life-style Left Menu */}
                     <div className="w-64 bg-[#0a0a0a] border-r-2 border-orange-600 p-4 flex-shrink-0">
                         <HalfLifeMenu
-                            tabs={["Developer PHP", "Developer C#", "DevOps", "Skills", "Books"]}
+                            tabs={["Developer PHP", "Developer C#", "DevOps", "Skills", "Books", "ToDo"]}
                             activeTab={activeTab}
                             onTabChange={(tab) => {
                                 setTabChanged(true);

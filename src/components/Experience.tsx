@@ -1,5 +1,5 @@
 import React from "react";
-import { Experience } from "../lib/types";
+import { Experience } from "@/lib/types";
 
 type ExperienceProps = {
   experience: Experience;
