@@ -15,13 +15,13 @@
     {
       "title": "AbexGuilds",
       "date": "03.2024",
-      "info": "In this project, I was responsible for deploying and maintaining the AbexGuilds system in a production environment, serving over 700 users. The system handled in-game guild management, requiring high availability and performance. I configured the server stack using Laravel, Nginx, MySQL, and Ubuntu, and ensured stable operation under real user load.",
+      "info": "In this project, I was responsible for deploying and maintaining, and updating the AbexGuilds system in a production environment, serving over 700 users. The system handled in-game guild management, requiring high availability and performance. I configured the server stack using Laravel, Nginx, MySQL, and Ubuntu, and ensured stable operation under real user load.",
       "skills": ["Laravel", "Nginx", "MySQL", "Ubuntu", "PHP"]
     },
     {
       "title": "Rezervo",
       "date": "01.2025",
-      "info": "As part of my DevOps responsibilities, I successfully deployed the Rezervo project to a production environment. I containerized the application using Docker and configured a secure VPN connection on a Debian-based server. I also conducted several tests to ensure the system's reliability and performance in the live environment.",
+      "info": "As part of my DevOps responsibilities, I successfully deployed, updated and maintained the Rezervo project to a production environment. I containerized the application using Docker and configured on a Debian-based server. I also conducted several tests to ensure the system's reliability and performance in the live environment.",
       "skills": ["GitHub Actions", "DigitalOcean", "Docker", "PHP", "MySQL" ]
     }
   ]

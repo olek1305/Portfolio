@@ -50,7 +50,7 @@ const components = {
         const {src, alt} = props;
         const imageList = src.includes(",") ? src.split(",") : [src];
         const [lightboxOpen, setLightboxOpen] = useState(false);
-        const [currentImageIndex, setCurrentImageIndex] = useState(0);
+        const [currentImageIndex] = useState(0);
 
         return (
             <>
