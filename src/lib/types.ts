@@ -32,6 +32,23 @@ export interface ToDoItem {
     title: string;
     description: string;
 }
+export interface ExperienceForCV extends Experience {
+    date: string;
+    info: string;
+}
+
+export interface ProjectForCV extends Project {
+    date: string;
+    info: string;
+    fileName?: string;
+}
+
+export interface CVData {
+    experience: ExperienceForCV[];
+    projects: ProjectForCV[];
+    devops: DevOpsItem[];
+    skills: Skill[];
+}
 
 export type TabData = {
     experience?: Experience[];

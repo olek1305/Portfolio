@@ -4,7 +4,7 @@ import Head from "next/head";
 import Image from "next/image";
 
 // Types
-import type { Project, TabData } from '@/lib/types';
+import type {CVData, Project, TabData} from '@/lib/types';
 
 // Components
 import SlideShow from "@/components/SlideShow";
@@ -17,6 +17,7 @@ import ProjectComponent from "@/components/Project";
 import SkillComponent from "@/components/Skill";
 import BookComponent from "@/components/Book";
 import ImageLightbox from "@/components/ImageLightbox";
+import {DownloadCVButton} from "@/components/PDFCV";
 
 
 // Data
@@ -97,6 +98,7 @@ export default function Home() {
     const [isLoading, setIsLoading] = useState(true);
     const [tabChanged, setTabChanged] = useState(false);
     const [currentData, setCurrentData] = useState<TabData>(phpData);
+    const [cvData, setCvData] = useState<CVData | null>(null);
 
     useEffect(() => {
         setIsClient(true);
@@ -370,6 +372,22 @@ export default function Home() {
         }
     };
 
+    useEffect(() => {
+        const fetchCVData = async () => {
+            try {
+                const response = await fetch('/api/generate-cv');
+                if (!response.ok) new Error('Network response was not ok');
+
+                const data: CVData = await response.json();
+                setCvData(data);
+            } catch (error) {
+                console.error('Error fetching CV data:', error);
+            }
+        };
+
+        fetchCVData();
+    }, []);
+
     return (
         <div className="relative">
             {isLoading && (
@@ -486,14 +504,11 @@ export default function Home() {
 
                 {/* Half-Life-style Footer */}
                 <footer className="bg-[#0a0a0a] border-t-2 border-orange-600 py-2 px-6 flex justify-center gap-6 items-center">
-                    <a
-                        href="/cv/aleksander-zak.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-orange-400 hover:text-white text-sm"
-                    >
-                        ▼ Resume
-                    </a>
+                    {cvData ? (
+                        <DownloadCVButton cvData={cvData} />
+                    ) : (
+                        <span className="text-orange-400 text-sm">▼ Przygotowywanie CV...</span>
+                    )}
 
                     <a
                         href="https://github.com/olek1305"

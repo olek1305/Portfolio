@@ -3,34 +3,87 @@
     {
       "title": "Web and Mobile Application Development",
       "company": "TEB Edukacja",
-      "fileName": "general-teb"
+      "fileName": "general-teb",
+      "info": "General course covering web and mobile app development. Topics included HTML, CSS, JavaScript, PHP, SQL, Java, and mobile programming fundamentals.",
+      "date": "10.2022 - 06.2023"
     },
     {
       "title": "Fullstack Laravel 10 + Vue.js 3 (2023) - Build APIs and SPAs",
       "company": "Udemy",
-      "fileName": "fullstack-laravel-vue"
-    },
-    {
-      "title": "Master Laravel, Vue 3 & Inertia Full Stack",
-      "company": "Udemy",
-      "fileName": "master-laravel-vue-inertia"
+      "fileName": "fullstack-laravel-vue",
+      "info": "Focused on building a full-stack application using Laravel, Vue 3, and Inertia.js. Covered advanced routing, SPA structure, component-based architecture, and real-world implementation.",
+      "date": "10.2022 - 06.2023"
     },
     {
       "title": "Python",
       "company": "TEB Edukacja",
-      "fileName": "python-teb"
+      "fileName": "python-teb",
+      "info": "Introductory course in Python programming",
+      "date": "23.10.2023 - 21.06.2024"
+    },
+    {
+      "title": "Master Laravel, Vue 3 & Inertia Full Stack",
+      "company": "Udemy",
+      "fileName": "master-laravel-vue-inertia",
+      "info": "Practical course focused on building full-stack applications using Laravel 10, Vue.js 3, RESTful APIs, and Single Page Applications (SPA). Covered frontend/backend integration, authentication, and modern Laravel practices",
+      "date": "01.2024 - 02.2024"
     }
   ],
 
   "projects": [
-    { "name": "SimpleStore", "skills": ["PHP", "Laravel", "Bootstrap", "JavaScript", "MySQL"] },
-    { "name": "Laravel-qa", "skills": ["PHP", "Vue.js", "Laravel", "Bootstrap", "JavaScript", "JQuery"] },
-    { "name": "larazillow", "skills": ["PHP", "Vue.js", "Laravel", "Tailwind", "JavaScript", "Inertia.js", "Docker", "MySQL"] },
-    { "name": "AbexGuilds", "skills": ["PHP", "Vue.js", "Laravel", "Tailwind", "JavaScript", "Inertia.js", "MySQL"] },
-    { "name": "Freshly-Ecommerce", "skills": ["PHP", "Laravel", "Bootstrap", "JavaScript", "YajraBox", "Docker", "MySQL"] },
-    { "name": "LessonRabbitMQRedis", "skills": ["PHP", "Laravel", "Tailwind", "JavaScript", "Docker", "React", "Next.js", "RabbitMQ", "Redis", "MySQL", "CI/CD"] },
-    { "name": "Portfolio", "skills": ["Typescript", "React", "Next.js", "CI/CD"] },
-    { "name": "Rezervo", "skills": ["PHP", "Vue.js", "Laravel", "Tailwind", "JavaScript", "Inertia.js", "MySQL", "Docker", "Redis", "CI/CD", "Pest"] },
-    { "name": "Pizzox", "skills": ["PHP", "Symfony", "JavaScript", "Vue.js", "CI/CD", "Tailwind", "MongoDB", "Stripe", "Mapbox"] }
+    {
+      "name": "SimpleStore",
+      "skills": ["PHP", "Laravel", "Bootstrap", "JavaScript", "MySQL"],
+      "date": "05.2023",
+      "info": "My first Laravel project."
+    },
+    {
+      "name": "Laravel-qa",
+      "skills": ["PHP", "Vue.js", "Laravel", "Bootstrap", "JavaScript", "JQuery"],
+      "date": "01.2024",
+      "info": "Completed from a Udemy course; upgraded to a newer Laravel version."
+    },
+    {
+      "name": "larazillow",
+      "skills": ["PHP", "Vue.js", "Laravel", "Tailwind", "JavaScript", "Inertia.js", "Docker", "MySQL"],
+      "date": "02.2024",
+      "info": "App for listing apartments with email and notification features."
+    },
+    {
+      "name": "AbexGuilds",
+      "skills": ["PHP", "Vue.js", "Laravel", "Tailwind", "JavaScript", "Inertia.js", "MySQL"],
+      "date": "04.2024",
+      "info": "AFK Arena guild manager with player tracking and activity logs."
+    },
+    {
+      "name": "Freshly-Ecommerce",
+      "skills": ["PHP", "Laravel", "Bootstrap", "JavaScript", "YajraBox", "Docker", "MySQL"],
+      "date": "10.2024",
+      "info": "Basic e-commerce site, similar to Amazon."
+    },
+    {
+      "name": "LessonRabbitMQRedis",
+      "skills": ["PHP", "Laravel", "Tailwind", "JavaScript", "Docker", "React", "Next.js", "RabbitMQ", "Redis", "MySQL", "CI/CD"],
+      "date": "12.2024",
+      "info": "Practice project using RabbitMQ and Redis."
+    },
+    {
+      "name": "Portfolio",
+      "skills": ["Typescript", "React", "Next.js", "CI/CD"],
+      "date": "Ongoing",
+      "info": "My personal portfolio website."
+    },
+    {
+      "name": "Rezervo",
+      "skills": ["PHP", "Vue.js", "Laravel", "Tailwind", "JavaScript", "Inertia.js", "MySQL", "Docker", "Redis", "CI/CD", "Pest"],
+      "date": "01.2025",
+      "info": "Doctor booking app with 3 roles, i18n, dark mode, and testing."
+    },
+    {
+      "name": "Pizzox",
+      "skills": ["PHP", "Symfony", "JavaScript", "Vue.js", "CI/CD", "Tailwind", "MongoDB", "Stripe", "Mapbox"],
+      "date": "Ongoing",
+      "info": "Pizza ordering app with Stripe payments and map integration."
+    }
   ]
 }
