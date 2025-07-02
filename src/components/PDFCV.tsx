@@ -97,7 +97,7 @@ interface PDFCVProps {
 const PDFCV: React.FC<PDFCVProps> = ({ cvData }) => (
     <Document>
         <Page size="A4" style={styles.page}>
-            <Text style={styles.header}>ALEKSANDER ZAK</Text>
+            <Text style={styles.header}>ALEKSANDER ZAK, BYDGOSZCZ POLAND</Text>
             <Text style={styles.header}>
                 PHP Developer | DevOps
             </Text>
