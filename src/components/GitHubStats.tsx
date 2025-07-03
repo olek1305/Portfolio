@@ -64,7 +64,6 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, onClose, className 
     localStorage.setItem(CACHE_KEY, JSON.stringify(cacheData));
   }, [CACHE_KEY]);
 
-
   const loadFromCache = useCallback((): GitHubStats | null => {
     const cached = localStorage.getItem(CACHE_KEY);
     if (!cached) return null;
@@ -277,51 +276,54 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, onClose, className 
         )}
 
         {stats.user && (
-            <div className="p-4 h-full overflow-visible">
-              {/* User Profile Header */}
-              <div className="flex items-center mb-4">
-                <div className="relative mr-4">
+            <div className="p-4 h-full overflow-auto">
+              {/* User Profile Header - Mobile optimized */}
+              <div className="flex flex-col sm:flex-row items-center mb-4">
+                <div className="relative mb-4 sm:mb-0 sm:mr-4">
                   <Image
                       src={stats.user.avatar_url}
                       alt={`${stats.user.name}'s GitHub avatar`}
-                      width={64}
-                      height={64}
+                      width={80}
+                      height={80}
                       className="rounded-full border-2 border-orange-400"
                       unoptimized={true}
                   />
-                  <div className="absolute bottom-0 right-0 bg-green-400 rounded-full h-3 w-3 border-2 border-[#0a0a0a]"></div>
+                  <div className="absolute bottom-0 right-0 bg-green-400 rounded-full h-4 w-4 border-2 border-[#0a0a0a]"></div>
                 </div>
-                <div>
+                <div className="text-center sm:text-left">
                   <h2 className="text-xl font-bold text-orange-400">{stats.user.name || stats.user.login}</h2>
-                  <a href={stats.user.html_url} target="_blank" rel="noopener noreferrer" className="text-orange-400 hover:underline text-sm flex items-center">
+                  <a href={stats.user.html_url} target="_blank" rel="noopener noreferrer" className="text-orange-400 hover:underline text-sm flex items-center justify-center sm:justify-start">
                     <span>@{stats.user.login}</span>
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                     </svg>
                   </a>
+                  {stats.user.bio && (
+                      <p className="text-gray-400 text-sm mt-2 max-w-md">{stats.user.bio}</p>
+                  )}
                 </div>
               </div>
 
-              {/* Tabs Navigation */}
-              <div className="flex border-b border-orange-600/30 mb-4">
+              {/* Tabs Navigation - Mobile optimized */}
+              <div className="flex border-b border-orange-600/30 mb-4 overflow-x-auto">
                 <button
-                    className={`px-4 py-2 font-hl ${activeTab === 'overview' ? 'text-orange-400 border-b-2 border-orange-400' : 'text-gray-400 hover:text-orange-400'}`}
+                    className={`px-4 py-2 font-hl whitespace-nowrap ${activeTab === 'overview' ? 'text-orange-400 border-b-2 border-orange-400' : 'text-gray-400 hover:text-orange-400'}`}
                     onClick={() => setActiveTab('overview')}
                 >
                   Overview
                 </button>
                 <button
-                    className={`px-4 py-2 font-hl ${activeTab === 'repos' ? 'text-orange-400 border-b-2 border-orange-400' : 'text-gray-400 hover:text-orange-400'}`}
+                    className={`px-4 py-2 font-hl whitespace-nowrap ${activeTab === 'repos' ? 'text-orange-400 border-b-2 border-orange-400' : 'text-gray-400 hover:text-orange-400'}`}
                     onClick={() => setActiveTab('repos')}
                 >
                   Repositories ({stats.repositories.length})
                 </button>
               </div>
 
-              {/* Overview Tab Content */}
+              {/* Overview Tab Content - Mobile optimized */}
               {activeTab === 'overview' && (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 overview-tab" style={{ overflow: 'hidden' }}>
-                    {/* Stats Cards */}
+                  <div className="grid grid-cols-1 gap-4 overview-tab">
+                    {/* Stats Cards - Mobile optimized */}
                     <div className="bg-[#0a0a0a] p-4 rounded-lg border border-orange-600/30">
                       <h3 className="text-orange-400 text-lg mb-3 font-hl">Activity Summary</h3>
                       <div className="grid grid-cols-2 gap-3">
@@ -375,24 +377,24 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, onClose, className 
                   </div>
               )}
 
-              {/* Repositories Tab Content */}
+              {/* Repositories Tab Content - Mobile optimized */}
               {activeTab === 'repos' && (
-                  <div className="space-y-4 pr-2 repos-tab" style={{ overflow: 'hidden' }}>
-                    {stats.repositories.slice(0, 2).map((repo) => (
+                  <div className="space-y-4 repos-tab">
+                    {stats.repositories.slice(0, 5).map((repo) => (
                         <div key={repo.id} className="bg-[#0a0a0a] p-4 rounded-lg border border-orange-600/30 hover:bg-[#0f0f0f] transition duration-200">
-                          <div className="flex justify-between items-start">
+                          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start">
                             <a
                                 href={repo.html_url}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-orange-400 hover:underline font-medium flex items-center font-hl"
+                                className="text-orange-400 hover:underline font-medium flex items-center font-hl mb-2 sm:mb-0"
                             >
                               {repo.name}
                               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                               </svg>
                             </a>
-                            <div className="flex space-x-2 text-sm">
+                            <div className="flex space-x-3 text-sm">
                       <span className="flex items-center text-orange-400">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="currentColor" viewBox="0 0 24 24">
                           <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
@@ -408,13 +410,13 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, onClose, className 
                             </div>
                           </div>
                           <p className="text-gray-400 text-sm mt-2 font-hl">{repo.description || 'No description'}</p>
-                          <div className="flex justify-between mt-3 text-xs text-gray-500 font-hl">
-                            <div>{repo.language}</div>
+                          <div className="flex flex-col sm:flex-row sm:justify-between mt-3 text-xs text-gray-500 font-hl">
+                            <div className="mb-1 sm:mb-0">{repo.language || 'Unknown'}</div>
                             <div>Updated: {new Date(repo.updated_at).toLocaleDateString()}</div>
                           </div>
                         </div>
                     ))}
-                    {stats.repositories.length > 1 && (
+                    {stats.repositories.length > 5 && (
                         <div className="text-center">
                           <a
                               href={`https://github.com/${username}?tab=repositories`}

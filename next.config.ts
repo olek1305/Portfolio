@@ -9,7 +9,6 @@ const nextConfig: NextConfig = {
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
   reactStrictMode: true,
   images: {
-    domains: ['avatars.githubusercontent.com'],
     remotePatterns: [
       {
         protocol: 'https',
