@@ -134,8 +134,9 @@ export default function Home() {
 
     useEffect(() => {
         if (isMobile) {
-            setShowGitHubStats(false);
+            setShowGitHubStats(true);
             setShowMain(true);
+            setActiveTab("GitHub Stats");
         }
     }, [isMobile]);
 
