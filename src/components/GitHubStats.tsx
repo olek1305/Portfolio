@@ -200,7 +200,7 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, onClose, className 
   if (stats.loading) {
     return (
         <div className={`hl-container h-full text-center animate-pulse ${className}`}>
-          <h3 className="hl-title">GitHub Stats</h3>
+          <h3 className="hl-title pulse-glow">GitHub Stats</h3>
           <div className="h-full flex items-center justify-center">
             <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-orange-400 border-r-transparent">
               <span className="sr-only">Loading...</span>
@@ -255,14 +255,14 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, onClose, className 
             )}
           </div>
 
-          <h3 className="hl-title">GitHub Stats</h3>
+          <h3 className="hl-title pulse-glow">GitHub Stats</h3>
         </div>
     );
   }
 
   return (
       <div className={`hl-container relative h-full ${className}`}>
-        <h3 className="hl-title">GitHub Stats</h3>
+        <h3 className="hl-title pulse-glow">GitHub Stats</h3>
         {onClose && (
             <button
                 onClick={onClose}
@@ -291,7 +291,12 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, onClose, className 
                   <div className="absolute bottom-0 right-0 bg-green-400 rounded-full h-4 w-4 border-2 border-[#0a0a0a]"></div>
                 </div>
                 <div className="text-center sm:text-left">
-                  <h2 className="text-xl font-bold text-orange-400">{stats.user.name || stats.user.login}</h2>
+                  <h2
+                      className="text-xl font-bold glitch-text active-glitch"
+                      data-text={stats.user.name || stats.user.login}
+                  >
+                    {stats.user.name || stats.user.login}
+                  </h2>
                   <a href={stats.user.html_url} target="_blank" rel="noopener noreferrer" className="text-orange-400 hover:underline text-sm flex items-center justify-center sm:justify-start">
                     <span>@{stats.user.login}</span>
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">

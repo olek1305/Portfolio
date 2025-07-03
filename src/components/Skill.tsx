@@ -57,19 +57,16 @@ const SkillComponent: React.FC<SkillProps> = ({
                         height={iconOnly ? 48 : 40}
                         quality={100}
                         className="object-contain mx-auto"
-                        style={{
-                            filter: 'invert(0.9)'
-                        }}
                         onError={() => setIconExists(false)}
                     />
                 ) : (
                     <div className="w-full h-full flex items-center justify-center bg-orange-600/20 rounded">
-                        <span className="text-xs text-orange-400">{skill.name.charAt(0)}</span>
+                        <span className="text-xs text-orange-400 ">{skill.name.charAt(0)}</span>
                     </div>
                 )}
             </div>
             {!iconOnly && (
-                <span className={`text-orange-400 text-sm font-hl ${
+                <span className={`text-orange-400 text-sm font-hl glitch-text ${
                     hasDetails ? 'group-hover:text-white' : ''
                 } transition-colors`}>
                     {skill.name}

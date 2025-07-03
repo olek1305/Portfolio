@@ -29,19 +29,19 @@ import booksData from './data/Books.json';
 
 const components = {
     h1: (props: HTMLAttributes<HTMLHeadingElement>) => (
-        <h1 className="text-orange-400 text-2xl font-hl" {...props} />
+        <h1 className="glitch-text active-glitch text-2xl font-hl" {...props} />
     ),
     p: (props: HTMLAttributes<HTMLParagraphElement>) => (
-        <p className="text-gray-200 text-lg font-hl" {...props} />
+        <p className="text-orange-100 text-lg font-hl" {...props} />
     ),
     ul: (props: HTMLAttributes<HTMLUListElement>) => (
-        <ul className="text-gray-200 list-disc pl-5 text-lg font-hl" {...props} />
+        <ul className="text-orange-100 list-disc pl-5 text-lg font-hl" {...props} />
     ),
     strong: (props: HTMLAttributes<HTMLElement>) => (
-        <strong className="text-orange-400 font-bold text-lg font-hl" {...props} />
+        <strong className="glitch-text active-glitch font-bold text-lg font-hl" {...props} />
     ),
     a: (props: HTMLAttributes<HTMLAnchorElement>) => (
-        <a className="text-orange-400 hover:text-white hover:cursor-pointer font-hl" {...props} />
+        <a className="glitch-text active-glitch hover:text-white hover:cursor-pointer font-hl" {...props} />
     ),
     img: ((props: ImgHTMLAttributes<HTMLImageElement> & { src: string }) => {
         const { src, alt } = props;
@@ -99,7 +99,6 @@ const useIsMobile = () => {
 
 export default function Home() {
     const [MdxComponent, setMdxComponent] = useState<React.FC | null>(null);
-    const [showCopiedMessage, setShowCopiedMessage] = useState(false);
     const [isClient, setIsClient] = useState(false);
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
     const [showGitHubStats, setShowGitHubStats] = useState(true);
@@ -257,13 +256,6 @@ export default function Home() {
         setTimeout(() => setTabChanged(false), 300);
     };
 
-    const handleCopyEmail = () => {
-        navigator.clipboard.writeText("olek1305@gmail.com").then(() => {
-            setShowCopiedMessage(true);
-            setTimeout(() => setShowCopiedMessage(false), 2000);
-        });
-    };
-
     const handleProjectSelect = (project: Project) => {
         setSelectedProject(project);
         setShowGitHubStats(false);
@@ -280,7 +272,7 @@ export default function Home() {
                     <div className="space-y-4">
                         {currentData.experience && currentData.experience.length > 0 && (
                             <div className="hl-container relative">
-                                <h3 className="hl-title">
+                                <h3 className="hl-title pulse-glow">
                                     {tab} Experience ({currentData.experience.length})
                                 </h3>
                                 <div className="hl-content">
@@ -307,7 +299,7 @@ export default function Home() {
 
                         {currentData.projects && currentData.projects.length > 0 && (
                             <div className="hl-container relative">
-                                <h3 className="hl-title">
+                                <h3 className="hl-title pulse-glow">
                                     {tab} Projects ({currentData.projects.length})
                                 </h3>
                                 <div className="hl-content">
@@ -329,23 +321,23 @@ export default function Home() {
             case "DevOps":
                 return currentData.devopsItems && currentData.devopsItems.length > 0 && (
                     <div className="hl-container relative">
-                        <h3 className="hl-title">DevOps Topics ({currentData.devopsItems.length})</h3>
+                        <h3 className="hl-title pulse-glow">DevOps Topics ({currentData.devopsItems.length})</h3>
                         <div className="hl-content">
                             <ul className="space-y-4">
                                 {currentData.devopsItems.map((item, idx) => (
                                     <li key={idx} className="p-3 hover:bg-gray-800 rounded-lg transition-colors">
                                         <div>
                                             <div className="flex justify-between items-center">
-                                                <h4 className="text-orange-400 text-lg font-bold">{item.title}</h4>
-                                                <p className="text-orange-400 text-sm">{item.date}</p>
+                                                <h4 className="text-orange-400 text-lg font-bold glitch-text">{item.title}</h4>
+                                                <p className="text-orange-400 text-sm glitch-text">{item.date}</p>
                                             </div>
-                                            <p className="text-gray-300 mb-2">{item.info}</p>
+                                            <p className="mb-2 text-orange-100">{item.info}</p>
                                             {item.skills && item.skills.length > 0 && (
                                                 <div className="flex flex-wrap gap-2">
                                                     {item.skills.map((skill, skillIdx) => (
                                                         <span
                                                             key={skillIdx}
-                                                            className="bg-gray-700 text-gray-200 px-2 py-1 rounded text-xs"
+                                                            className="text-xs bg-orange-600/20 text-orange-400 px-2 py-0.5 rounded glitch-text"
                                                         >
                                                             {skill}
                                                         </span>
@@ -362,7 +354,7 @@ export default function Home() {
             case "Skills":
                 return currentData.skills && currentData.skills.length > 0 && (
                     <div className="hl-container relative">
-                        <h3 className="hl-title">Skills ({currentData.skills.length})</h3>
+                        <h3 className="hl-title pulse-glow">Skills ({currentData.skills.length})</h3>
                         <div className="hl-content">
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-2 p-2">
                                 {currentData.skills.map((skill, idx) => (
@@ -381,7 +373,7 @@ export default function Home() {
             case "Books":
                 return currentData.books && currentData.books.length > 0 && (
                     <div className="hl-container relative">
-                        <h3 className="hl-title">Books ({currentData.books.length})</h3>
+                        <h3 className="hl-title pulse-glow">Books ({currentData.books.length})</h3>
                         <div className="hl-content p-4">
                             <BookComponent books={currentData.books} />
                         </div>
@@ -390,14 +382,14 @@ export default function Home() {
             case "ToDo":
                 return currentData.todos && currentData.todos.length > 0 && (
                     <div className="hl-container relative">
-                        <h3 className="hl-title">My To-Do Plan ({currentData.todos.length})</h3>
+                        <h3 className="hl-title pulse-glow">My To-Do Plan ({currentData.todos.length})</h3>
                         <div className="hl-content">
                             <ul className="space-y-4">
                                 {currentData.todos.map((item, idx) => (
                                     <li key={idx} className="p-3 hover:bg-gray-800 rounded-lg transition-colors">
                                         <div>
-                                            <h4 className="text-orange-400 text-lg font-bold">{item.title}</h4>
-                                            <p className="text-gray-300">{item.description}</p>
+                                            <h4 className="glitch-text text-lg font-bold">{item.title}</h4>
+                                            <p className="text-orange-400">{item.description}</p>
                                         </div>
                                     </li>
                                 ))}
@@ -411,7 +403,7 @@ export default function Home() {
     };
 
     return (
-        <div className="relative">
+        <div className="relative ">
             {/* Loading screen */}
             {isLoading && (
                 <div className="loading-screen">
@@ -431,7 +423,8 @@ export default function Home() {
                 {isMobile && (
                     <header className="bg-[#0a0a0a] border-b-2 border-orange-600 py-3 px-6 flex justify-between items-center">
                         <div
-                            className="text-orange-400 text-xl cursor-pointer hover:text-white"
+                            className="text-orange-400 text-xl cursor-pointer hover:text-white glitch-text active-glitch"
+                            data-text="Aleksander Żak"
                             onClick={() => handleMobileTabChange("Developer PHP")}
                         >
                             Aleksander Żak
@@ -463,16 +456,18 @@ export default function Home() {
                 {!isMobile && (
                     <header className="bg-[#0a0a0a] border-b-2 border-orange-600 py-3 px-6">
                         <div
-                            className="text-orange-400 text-2xl cursor-pointer hover:text-white"
+                            className="text-orange-400 text-2xl cursor-pointer hover:text-white glitch-text active-glitch"
+                            data-text="Aleksander Żak, PHP & DevOps"
                             onClick={() => {
                                 setShowMain(false);
                                 setShowGitHubStats(true);
                                 setActiveTab("Developer PHP");
                             }}
                         >
-                            Aleksander Żak, PHP <span className={"text-gray-200"}>&</span> DevOps
+                            Aleksander Żak, PHP <span className="text-gray-200">&</span> DevOps
                             <p className="text-gray-400 text-sm">Bydgoszcz, Poland</p>
                         </div>
+
                     </header>
                 )}
 

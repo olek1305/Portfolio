@@ -13,34 +13,45 @@ const HalfLifeMenu: React.FC<HalfLifeMenuProps> = ({
                                                        activeTab,
                                                        onTabChange,
                                                        githubOpen,
-                                                       onToggleGithub
+                                                       onToggleGithub,
                                                    }) => {
     return (
-        <div className="space-y-2">
-            {tabs.map((tab) => (
-                <div
-                    key={tab}
-                    className={`p-3 text-lg cursor-pointer transition-all duration-200 border-l-4 ${
-                        activeTab === tab
-                            ? "bg-orange-600/30 text-white font-bold border-orange-400"
-                            : "text-orange-400 hover:bg-orange-600/10 hover:text-white border-transparent"
-                    }`}
-                    onClick={() => onTabChange(tab)}
-                >
-                    {tab}
-                </div>
-            ))}
+        <div className="relative w-full max-w-xs min-h-[400px] p-6 bg-transparent text-[#ff9900] tracking-widest select-none overflow-hidden ">
 
-            <div
-                className={`p-3 text-lg cursor-pointer transition-all duration-200 border-l-4 ${
-                    githubOpen
-                        ? "bg-orange-600/30 text-white font-bold border-orange-400"
-                        : "text-orange-400 hover:bg-orange-600/10 hover:text-white border-transparent"
-                }`}
-                onClick={onToggleGithub}
-            >
-                {githubOpen ? "▼ GitHub Stats" : "▲ GitHub Stats"}
-            </div>
+            {/* Menu items */}
+            <nav className="relative z-10 flex flex-col gap-5">
+                {tabs.map((tab) => (
+                    <button
+                        key={tab}
+                        onClick={() => onTabChange(tab)}
+                        className={`relative text-2xl transition-all duration-300 ease-in-out
+              ${
+                            activeTab === tab
+                                ? "text-[#ffbb33] glitch-text active-glitch"
+                                : "hover:text-[#ffcc55] hover:glitch-text"
+                        }
+              focus:outline-none`}
+                    >
+                        {tab}
+                        {activeTab === tab && (
+                            <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-[#ffbb33] animate-pulse"></span>
+                        )}
+                    </button>
+                ))}
+
+                <button
+                    onClick={onToggleGithub}
+                    className={`relative text-xl transition-all duration-300 ease-in-out mt-4
+            ${
+                        githubOpen
+                            ? "text-[#ffbb33] glitch-text active-glitch"
+                            : "hover:text-[#ffcc55] hover:glitch-text"
+                    }
+            focus:outline-none`}
+                >
+                    {githubOpen ? "▼ GitHub Stats" : "▲ GitHub Stats"}
+                </button>
+            </nav>
         </div>
     );
 };

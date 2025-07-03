@@ -31,14 +31,14 @@ const ProjectComponent = ({ project, onSelect }: {
                     alt={project.name}
                     width={40}
                     height={40}
-                    className="object-contain tech-icon hover:scale-110 transition-transform"
+                    className="object-contain hover:scale-110 transition-transform"
                 />
             </div>
             <div className="flex-1 min-w-0">
-                <h4 className="text-orange-400 truncate">{project.name}</h4>
+                <h4 className="glitch-text">{project.name}</h4>
                 <div className="flex flex-wrap gap-1 mt-1">
                     {project.skills.map((skill, index) => (
-                        <span key={index} className="text-xs bg-orange-600/20 text-orange-400 px-2 py-0.5 rounded">
+                        <span key={index} className="text-xs bg-orange-600/20 px-2 py-0.5 rounded glitch-text">
                             {skill}
                         </span>
                     ))}
