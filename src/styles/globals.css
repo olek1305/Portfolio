@@ -209,3 +209,16 @@ body {
   filter: invert(1);
   transition: all 0.3s ease;
 }
+
+@keyframes hlFadePulse {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.hl-fade-pulse {
+  animation: hlFadePulse 10s ease-in-out infinite;
+}

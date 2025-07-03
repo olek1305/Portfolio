@@ -1,4 +1,4 @@
-import React, { ImgHTMLAttributes, HTMLAttributes, useState, useEffect } from "react";
+import React, {ImgHTMLAttributes, HTMLAttributes, useState, useEffect, useCallback} from "react";
 import { MDXProvider } from "@mdx-js/react";
 import Head from "next/head";
 import Image from "next/image";
@@ -12,13 +12,12 @@ import GitHubStats from '@/components/GitHubStats';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import HalfLifeMenu from '@/components/HalfLifeMenu';
 import MobileHalfLifeMenu from '@/components/MobileHalfLifeMenu';
-import TransitionEffect from '@/components/TransitionEffect';
 import ExperienceComponent from "@/components/Experience";
 import ProjectComponent from "@/components/Project";
 import SkillComponent from "@/components/Skill";
 import BookComponent from "@/components/Book";
 import ImageLightbox from "@/components/ImageLightbox";
-import { DownloadCVButton } from "@/components/PDFCV";
+import Footer from "@/components/Footer";
 
 // Data
 import todoData from './data/ToDo.json';
@@ -29,25 +28,22 @@ import skillsData from './data/Skills.json';
 import booksData from './data/Books.json';
 
 const components = {
-    h1: (props: HTMLAttributes<HTMLHeadingElement>): React.ReactElement => (
+    h1: (props: HTMLAttributes<HTMLHeadingElement>) => (
         <h1 className="text-orange-400 text-2xl font-hl" {...props} />
     ),
-    p: (props: HTMLAttributes<HTMLParagraphElement>): React.ReactElement => (
+    p: (props: HTMLAttributes<HTMLParagraphElement>) => (
         <p className="text-gray-200 text-lg font-hl" {...props} />
     ),
-    ul: (props: HTMLAttributes<HTMLUListElement>): React.ReactElement => (
+    ul: (props: HTMLAttributes<HTMLUListElement>) => (
         <ul className="text-gray-200 list-disc pl-5 text-lg font-hl" {...props} />
     ),
-    strong: (props: HTMLAttributes<HTMLElement>): React.ReactElement => (
+    strong: (props: HTMLAttributes<HTMLElement>) => (
         <strong className="text-orange-400 font-bold text-lg font-hl" {...props} />
     ),
-    a: (props: HTMLAttributes<HTMLAnchorElement>): React.ReactElement => (
-        <a
-            className="text-orange-400 hover:text-white hover:cursor-pointer font-hl"
-            {...props}
-        />
+    a: (props: HTMLAttributes<HTMLAnchorElement>) => (
+        <a className="text-orange-400 hover:text-white hover:cursor-pointer font-hl" {...props} />
     ),
-    img: ((props: ImgHTMLAttributes<HTMLImageElement> & { src: string }): React.ReactElement => {
+    img: ((props: ImgHTMLAttributes<HTMLImageElement> & { src: string }) => {
         const { src, alt } = props;
         const imageList = src.includes(",") ? src.split(",") : [src];
         const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -62,7 +58,6 @@ const components = {
                         onClose={() => setLightboxOpen(false)}
                     />
                 )}
-
                 {imageList.length > 1 ? (
                     <SlideShow images={imageList} altText={alt || "Slideshow images"} />
                 ) : (
@@ -91,10 +86,9 @@ const useIsMobile = () => {
     const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
-        const checkIfMobile = () => {
-            setIsMobile(window.innerWidth <= 768);
-        };
+        const checkIfMobile = () => setIsMobile(window.innerWidth <= 768);
 
+        // Initial check and event listener setup
         checkIfMobile();
         window.addEventListener('resize', checkIfMobile);
         return () => window.removeEventListener('resize', checkIfMobile);
@@ -118,28 +112,16 @@ export default function Home() {
     const [menuOpen, setMenuOpen] = useState(false);
     const isMobile = useIsMobile();
 
-    useEffect(() => {
-        setIsClient(true);
-        const timer = setTimeout(() => {
-            handleSelectMarkdown("home", "home").then(() => { });
-        }, 900);
-
-        return () => clearTimeout(timer);
-    }, []);
-
-    useEffect(() => {
-        const timer = setTimeout(() => setIsLoading(false), 1500);
-        return () => clearTimeout(timer);
-    }, []);
-
+    // Handle mobile-specific settings
     useEffect(() => {
         if (isMobile) {
             setShowGitHubStats(true);
-            setShowMain(true);
+            setShowMain(false);
             setActiveTab("GitHub Stats");
         }
     }, [isMobile]);
 
+    // Handle tab changes and data updates
     useEffect(() => {
         switch (activeTab) {
             case "Developer PHP":
@@ -169,64 +151,83 @@ export default function Home() {
         }
     }, [activeTab]);
 
-    const handleSelectMarkdown = async (
-        category: string,
-        name: string,
-        fileName?: string,
-        tab?: string
-    ) => {
-        if (category !== "projects" && category !== "devops") {
-            setSelectedProject(null);
-        }
+    /**
+     * Handles loading markdown content based on category and name
+     */
+    const handleSelectMarkdown = useCallback(
+        async (category: string, name: string, fileName?: string, tab?: string) => {
+            if (category !== "projects" && category !== "devops") {
+                setSelectedProject(null);
+            }
 
-        if (category === "skills") {
-            const skillFileName = fileName || name.toLowerCase().replace(/\s+/g, "-");
-            const markdownFile = `skills/${skillFileName}.mdx`;
+            // Handle skills category separately
+            if (category === "skills") {
+                const skillFileName = fileName || name.toLowerCase().replace(/\s+/g, "-");
+                return loadMarkdownFile(`skills/${skillFileName}.mdx`);
+            }
 
-            try {
-                const MdxModule = await import(`./data/markdown/${markdownFile}`);
-                setMdxComponent(() => MdxModule.default);
-                return;
-            } catch (error) {
-                console.error("Skill MDX file not found:", markdownFile, error);
-                try {
-                    const ErrorMdxModule = await import(`./data/markdown/error.mdx`);
-                    setMdxComponent(() => ErrorMdxModule.default);
-                } catch (error) {
-                    console.error("Error file not found:", error);
-                    setMdxComponent(null);
-                }
+            // Handle home screen
+            if (category === "home" && name === "home") {
+                setShowGitHubStats(true);
+                setShowMain(false);
                 return;
             }
-        }
 
-        if (category === "home" && name === "home") {
-            setShowGitHubStats(true);
-            setShowMain(false);
-            return;
-        } else {
             setShowGitHubStats(false);
             setShowMain(true);
-        }
 
-        let subcategory = '';
-        if (tab) {
-            if (tab.includes("PHP")) subcategory = 'php';
-            else if (tab.includes("C#")) subcategory = 'csharp';
-            else if (tab.includes("DevOps")) subcategory = 'devops';
-        }
+            // Determine subcategory based on tab
+            let subcategory = '';
+            if (tab) {
+                if (tab.includes("PHP")) subcategory = 'php';
+                else if (tab.includes("C#")) subcategory = 'csharp';
+                else if (tab.includes("DevOps")) subcategory = 'devops';
+            }
 
-        const basePath = subcategory
-            ? `${category}/${subcategory}/${fileName || name.toLowerCase().replace(/\s+/g, "-")}`
-            : `${category}/${fileName || name.toLowerCase().replace(/\s+/g, "-")}`;
+            const basePath = subcategory
+                ? `${category}/${subcategory}/${fileName || name.toLowerCase().replace(/\s+/g, "-")}`
+                : `${category}/${fileName || name.toLowerCase().replace(/\s+/g, "-")}`;
 
-        const markdownFile = `${basePath}.mdx`;
+            return loadMarkdownFile(`${basePath}.mdx`);
+        },
+        []
+    );
 
+    useEffect(() => {
+        // Initialize client-side and load initial content
+        setIsClient(true);
+
+        const loadInitialData = async () => {
+            await handleSelectMarkdown("home", "home");
+
+            // Fetch CV data
+            try {
+                const response = await fetch('/api/generate-cv');
+                if (!response.ok) new Error('Network response was not ok');
+                setCvData(await response.json());
+            } catch (error) {
+                console.error('Error fetching CV data:', error);
+            }
+        };
+
+        const timer1 = setTimeout(() => loadInitialData(), 900);
+        const timer2 = setTimeout(() => setIsLoading(false), 1500);
+
+        return () => {
+            clearTimeout(timer1);
+            clearTimeout(timer2);
+        };
+    }, [handleSelectMarkdown]);
+
+    /**
+     * Helper function to load markdown files with error handling
+     */
+    const loadMarkdownFile = async (path: string) => {
         try {
-            const MdxModule = await import(`./data/markdown/${markdownFile}`);
+            const MdxModule = await import(`./data/markdown/${path}`);
             setMdxComponent(() => MdxModule.default);
         } catch (error) {
-            console.error("Markdown file not found:", markdownFile, error);
+            console.error("Markdown file not found:", path, error);
             try {
                 const ErrorMdxModule = await import(`./data/markdown/error.mdx`);
                 setMdxComponent(() => ErrorMdxModule.default);
@@ -237,9 +238,8 @@ export default function Home() {
         }
     };
 
-    const toggleMenu = () => {
-        setMenuOpen(!menuOpen);
-    };
+    // UI interaction handlers
+    const toggleMenu = () => setMenuOpen(!menuOpen);
 
     const handleMobileTabChange = (tab: string) => {
         setTabChanged(true);
@@ -258,24 +258,18 @@ export default function Home() {
     };
 
     const handleCopyEmail = () => {
-        const email = "olek1305@gmail.com";
-        navigator.clipboard.writeText(email).then(() => { });
-        setShowCopiedMessage(true);
-        setTimeout(() => setShowCopiedMessage(false), 2000);
+        navigator.clipboard.writeText("olek1305@gmail.com").then(() => {
+            setShowCopiedMessage(true);
+            setTimeout(() => setShowCopiedMessage(false), 2000);
+        });
     };
 
     const handleProjectSelect = (project: Project) => {
         setSelectedProject(project);
         setShowGitHubStats(false);
         setShowMain(true);
-
         handleSelectMarkdown("projects", project.name, undefined, activeTab)
-            .then(() => {
-                console.log(`Project ${project.name} markdown loaded successfully`);
-            })
-            .catch((error) => {
-                console.error(`Error loading project ${project.name} markdown:`, error);
-            });
+            .catch(error => console.error(`Error loading project ${project.name} markdown:`, error));
     };
 
     const renderContentForTab = (tab: string) => {
@@ -416,34 +410,20 @@ export default function Home() {
         }
     };
 
-    useEffect(() => {
-        const fetchCVData = async () => {
-            try {
-                const response = await fetch('/api/generate-cv');
-                if (!response.ok) new Error('Network response was not ok');
-                const data: CVData = await response.json();
-                setCvData(data);
-            } catch (error) {
-                console.error('Error fetching CV data:', error);
-            }
-        };
-        fetchCVData();
-    }, []);
-
     return (
         <div className="relative">
+            {/* Loading screen */}
             {isLoading && (
                 <div className="loading-screen">
                     <div className="loading-bar" />
                 </div>
             )}
+
+            {/* Main app container */}
             <div className="bg-[#1a1a1a] text-gray-300 h-screen flex flex-col overflow-hidden font-hl">
                 <Head>
                     <title>Home - Aleksander Żak | PHP Developer</title>
-                    <meta
-                        name="description"
-                        content="Aleksander Żak's portfolio - PHP Developer based in Bydgoszcz, Poland."
-                    />
+                    <meta name="description" content="Aleksander Żak's portfolio - PHP Developer based in Bydgoszcz, Poland." />
                     <meta name="viewport" content="width=device-width, initial-scale=1" />
                 </Head>
 
@@ -605,37 +585,7 @@ export default function Home() {
                 </div>
 
                 {/* Footer */}
-                <footer className="bg-[#0a0a0a] border-t-2 border-orange-600 py-2 px-6 flex justify-center gap-6 items-center">
-                    {cvData ? (
-                        <DownloadCVButton cvData={cvData} />
-                    ) : (
-                        <span className="text-orange-400 text-sm">▼ Przygotowywanie CV...</span>
-                    )}
-
-                    <a
-                        href="https://github.com/olek1305"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-orange-400 hover:text-white text-sm"
-                    >
-                        ▼ GitHub
-                    </a>
-
-                    <div className="relative h-6 flex items-center">
-                        <button
-                            onClick={handleCopyEmail}
-                            className="text-orange-400 hover:text-white text-sm"
-                        >
-                            ▼ Email
-                        </button>
-                        {showCopiedMessage && (
-                            <div className="ammo-pickup absolute -top-8 left-0 right-0 mx-auto w-fit bg-orange-600 text-black px-2 py-1 rounded-md text-xs">
-                                Copied!
-                            </div>
-                        )}
-                    </div>
-                    <TransitionEffect />
-                </footer>
+                <Footer cvData={cvData} />
             </div>
         </div>
     );
