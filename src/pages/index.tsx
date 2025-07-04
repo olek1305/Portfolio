@@ -2,6 +2,7 @@ import React, {ImgHTMLAttributes, HTMLAttributes, useState, useEffect, useCallba
 import { MDXProvider } from "@mdx-js/react";
 import Head from "next/head";
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 
 // Types
 import type { CVData, Project, TabData } from '@/lib/types';
@@ -18,6 +19,8 @@ import SkillComponent from "@/components/Skill";
 import BookComponent from "@/components/Book";
 import ImageLightbox from "@/components/ImageLightbox";
 import Footer from "@/components/Footer";
+import LoadingSequence from "@/components/LoadingSequence"
+
 
 // Data
 import todoData from './data/ToDo.json';
@@ -406,8 +409,23 @@ export default function Home() {
         <div className="relative ">
             {/* Loading screen */}
             {isLoading && (
-                <div className="loading-screen">
-                    <div className="loading-bar" />
+                <div className="fixed inset-0 bg-black z-50 flex items-center justify-center p-4">
+                    <div className="border-2 border-orange-600 bg-gray-900 p-6 rounded-md max-w-2xl w-full">
+                        <div className="text-center mb-4">
+                            <div className="text-orange-400 text-xl font-mono mb-1">
+                                PORTFOLIO
+                            </div>
+                            <div className="text-gray-400 text-sm font-mono">
+                                LOADING SEQUENCE INITIATED
+                            </div>
+                        </div>
+
+                        <LoadingSequence isLoading={isLoading} />
+
+                        <div className="mt-6 text-xs text-gray-500 font-mono text-center">
+                            © 2025 Aleksander Żak. All rights reserved.
+                        </div>
+                    </div>
                 </div>
             )}
 
