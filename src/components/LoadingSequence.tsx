@@ -13,36 +13,43 @@ const LoadingSequence = ({ isLoading }: LoadingSequenceProps) => {
         "> RENDER PIPELINE...",
         "> SECURITY PROTOCOLS...",
         "> BIOS INTERFACE...",
-        "> INITIALIZING BLACK MESA...\n"
+        "> INITIALIZING BLACK MESA...",
+        "> LOADING ASSETS...",
+        "> VERIFYING INTEGRITY...",
+        "> FINALIZING SETUP...\n"
     ];
-
 
     const [progress, setProgress] = useState(0);
     const [currentLineIndex, setCurrentLineIndex] = useState(0);
-    const [completedLines, setCompletedLines] = useState<string[]>([]);
+    const [displayedLines, setDisplayedLines] = useState<string[]>([]);
 
     useEffect(() => {
         if (!isLoading) return;
 
-        const interval = setInterval(() => {
+        const progressInterval = setInterval(() => {
             setProgress((prev) => {
-                const newProgress = prev + Math.random() * 10;
-                return newProgress > 100 ? 100 : newProgress;
+                if (prev >= 100) {
+                    clearInterval(progressInterval);
+                    return 100;
+                }
+                return prev + Math.random() * 15; // Szybszy postęp
             });
-        }, 150);
+        }, 100); // Szybszy interwał
 
         const lineInterval = setInterval(() => {
             setCurrentLineIndex((prev) => {
-                if (prev < lines.length - 1) {
-                    setCompletedLines((prevLines) => [...prevLines, lines[prev]]);
-                    return prev + 1;
+                if (prev >= lines.length - 1) {
+                    clearInterval(lineInterval);
+                    return prev;
                 }
-                return prev;
+                const newLines = [...displayedLines, lines[prev]];
+                setDisplayedLines(newLines);
+                return prev + 1;
             });
-        }, 600);
+        }, 300); // Szybsze wyświetlanie linii
 
         return () => {
-            clearInterval(interval);
+            clearInterval(progressInterval);
             clearInterval(lineInterval);
         };
     }, [isLoading]);
@@ -50,7 +57,7 @@ const LoadingSequence = ({ isLoading }: LoadingSequenceProps) => {
     return (
         <div className="w-full max-w-lg">
             <div className="text-orange-400 font-mono text-sm">
-                {completedLines.map((line, index) => (
+                {displayedLines.map((line, index) => (
                     <div key={index} className="flex">
                         <span className="text-yellow-500 mr-2">{">"}</span>
                         <span>{line}</span>
@@ -63,8 +70,8 @@ const LoadingSequence = ({ isLoading }: LoadingSequenceProps) => {
                         <span className="text-yellow-500 mr-2">{">"}</span>
                         <span>{lines[currentLineIndex]}</span>
                         <span className="text-orange-300 ml-2">
-                        {Math.min(Math.floor(progress), 100)}%
-            </span>
+                            {Math.min(Math.floor(progress), 100)}%
+                        </span>
                     </div>
                 )}
             </div>
@@ -74,7 +81,7 @@ const LoadingSequence = ({ isLoading }: LoadingSequenceProps) => {
                     className="bg-gradient-to-r from-orange-500 to-yellow-500 h-full"
                     initial={{ width: 0 }}
                     animate={{ width: `${progress}%` }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.2 }} // Szybsza animacja
                 />
             </div>
 

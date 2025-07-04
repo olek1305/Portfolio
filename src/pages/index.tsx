@@ -2,7 +2,6 @@ import React, {ImgHTMLAttributes, HTMLAttributes, useState, useEffect, useCallba
 import { MDXProvider } from "@mdx-js/react";
 import Head from "next/head";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
 
 // Types
 import type { CVData, Project, TabData } from '@/lib/types';
@@ -213,7 +212,7 @@ export default function Home() {
         };
 
         const timer1 = setTimeout(() => loadInitialData(), 900);
-        const timer2 = setTimeout(() => setIsLoading(false), 1500);
+        const timer2 = setTimeout(() => setIsLoading(false), 2500);
 
         return () => {
             clearTimeout(timer1);
