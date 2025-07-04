@@ -5,20 +5,20 @@ interface LoadingSequenceProps {
     isLoading: boolean;
 }
 
-const LoadingSequence = ({ isLoading }: LoadingSequenceProps) => {
-    const lines = [
-        "// PORTFOLIO LOADING SEQUENCE INITIATED",
-        "> SYSTEM CHECK...",
-        "> MEMORY ALLOCATION...",
-        "> RENDER PIPELINE...",
-        "> SECURITY PROTOCOLS...",
-        "> BIOS INTERFACE...",
-        "> INITIALIZING BLACK MESA...",
-        "> LOADING ASSETS...",
-        "> VERIFYING INTEGRITY...",
-        "> FINALIZING SETUP...\n"
-    ];
+const lines = [
+    "// PORTFOLIO LOADING SEQUENCE INITIATED",
+    "> SYSTEM CHECK...",
+    "> MEMORY ALLOCATION...",
+    "> RENDER PIPELINE...",
+    "> SECURITY PROTOCOLS...",
+    "> BIOS INTERFACE...",
+    "> INITIALIZING BLACK MESA...",
+    "> LOADING ASSETS...",
+    "> VERIFYING INTEGRITY...",
+    "> FINALIZING SETUP...\n"
+];
 
+const LoadingSequence = ({ isLoading }: LoadingSequenceProps) => {
     const [progress, setProgress] = useState(0);
     const [currentLineIndex, setCurrentLineIndex] = useState(0);
     const [displayedLines, setDisplayedLines] = useState<string[]>([]);
@@ -32,21 +32,20 @@ const LoadingSequence = ({ isLoading }: LoadingSequenceProps) => {
                     clearInterval(progressInterval);
                     return 100;
                 }
-                return prev + Math.random() * 15; // Szybszy postęp
+                return prev + Math.random() * 15;
             });
-        }, 100); // Szybszy interwał
+        }, 100);
 
         const lineInterval = setInterval(() => {
-            setCurrentLineIndex((prev) => {
-                if (prev >= lines.length - 1) {
+            setCurrentLineIndex((prevIndex) => {
+                if (prevIndex >= lines.length - 1) {
                     clearInterval(lineInterval);
-                    return prev;
+                    return prevIndex;
                 }
-                const newLines = [...displayedLines, lines[prev]];
-                setDisplayedLines(newLines);
-                return prev + 1;
+                setDisplayedLines((prevLines) => [...prevLines, lines[prevIndex]]);
+                return prevIndex + 1;
             });
-        }, 300); // Szybsze wyświetlanie linii
+        }, 300);
 
         return () => {
             clearInterval(progressInterval);
@@ -81,7 +80,7 @@ const LoadingSequence = ({ isLoading }: LoadingSequenceProps) => {
                     className="bg-gradient-to-r from-orange-500 to-yellow-500 h-full"
                     initial={{ width: 0 }}
                     animate={{ width: `${progress}%` }}
-                    transition={{ duration: 0.2 }} // Szybsza animacja
+                    transition={{ duration: 0.2 }}
                 />
             </div>
 
