@@ -156,6 +156,15 @@ const PDFCV: React.FC<PDFCVProps> = ({ cvData }) => (
                             </View>
                         ))}
                     </View>
+                    <View style={styles.column}>
+                        <View style={styles.section}>
+                            <Text style={styles.sectionHeader}>LANGUAGE</Text>
+                            <View style={styles.itemHeader}>
+                                <Text style={styles.itemTitle}>Polish - Native</Text>
+                                <Text style={styles.itemTitle}>English - B2</Text>
+                            </View>
+                        </View>
+                    </View>
                 </View>
 
                 {/* Skills Column */}
