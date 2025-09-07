@@ -23,6 +23,10 @@ const SkillComponent: React.FC<SkillProps> = ({
         .toLowerCase()
         .replace(/\s+/g, "-")}.svg`;
 
+    // List of icons that need to be scaled up
+    const needsScaling = ['github', 'bootstrap', 'javascript', 'php', 'laravel', 'mapbox', 'inertia.js', 'mysql', 'ci-cd', 'error'];
+    const shouldScale = needsScaling.includes((skill.fileName || skill.name).toLowerCase().replace(/\s+/g, "-"));
+
     useEffect(() => {
         const img = new window.Image();
         img.src = iconSrc;
@@ -56,7 +60,7 @@ const SkillComponent: React.FC<SkillProps> = ({
                         width={iconOnly ? 48 : 40}
                         height={iconOnly ? 48 : 40}
                         quality={100}
-                        className="object-contain mx-auto"
+                        className={`object-contain mx-auto ${shouldScale ? 'scale-150' : ''}`}
                         onError={() => setIconExists(false)}
                     />
                 ) : (

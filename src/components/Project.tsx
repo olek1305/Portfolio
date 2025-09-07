@@ -19,6 +19,9 @@ const ProjectComponent = ({ project, onSelect }: {
     };
 
     const frameworkIcon = getFrameworkIcon();
+    
+    // Check if icon needs scaling (Laravel and Error icons are small)
+    const needsScaling = frameworkIcon.includes('laravel') || frameworkIcon.includes('error');
 
     return (
         <div
@@ -31,7 +34,7 @@ const ProjectComponent = ({ project, onSelect }: {
                     alt={project.name}
                     width={40}
                     height={40}
-                    className="object-contain hover:scale-110 transition-transform"
+                    className={`object-contain hover:scale-110 transition-transform ${needsScaling ? 'scale-150' : ''}`}
                 />
             </div>
             <div className="flex-1 min-w-0">
