@@ -81,9 +81,15 @@
     },
     {
       "name": "Pizzox",
-      "skills": ["PHP", "Symfony", "JavaScript", "Vue.js", "CI/CD", "Tailwind", "MongoDB", "Stripe", "Mapbox"],
-      "date": "Ongoing",
+      "skills": ["PHP", "Symfony", "JavaScript", "CI/CD", "Tailwind", "MongoDB", "Stripe", "Mapbox"],
+      "date": "05.2025",
       "info": "Pizza ordering app with Stripe payments and map integration."
+    },
+    {
+      "name": "RentCar",
+      "skills": ["PHP", "Laravel", "JavaScript", "Vue.js", "CI/CD", "PHPUnit", "Tailwind", "MySQL", "Stripe", "Valkey", "Nginx", "Docker"],
+      "date": "Ongoing",
+      "info": "Car rentals, I will add an API to the admin soon."
     }
   ]
 }
