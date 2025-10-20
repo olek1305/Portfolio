@@ -21,16 +21,17 @@ export type Book = {
     imagePath: string;
 };
 
-export type DevOpsItem = {
+export type SysDevOps = {
     title: string;
     date: string;
-    info: string;
+    info?: string;
     skills?: string[];
 };
 
-export interface ToDoItem {
+export interface ToDo {
     title: string;
-    description: string;
+    done: boolean;
+    description?: string;
 }
 export interface ExperienceForCV extends Experience {
     date: string;
@@ -46,7 +47,7 @@ export interface ProjectForCV extends Project {
 export interface CVData {
     experience: ExperienceForCV[];
     projects: ProjectForCV[];
-    devops: DevOpsItem[];
+    sysdevops: SysDevOps[];
     skills: Skill[];
 }
 
@@ -55,8 +56,8 @@ export type TabData = {
     projects?: Project[];
     skills?: Skill[];
     books?: Book[];
-    devopsItems?: DevOpsItem[];
-    todos?: ToDoItem[];
+    sysdevops?: SysDevOps[];
+    todos?: ToDo[];
 };
 
 declare global {

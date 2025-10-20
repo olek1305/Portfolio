@@ -27,6 +27,13 @@
       "fileName": "master-laravel-vue-inertia",
       "info": "Practical course focused on building full-stack applications using Laravel 10, Vue.js 3, RESTful APIs, and Single Page Applications (SPA). Covered frontend/backend integration, authentication, and modern Laravel practices",
       "date": "01.2024 - 02.2024"
+    },
+    {
+      "title": "INF 02 & INF 03",
+      "company": "TEB Edukacja",
+      "fileName": "inf02inf03",
+      "info": "INF.02 = Hardware & Networks and INF.03 = Software & Data",
+      "date": "11.10.2025 - Ongoing"
     }
   ],
 
@@ -53,7 +60,7 @@
       "name": "AbexGuilds",
       "skills": ["PHP", "Vue.js", "Laravel", "Tailwind", "JavaScript", "Inertia.js", "MySQL"],
       "date": "04.2024",
-      "info": "AFK Arena guild manager with player tracking and activity logs."
+      "info": "Game AFK Arena guild manager with player tracking and activity logs."
     },
     {
       "name": "Freshly-Ecommerce",

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Document, Page, Text, View, StyleSheet, PDFDownloadLink, Font } from '@react-pdf/renderer';
-import { CVData, ExperienceForCV, ProjectForCV, DevOpsItem, Skill } from '@/lib/types';
+import { CVData, ExperienceForCV, ProjectForCV, SysDevOps, Skill } from '@/lib/types';
 
 Font.register({
     family: 'Helvetica',
@@ -87,6 +87,20 @@ const styles = StyleSheet.create({
         fontSize: 9,
         textDecoration: 'underline',
         marginBottom: 2,
+    },
+    groupedProject: {
+        marginBottom: 3,
+        opacity: 0.8,
+    },
+    groupedProjectTitle: {
+        fontSize: 9,
+        fontWeight: 'bold',
+        color: 'black',
+
+    },
+    groupedProjectContent: {
+        fontSize: 8,
+        color: 'black',
     }
 });
 
@@ -94,69 +108,99 @@ interface PDFCVProps {
     cvData: CVData;
 }
 
-const PDFCV: React.FC<PDFCVProps> = ({ cvData }) => (
-    <Document>
-        <Page size="A4" style={styles.page}>
-            <Text style={styles.header}>ALEKSANDER ZAK, BYDGOSZCZ POLAND</Text>
-            <Text style={styles.header}>
-                PHP Developer | DevOps
-            </Text>
-            <Text style={styles.contactLinkStyle}>EMAIL: olek1305@gmail.com</Text>
-            <Text style={{ textAlign: 'center', fontSize: 9 }}>
-                Github: https://github.com/olek1305
-            </Text>
-            <Text style={{ textAlign: 'center', fontSize: 9 }}>
-                TEL: 794 928 618,{' '}
-                <Text style={{ color: '#e64d00' }}>
-                    I’m deaf, please contact me by SMS or email.
+const PDFCV: React.FC<PDFCVProps> = ({ cvData }) => {
+    return (
+        <Document>
+            <Page size="A4" style={styles.page}>
+                {/* HEADER */}
+                <Text style={styles.header}>ALEKSANDER ZAK, BYDGOSZCZ POLAND</Text>
+                <Text style={styles.header}>
+                    Aleksander Zak, PHP & System Administration & DevOps
                 </Text>
-            </Text>
-            <Text style={{ textAlign: 'center', marginBottom: 2, fontSize: 9 }}>
-                PORTFOLIO: https://portfolio-git-master-olek1305s-projects.vercel.app/
-            </Text>
+                <Text style={styles.contactLinkStyle}>EMAIL: olek1305@gmail.com</Text>
+                <Text style={{ textAlign: 'center', fontSize: 9 }}>
+                    Github: https://github.com/olek1305
+                </Text>
+                <Text style={{ textAlign: 'center', fontSize: 9 }}>
+                    TEL: 794 928 618,{' '}
+                    <Text style={{ color: '#e64d00' }}>
+                        I&#39;m deaf, please contact me by SMS or email.
+                    </Text>
+                </Text>
+                <Text style={{ textAlign: 'center', marginBottom: 2, fontSize: 9 }}>
+                    PORTFOLIO: https://portfolio-git-master-olek1305s-projects.vercel.app/
+                </Text>
 
-            {/* Experience Section */}
-            <View style={styles.section}>
-                <Text style={styles.sectionHeader}>PROFESSIONAL EXPERIENCE</Text>
-                {cvData.experience.map((exp: ExperienceForCV, index: number) => (
-                    <View key={index} style={styles.item} wrap={false}>
-                        <View style={styles.itemHeader}>
-                            <Text style={styles.itemTitle}>
-                                {exp.title} • {exp.company}
-                            </Text>
-                            <Text style={styles.itemDate}>{exp.date || 'Not specified'}</Text>
-                        </View>
-                    </View>
-                ))}
-            </View>
-
-            <View style={styles.twoColumns}>
-                {/* Projects Column */}
-                <View style={styles.column}>
-                    <View style={styles.section}>
-                        <Text style={styles.sectionHeader}>PROJECTS</Text>
-                        {cvData.projects.map((project: ProjectForCV, index: number) => (
-                            <View key={index} style={styles.item} wrap={false}>
-                                <View style={styles.itemHeader}>
-                                    <Text style={styles.itemTitle}>{project.name}</Text>
-                                    <Text style={styles.itemDate}>{project.date || 'Not specified'}</Text>
-                                </View>
-                                <Text style={project.info ? styles.itemContent : styles.noDescription}>
-                                    {project.info || 'No description available'}
+                {/* EXPERIENCE SECTION */}
+                <View style={styles.section}>
+                    <Text style={styles.sectionHeader}>PROFESSIONAL EXPERIENCE</Text>
+                    {cvData.experience.map((exp: ExperienceForCV, index: number) => (
+                        <View key={index} style={styles.item} wrap={false}>
+                            <View style={styles.itemHeader}>
+                                <Text style={styles.itemTitle}>
+                                    {exp.title} • {exp.company}
                                 </Text>
-                                {project.skills && project.skills.length > 0 && (
-                                    <View style={styles.skillsContainer}>
-                                        {project.skills.slice(0, 8).map((skill: string, i: number) => (
-                                            <Text key={i} style={styles.skillTag}>
-                                                {skill}
-                                            </Text>
-                                        ))}
-                                    </View>
-                                )}
+                                <Text style={styles.itemDate}>{exp.date || 'Not specified'}</Text>
                             </View>
-                        ))}
-                    </View>
+                            <Text style={styles.itemContent}>{exp.info}</Text>
+                        </View>
+                    ))}
+                </View>
+
+                {/* TWO COLUMNS LAYOUT */}
+                <View style={styles.twoColumns}>
+
+                    {/* LEFT COLUMN - PROJECTS & LANGUAGE */}
                     <View style={styles.column}>
+
+                        {/* PROJECTS SECTION */}
+                        <View style={styles.section}>
+                            <Text style={styles.sectionHeader}>
+                                PROJECTS ({cvData.projects.length})
+                            </Text>
+
+                            {/* Render all projects */}
+                            {cvData.projects.map((project: ProjectForCV, index: number) => (
+                                <View
+                                    key={index}
+                                    style={
+                                        project.name.includes('Various projects')
+                                            ? styles.groupedProject
+                                            : styles.item
+                                    }
+                                    wrap={false}
+                                >
+                                    <View style={styles.itemHeader}>
+                                        <Text style={
+                                            project.name.includes('Various projects')
+                                                ? styles.groupedProjectTitle
+                                                : styles.itemTitle
+                                        }>
+                                            {project.name}
+                                        </Text>
+                                        <Text style={styles.itemDate}>{project.date || 'Not specified'}</Text>
+                                    </View>
+                                    <Text style={
+                                        project.name.includes('Various projects')
+                                            ? styles.groupedProjectContent
+                                            : styles.itemContent
+                                    }>
+                                        {project.info}
+                                    </Text>
+                                    {project.skills && project.skills.length > 0 && (
+                                        <View style={styles.skillsContainer}>
+                                            {project.skills.slice(0, 8).map((skill: string, i: number) => (
+                                                <Text key={i} style={styles.skillTag}>
+                                                    {skill}
+                                                </Text>
+                                            ))}
+                                        </View>
+                                    )}
+                                </View>
+                            ))}
+                        </View>
+
+                        {/* LANGUAGE SECTION */}
                         <View style={styles.section}>
                             <Text style={styles.sectionHeader}>LANGUAGE</Text>
                             <View style={styles.itemHeader}>
@@ -165,72 +209,75 @@ const PDFCV: React.FC<PDFCVProps> = ({ cvData }) => (
                             </View>
                         </View>
                     </View>
-                </View>
 
-                {/* Skills Column */}
-                <View style={styles.column}>
-                    {/* Technical Skills */}
-                    <View style={styles.section}>
-                        <Text style={styles.sectionHeader}>TECHNICAL SKILLS</Text>
-                        <View style={styles.skillsContainer}>
-                            {cvData.skills.map((skill: Skill, index: number) => (
-                                <Text key={index} style={styles.skillTag}>
-                                    {skill.name}
-                                </Text>
+                    {/* RIGHT COLUMN - SKILLS & DEVOPS */}
+                    <View style={styles.column}>
+
+                        {/* TECHNICAL SKILLS SECTION */}
+                        <View style={styles.section}>
+                            <Text style={styles.sectionHeader}>TECHNICAL SKILLS</Text>
+                            <View style={styles.skillsContainer}>
+                                {cvData.skills.map((skill: Skill, index: number) => (
+                                    <Text key={index} style={styles.skillTag}>
+                                        {skill.name}
+                                    </Text>
+                                ))}
+                            </View>
+                        </View>
+
+                        {/* SysAdm & DEVOPS SECTION */}
+                        <View style={styles.section}>
+                            <Text style={styles.sectionHeader}>System Administration & DevOps EXPERIENCE</Text>
+                            {cvData.sysdevops.map((item: SysDevOps, index: number) => (
+                                <View key={index} style={styles.item} wrap={false}>
+                                    <View style={styles.itemHeader}>
+                                        <Text style={styles.itemTitle}>{item.title}</Text>
+                                        <Text style={styles.itemDate}>{item.date || 'Not specified'}</Text>
+                                    </View>
+                                    <Text style={styles.itemContent}>{item.info}</Text>
+                                    {item.skills && item.skills.length > 0 && (
+                                        <View style={styles.skillsContainer}>
+                                            {item.skills.slice(0, 8).map((skill: string, i: number) => (
+                                                <Text key={i} style={styles.skillTag}>
+                                                    {skill}
+                                                </Text>
+                                            ))}
+                                        </View>
+                                    )}
+                                </View>
                             ))}
                         </View>
                     </View>
-
-                    {/* DevOps Section */}
-                    <View style={styles.section}>
-                        <Text style={styles.sectionHeader}>DEVOPS EXPERIENCE</Text>
-                        {cvData.devops.map((item: DevOpsItem, index: number) => (
-                            <View key={index} style={styles.item} wrap={false}>
-                                <View style={styles.itemHeader}>
-                                    <Text style={styles.itemTitle}>{item.title}</Text>
-                                    <Text style={styles.itemDate}>{item.date || 'Not specified'}</Text>
-                                </View>
-                                <Text style={styles.itemContent}>{item.info}</Text>
-                                {item.skills && item.skills.length > 0 && (
-                                    <View style={styles.skillsContainer}>
-                                        {item.skills.slice(0, 8).map((skill: string, i: number) => (
-                                            <Text key={i} style={styles.skillTag}>
-                                                {skill}
-                                            </Text>
-                                        ))}
-                                    </View>
-                                )}
-                            </View>
-                        ))}
-                    </View>
                 </View>
-            </View>
 
-            <View style={{ marginTop: 8, borderTop: '1pt solid #eee', paddingTop: 4 }}>
-                <Text style={{ fontSize: 7, textAlign: 'center', color: '#666' }}>
-                    I agree to the processing of personal data
-                    provided in this document for realising the
-                    recruitment process pursuant to the Personal
-                    Data Protection Act of 10 May 2018 (Journal
-                    of Laws 2018, item 1000) and in agreement
-                    with Regulation (EU) 2016/679 of the
-                    European Parliament and of the Council of 27
-                    April 2016 on the protection of natural
-                    persons with regard to the processing of
-                    personal data and on the free movement of
-                    such data, and repealing Directive 95/46/EC
-                    (General Data Protection Regulation).
-                </Text>
-            </View>
+                {/* FOOTER - GDPR */}
+                <View style={{ marginTop: 8, borderTop: '1pt solid #eee', paddingTop: 4 }}>
+                    <Text style={{ fontSize: 7, textAlign: 'center', color: '#666' }}>
+                        I agree to the processing of personal data
+                        provided in this document for realising the
+                        recruitment process pursuant to the Personal
+                        Data Protection Act of 10 May 2018 (Journal
+                        of Laws 2018, item 1000) and in agreement
+                        with Regulation (EU) 2016/679 of the
+                        European Parliament and of the Council of 27
+                        April 2016 on the protection of natural
+                        persons with regard to the processing of
+                        personal data and on the free movement of
+                        such data, and repealing Directive 95/46/EC
+                        (General Data Protection Regulation).
+                    </Text>
+                </View>
 
-            <View style={{ marginTop: 8, borderTop: '1pt solid #eee', paddingTop: 4 }}>
-                <Text style={{ fontSize: 7, textAlign: 'center', color: '#666' }}>
-                    Automatically generated • Last update: {new Date().toLocaleDateString()}
-                </Text>
-            </View>
-        </Page>
-    </Document>
-);
+                {/* FOOTER - GENERATED INFO */}
+                <View style={{ marginTop: 8, borderTop: '1pt solid #eee', paddingTop: 4 }}>
+                    <Text style={{ fontSize: 7, textAlign: 'center', color: '#666' }}>
+                        Automatically generated • Last update: {new Date().toLocaleDateString()}
+                    </Text>
+                </View>
+            </Page>
+        </Document>
+    );
+};
 
 interface DownloadCVButtonProps {
     cvData: CVData | null;

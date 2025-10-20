@@ -1,0 +1,9 @@
+{
+  "experience": [],
+  "projects": [
+    {
+      "name": "Currently learning Advanced Django",
+      "skills": ["Python", "Django"]
+    }
+  ]
+}

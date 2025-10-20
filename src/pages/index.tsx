@@ -24,8 +24,8 @@ import LoadingSequence from "@/components/LoadingSequence"
 // Data
 import todoData from './data/ToDo.json';
 import phpData from './data/PHP.json';
-import csharpData from './data/CSharp.json';
-import devopsData from './data/DevOps.json';
+// import pythonData from './data/Python.json';
+import sysDevOpsData from './data/SysDevOpsData.json';
 import skillsData from './data/Skills.json';
 import booksData from './data/Books.json';
 
@@ -128,11 +128,11 @@ export default function Home() {
             case "Developer PHP":
                 setCurrentData(phpData);
                 break;
-            case "Developer C#":
-                setCurrentData(csharpData);
-                break;
-            case "DevOps":
-                setCurrentData(devopsData);
+            // case "Developer Python":
+            //     setCurrentData(pythonData);
+            //     break;
+            case "System Administration & DevOps":
+                setCurrentData(sysDevOpsData);
                 break;
             case "Skills":
                 setCurrentData(skillsData);
@@ -157,7 +157,7 @@ export default function Home() {
      */
     const handleSelectMarkdown = useCallback(
         async (category: string, name: string, fileName?: string, tab?: string) => {
-            if (category !== "projects" && category !== "devops") {
+            if (category !== "projects" && category !== "System Administration & DevOps") {
                 setSelectedProject(null);
             }
 
@@ -177,12 +177,12 @@ export default function Home() {
             setShowGitHubStats(false);
             setShowMain(true);
 
-            // Determine subcategory based on tab
+            // Determine subcategory based on a tab
             let subcategory = '';
             if (tab) {
                 if (tab.includes("PHP")) subcategory = 'php';
-                else if (tab.includes("C#")) subcategory = 'csharp';
-                else if (tab.includes("DevOps")) subcategory = 'devops';
+                // else if (tab.includes("Python")) subcategory = 'python';
+                else if (tab.includes("System Administration & DevOps")) subcategory = 'System Administration & DevOps';
             }
 
             const basePath = subcategory
@@ -269,7 +269,7 @@ export default function Home() {
     const renderContentForTab = (tab: string) => {
         switch (tab) {
             case "Developer PHP":
-            case "Developer C#":
+            // case "Developer Python":
                 return (
                     <div className="space-y-4">
                         {currentData.experience && currentData.experience.length > 0 && (
@@ -320,13 +320,13 @@ export default function Home() {
                         )}
                     </div>
                 );
-            case "DevOps":
-                return currentData.devopsItems && currentData.devopsItems.length > 0 && (
+            case "System Administration & DevOps":
+                return currentData.sysdevops && currentData.sysdevops.length > 0 && (
                     <div className="hl-container relative">
-                        <h3 className="hl-title pulse-glow">DevOps Topics ({currentData.devopsItems.length})</h3>
+                        <h3 className="hl-title pulse-glow">DevOps Topics ({currentData.sysdevops.length})</h3>
                         <div className="hl-content">
                             <ul className="space-y-4">
-                                {currentData.devopsItems.map((item, idx) => (
+                                {currentData.sysdevops.map((item, idx) => (
                                     <li key={idx} className="p-3 hover:bg-gray-800 rounded-lg transition-colors">
                                         <div>
                                             <div className="flex justify-between items-center">
@@ -377,7 +377,7 @@ export default function Home() {
                     <div className="hl-container relative">
                         <h3 className="hl-title pulse-glow">Books ({currentData.books.length})</h3>
                         <div className="hl-content p-4">
-                            <BookComponent books={currentData.books} />
+                            <BookComponent books={currentData.books}/>
                         </div>
                     </div>
                 );
@@ -390,8 +390,13 @@ export default function Home() {
                                 {currentData.todos.map((item, idx) => (
                                     <li key={idx} className="p-3 hover:bg-gray-800 rounded-lg transition-colors">
                                         <div>
-                                            <h4 className="glitch-text text-lg font-bold">{item.title}</h4>
-                                            <p className="text-orange-400">{item.description}</p>
+                                            <h4 className={`glitch-text text-lg font-bold ${item.done ? 'line-through text-gray-500' : ''}`}>
+                                                {item.title}
+                                            </h4>
+                                            <p className={`${item.done ? 'line-through text-gray-500' : 'text-orange-400'}`}>
+                                                {item.description}
+                                            </p>
+                                            {item.done && <span className="text-green-400 text-sm">Completed</span>}
                                         </div>
                                     </li>
                                 ))}
@@ -419,7 +424,7 @@ export default function Home() {
                             </div>
                         </div>
 
-                        <LoadingSequence isLoading={isLoading} />
+                        <LoadingSequence isLoading={isLoading}/>
 
                         <div className="mt-6 text-xs text-gray-500 font-mono text-center">
                             © 2025 Aleksander Żak. All rights reserved.
@@ -432,13 +437,15 @@ export default function Home() {
             <div className="bg-[#1a1a1a] text-gray-300 h-screen flex flex-col overflow-hidden font-hl">
                 <Head>
                     <title>Home - Aleksander Żak | PHP Developer</title>
-                    <meta name="description" content="Aleksander Żak's portfolio - PHP Developer based in Bydgoszcz, Poland." />
-                    <meta name="viewport" content="width=device-width, initial-scale=1" />
+                    <meta name="description"
+                          content="Aleksander Żak's portfolio - PHP Developer based in Bydgoszcz, Poland."/>
+                    <meta name="viewport" content="width=device-width, initial-scale=1"/>
                 </Head>
 
                 {/* Mobile Header */}
                 {isMobile && (
-                    <header className="bg-[#0a0a0a] border-b-2 border-orange-600 py-3 px-6 flex justify-between items-center">
+                    <header
+                        className="bg-[#0a0a0a] border-b-2 border-orange-600 py-3 px-6 flex justify-between items-center">
                         <div
                             className="text-orange-400 text-xl cursor-pointer hover:text-white glitch-text active-glitch"
                             data-text="Aleksander Żak"
@@ -460,9 +467,11 @@ export default function Home() {
                                 stroke="currentColor"
                             >
                                 {menuOpen ? (
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                                          d="M6 18L18 6M6 6l12 12"/>
                                 ) : (
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                                          d="M4 6h16M4 12h16M4 18h16"/>
                                 )}
                             </svg>
                         </button>
@@ -474,14 +483,14 @@ export default function Home() {
                     <header className="bg-[#0a0a0a] border-b-2 border-orange-600 py-3 px-6">
                         <div
                             className="text-orange-400 text-2xl cursor-pointer hover:text-white glitch-text active-glitch"
-                            data-text="Aleksander Żak, PHP & DevOps"
+                            data-text="Aleksander Żak, PHP & System Administration & DevOps"
                             onClick={() => {
                                 setShowMain(false);
                                 setShowGitHubStats(true);
                                 setActiveTab("Developer PHP");
                             }}
                         >
-                            Aleksander Żak, PHP <span className="text-gray-200">&</span> DevOps
+                            Aleksander Żak, PHP <span className="text-gray-200">&</span> System Administration <span className="text-gray-200">&</span> DevOps
                             <p className="text-gray-400 text-sm">Bydgoszcz, Poland</p>
                         </div>
 
@@ -493,7 +502,13 @@ export default function Home() {
                     {!isMobile && (
                         <div className="w-64 bg-[#0a0a0a] border-r-2 border-orange-600 p-4 flex-shrink-0">
                             <HalfLifeMenu
-                                tabs={["Developer PHP", "Developer C#", "DevOps", "Skills", "Books", "ToDo"]}
+                                tabs={["Developer PHP",
+                                    // "Developer Python",
+                                    "System Administration & DevOps",
+                                    "Skills",
+                                    "Books",
+                                    "ToDo"
+                                ]}
                                 activeTab={activeTab}
                                 onTabChange={(tab) => {
                                     setTabChanged(true);
@@ -513,7 +528,7 @@ export default function Home() {
                     {isMobile && menuOpen && (
                         <div className="absolute top-16 left-0 right-0 z-50 bg-[#0a0a0a] border-b-2 border-orange-600">
                             <MobileHalfLifeMenu
-                                tabs={["Developer PHP", "Developer C#", "DevOps", "Skills", "Books", "ToDo", "GitHub Stats"]}
+                                tabs={["Developer PHP", "Developer C#", "System Administration & DevOps", "Skills", "Books", "ToDo", "GitHub Stats"]}
                                 activeTab={activeTab}
                                 onTabChange={handleMobileTabChange}
                             />
@@ -550,9 +565,10 @@ export default function Home() {
                                         }}
                                         fallback={
                                             <div className="p-4 text-center">
-                                                <div className="bg-red-900/30 border border-red-700 rounded-md p-4 text-red-400 mb-4">
+                                                <div
+                                                    className="bg-red-900/30 border border-red-700 rounded-md p-4 text-red-400 mb-4">
                                                     <h4 className="text-lg font-bold mb-2">GitHub Stats Error</h4>
-                                                    <p>Sorry, we couldn&#39;t load the GitHub stats at this time.</p>
+                                                    <p>Sorry, we could&#39;t load the GitHub stats at this time.</p>
                                                 </div>
                                             </div>
                                         }
@@ -576,8 +592,10 @@ export default function Home() {
                                             className="absolute top-2 right-2 text-orange-400 hover:text-white z-10"
                                             aria-label="Show GitHub Stats"
                                         >
-                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none"
+                                                 viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                                                      d="M6 18L18 6M6 6l12 12"/>
                                             </svg>
                                         </button>
                                     )}
@@ -585,7 +603,7 @@ export default function Home() {
                                     <div className="h-full overflow-auto">
                                         {isClient && MdxComponent && (
                                             <MDXProvider components={components}>
-                                                <MdxComponent />
+                                                <MdxComponent/>
                                             </MDXProvider>
                                         )}
                                     </div>
@@ -597,7 +615,7 @@ export default function Home() {
                 </div>
 
                 {/* Footer */}
-                <Footer cvData={cvData} />
+                <Footer cvData={cvData}/>
             </div>
         </div>
     );

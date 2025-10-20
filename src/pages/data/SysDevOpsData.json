@@ -1,0 +1,34 @@
+{
+  "sysdevops": [
+    {
+      "title": "Raspberry Pi & PC Server as Homelab",
+      "date": "Ongoing",
+      "info": "SSL configuration, domain setup, Nginx, log checking, setting up AdGuard, Nextcloud, and various other fun stuff.",
+      "skills": [ "Nginx", "MariaDB", "Debian", "Ubuntu", "CloudFare" ]
+    },
+    {
+      "title": "TEB EDUKACJA",
+      "date": "10.2022",
+      "info": "Configured and deployed Nginx as a centralized web server, and set up socket-based communication between PHP and Java for seamless data exchange.",
+      "skills": ["Ubuntu", "Java", "PHP", "Nginx", "Networking"]
+    },
+    {
+      "title": "AbexGuilds",
+      "date": "03.2024",
+      "info": "Built for 700 players to manage guilds, schedule events, and track attendance. Set up the VPS and domain, and handled pulling and merging updates to the live server.",
+      "skills": ["Laravel", "Nginx", "MySQL", "Ubuntu", "PHP", "GitHub"]
+    },
+    {
+      "title": "Rezervo",
+      "date": "01.2025",
+      "info": "Deployed, updated, and maintained the Rezervo project in production. Containerized the app with Docker and configured it on a Debian server, ensuring reliability and performance.",
+      "skills": ["GitHub", "CI/CD", "DigitalOcean", "Docker", "PHP", "MySQL", "Ubuntu" ]
+    },
+    {
+      "title": "Udemy Docker Mastery with Kubernetes + Swarm",
+      "date": "10.2025",
+      "info": "",
+      "skills": ["Docker", "Swarm", "Kubernetes" ]
+    }
+  ]
+}

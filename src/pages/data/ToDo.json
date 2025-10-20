@@ -2,15 +2,22 @@
   "todos": [
     {
       "title": "Docker & Kubernetes",
-      "description": "Docker Mastery with Kubernetes + Swarm"
+      "description": "Docker Mastery with Kubernetes + Swarm",
+      "done": true
     },
     {
-      "title": "C#",
-      "description": "Learn ASP.NET"
+      "title": "Python Django Advanced",
+      "done": false
     },
     {
       "title": "AWS",
-      "description": "Learn Amazon Web Services"
+      "description": "Learn Amazon Web Services",
+      "done": false
+    },
+    {
+      "title": "Master CSS & JavaScript",
+      "description": "Master Advanced CSS & JavaScript Animations, Transitions and Transforms And Practice with 150 Creative Projects",
+      "done": false
     }
   ]
 }
