@@ -128,7 +128,7 @@ const PDFCV: React.FC<PDFCVProps> = ({ cvData }) => {
                     </Text>
                 </Text>
                 <Text style={{ textAlign: 'center', marginBottom: 2, fontSize: 9 }}>
-                    PORTFOLIO: https://portfolio-git-master-olek1305s-projects.vercel.app/
+                    PORTFOLIO: https://portfolio-rho-three-26.vercel.app/
                 </Text>
 
                 {/* EXPERIENCE SECTION */}
