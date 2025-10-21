@@ -4,7 +4,7 @@
       "title": "Raspberry Pi & PC Server as Homelab",
       "date": "Ongoing",
       "info": "SSL configuration, domain setup, Nginx, log checking, setting up AdGuard, Nextcloud, and various other fun stuff.",
-      "skills": [ "Nginx", "MariaDB", "Debian", "Ubuntu", "CloudFare" ]
+      "skills": [ "Nginx", "MariaDB", "Debian", "Ubuntu", "Cloudflare" ]
     },
     {
       "title": "TEB EDUKACJA",
