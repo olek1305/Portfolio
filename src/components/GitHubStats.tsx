@@ -277,7 +277,7 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, onClose, className 
 
         {stats.user && (
             <div className="p-4 h-full overflow-auto">
-              {/* User Profile Header - Mobile optimized */}
+              {/* User Profile Header */}
               <div className="flex flex-col sm:flex-row items-center mb-4">
                 <div className="relative mb-4 sm:mb-0 sm:mr-4">
                   <Image
@@ -303,48 +303,45 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, onClose, className 
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                     </svg>
                   </a>
-                  {stats.user.bio && (
-                      <p className="text-gray-400 text-sm mt-2 max-w-md">{stats.user.bio}</p>
-                  )}
                 </div>
               </div>
 
-              {/* Tabs Navigation - Mobile optimized */}
+              {/* Tabs Navigation */}
               <div className="flex border-b border-orange-600/30 mb-4 overflow-x-auto">
                 <button
-                    className={`px-4 py-2 font-hl whitespace-nowrap ${activeTab === 'overview' ? 'text-orange-400 border-b-2 border-orange-400' : 'text-gray-400 hover:text-orange-400'}`}
+                    className={`px-4 py-2 font-hl whitespace-nowrap ${activeTab === 'overview' ? 'text-orange-400 border-b-2 border-orange-400' : 'text-orange-200 hover:text-orange-400'}`}
                     onClick={() => setActiveTab('overview')}
                 >
                   Overview
                 </button>
                 <button
-                    className={`px-4 py-2 font-hl whitespace-nowrap ${activeTab === 'repos' ? 'text-orange-400 border-b-2 border-orange-400' : 'text-gray-400 hover:text-orange-400'}`}
+                    className={`px-4 py-2 font-hl whitespace-nowrap ${activeTab === 'repos' ? 'text-orange-400 border-b-2 border-orange-400' : 'text-orange-200 hover:text-orange-400'}`}
                     onClick={() => setActiveTab('repos')}
                 >
                   Repositories ({stats.repositories.length})
                 </button>
               </div>
 
-              {/* Overview Tab Content - Mobile optimized */}
+              {/* Overview Tab Content */}
               {activeTab === 'overview' && (
                   <div className="grid grid-cols-1 gap-4 overview-tab">
-                    {/* Stats Cards - Mobile optimized */}
+                    {/* Stats Cards */}
                     <div className="bg-[#0a0a0a] p-4 rounded-lg border border-orange-600/30">
                       <h3 className="text-orange-400 text-lg mb-3 font-hl">Activity Summary</h3>
                       <div className="grid grid-cols-2 gap-3">
-                        <div className="bg-[#1a1a1a] p-3 rounded-lg text-center border border-orange-600/30">
+                        <div className="bg-[#1a1a1a] p-3 rounded-lg text-center border border-orange-600/30 btn-hl">
                           <div className="text-2xl font-bold text-orange-400">{stats.user.public_repos}</div>
                           <div className="text-sm text-gray-400 font-hl">Repositories</div>
                         </div>
-                        <div className="bg-[#1a1a1a] p-3 rounded-lg text-center border border-orange-600/30">
+                        <div className="bg-[#1a1a1a] p-3 rounded-lg text-center border border-orange-600/30 btn-hl">
                           <div className="text-2xl font-bold text-orange-400">{stats.totalCommits}</div>
                           <div className="text-sm text-gray-400 font-hl">Est. Commits</div>
                         </div>
-                        <div className="bg-[#1a1a1a] p-3 rounded-lg text-center border border-orange-600/30">
+                        <div className="bg-[#1a1a1a] p-3 rounded-lg text-center border border-orange-600/30 btn-hl">
                           <div className="text-2xl font-bold text-orange-400">{stats.user.followers}</div>
                           <div className="text-sm text-gray-400 font-hl">Followers</div>
                         </div>
-                        <div className="bg-[#1a1a1a] p-3 rounded-lg text-center border border-orange-600/30">
+                        <div className="bg-[#1a1a1a] p-3 rounded-lg text-center border border-orange-600/30 btn-hl">
                           <div className="text-2xl font-bold text-orange-400">{stats.totalStars}</div>
                           <div className="text-sm text-gray-400 font-hl">Total Stars</div>
                         </div>
@@ -382,11 +379,11 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, onClose, className 
                   </div>
               )}
 
-              {/* Repositories Tab Content - Mobile optimized */}
+              {/* Repositories Tab Content */}
               {activeTab === 'repos' && (
                   <div className="space-y-4 repos-tab">
                     {stats.repositories.slice(0, 5).map((repo) => (
-                        <div key={repo.id} className="bg-[#0a0a0a] p-4 rounded-lg border border-orange-600/30 hover:bg-[#0f0f0f] transition duration-200">
+                        <div key={repo.id} className="p-4 rounded hover:bg-orange-600/10 cursor-pointer btn-hl">
                           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start">
                             <a
                                 href={repo.html_url}
@@ -414,10 +411,10 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, onClose, className 
                       </span>
                             </div>
                           </div>
-                          <p className="text-gray-400 text-sm mt-2 font-hl">{repo.description || 'No description'}</p>
-                          <div className="flex flex-col sm:flex-row sm:justify-between mt-3 text-xs text-gray-500 font-hl">
-                            <div className="mb-1 sm:mb-0">{repo.language || 'Unknown'}</div>
-                            <div>Updated: {new Date(repo.updated_at).toLocaleDateString()}</div>
+                          <p className="text-sm mt-2 text-orange-400 font-bold glitch-text">{repo.description || 'No description'}</p>
+                          <div className="flex flex-col sm:flex-row sm:justify-between mt-3 font-hl">
+                            <div className="mb-1 sm:mb-0 text-xs bg-orange-600/20 px-2 py-0.5 rounded glitch-text">{repo.language || 'Unknown'}</div>
+                            <div className="text-xs bg-orange-600/20 px-2 py-0.5 rounded glitch-text">Updated: {new Date(repo.updated_at).toLocaleDateString()}</div>
                           </div>
                         </div>
                     ))}

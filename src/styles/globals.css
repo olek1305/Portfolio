@@ -3,350 +3,316 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'HalfLife';
-  src: url('../styles/fonts/Exo-VariableFont_wght.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
+    font-family: 'HalfLife';
+    src: url('../styles/fonts/Exo-VariableFont_wght.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
 }
 
 body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background:
-          repeating-linear-gradient(
-                  0deg,
-                  rgba(255, 170, 0, 0.04),
-                  rgba(255, 170, 0, 0.04) 2px,
-                  transparent 3px,
-                  transparent 5px
-          );
-  mix-blend-mode: screen;
-  z-index: 9999;
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background:
+            repeating-linear-gradient(
+                    0deg,
+                    oklch(0.85 0.1 70 / 0.06),
+                    oklch(0.85 0.1 70 / 0.06) 2px,
+                    transparent 2px,
+                    transparent 4px
+            );
+    mix-blend-mode: screen;
+    z-index: 9999;
 }
 
 .skill-icon {
-  transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
 }
 
 .skill-icon:hover {
-  transform: scale(1.05);
+    transform: scale(1.05);
 }
 
-
 .font-hl {
-  font-family: 'HalfLife', sans-serif;
+    font-family: 'HalfLife', sans-serif;
 }
 
 body {
-  background-color: #1a1a1a;
-  color: #e0e0e0;
-  font-family: 'HalfLife', sans-serif;
-  overflow: hidden;
+    background-color: oklch(0.12 0.02 260);
+    color: oklch(0.88 0.02 260);
+    font-family: 'HalfLife', sans-serif;
+    overflow: hidden;
 }
 
 .hl-container {
-  background-color: rgba(10, 10, 10, 0.8);
-  border: 1px solid #5a3a2a;
-  border-radius: 2px;
-  padding: 12px;
-  margin-bottom: 12px;
-  position: relative;
+    background-color: oklch(0.08 0.02 260 / 0.8);
+    border: 1px solid oklch(0.35 0.08 50);
+    border-radius: 2px;
+    padding: 12px;
+    margin-bottom: 12px;
+    position: relative;
 }
 
 .hl-container::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border: 1px solid rgba(255, 165, 0, 0.2);
-  box-shadow: 0 0 8px rgba(255, 165, 0, 0.3);
-  pointer-events: none;
-  animation: borderPulse 2s infinite alternate;
-  z-index: 1;
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid oklch(0.85 0.15 70 / 0.2);
+    box-shadow: 0 0 8px oklch(0.85 0.15 70 / 0.3);
+    pointer-events: none;
+    animation: borderPulse 2s infinite alternate;
+    z-index: 1;
 }
 
 @keyframes borderPulse {
-  0% { box-shadow: 0 0 2px rgba(255, 165, 0, 0.2); }
-  100% { box-shadow: 0 0 10px rgba(255, 200, 50, 0.4); }
+    0% { box-shadow: 0 0 2px oklch(0.85 0.15 70 / 0.2); }
+    100% { box-shadow: 0 0 10px oklch(0.87 0.18 75 / 0.4); }
 }
 
 .hl-title {
-  position: absolute;
-  top: -10px;
-  left: 10px;
-  background-color: #1a1a1a;
-  padding: 0 5px;
-  color: #f0a060;
-  font-size: 14px;
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    background-color: oklch(0.12 0.02 260);
+    padding: 0 5px;
+    color: oklch(0.8 0.12 60);
+    font-size: 14px;
 }
 
 @keyframes bounce-fade {
-  0%, 100% { opacity: 0; transform: translateY(-5px); }
-  50% { opacity: 1; transform: translateY(0); }
+    0%, 100% { opacity: 0; transform: translateY(-5px); }
+    50% { opacity: 1; transform: translateY(0); }
 }
 
 .animate-bounce-fade {
-  animation: bounce-fade 1s ease-in-out;
+    animation: bounce-fade 1s ease-in-out;
 }
 
 /* Health bar style for active elements */
 .active-health {
-  position: relative;
+    position: relative;
 }
 
 .active-health::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(90deg, #ff5500, #ffaa00);
-  animation: pulse 1.5s infinite;
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, oklch(0.7 0.2 40), oklch(0.85 0.15 70));
+    animation: pulse 1.5s infinite;
 }
 
 @keyframes pulse {
-  0% { opacity: 0.7; }
-  50% { opacity: 1; }
-  100% { opacity: 0.7; }
+    0% { opacity: 0.7; }
+    50% { opacity: 1; }
+    100% { opacity: 0.7; }
 }
 
 /* start Loading */
 @keyframes scanline {
-  0% { transform: translateY(-100%); }
-  100% { transform: translateY(100%); }
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
 }
 
 .loading-screen::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(
-          to bottom,
-          transparent 0%,
-          rgba(255, 165, 0, 0.05) 50%,
-          transparent 100%
-  );
-  animation: scanline 1.5s linear infinite;
-  pointer-events: none;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+            to bottom,
+            transparent 0%,
+            oklch(0.85 0.15 70 / 0.05) 50%,
+            transparent 100%
+    );
+    animation: scanline 1.5s linear infinite;
+    pointer-events: none;
 }
 /* end Loading */
 
-/* start Health Bar */
-.active-tab {
-  position: relative;
-  color: #ff5500;
-}
-
-.active-tab::before {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(90deg, #ff5500, #ffaa00);
-  animation: health-pulse 1.5s infinite;
-}
-
-@keyframes health-pulse {
-  0% { opacity: 0.5; width: 100%; }
-  50% { opacity: 1; width: 80%; }
-  100% { opacity: 0.5; width: 100%; }
-}
-/* end Health Bar */
-
 /* start Damage Flash */
 .error-flash {
-  animation: damage-flash 0.3s linear 2;
+    animation: damage-flash 0.3s linear 2;
 }
 
 @keyframes damage-flash {
-  0% { background-color: transparent; }
-  50% { background-color: rgba(255, 0, 0, 0.3); }
-  100% { background-color: transparent; }
+    0% { background-color: transparent; }
+    50% { background-color: oklch(0.6 0.25 25 / 0.3); }
+    100% { background-color: transparent; }
 }
 /* end Damage Flash */
 
 /* start typical effect from Half-Life */
 .hl-fade-in {
-  animation: hl-fade 0.5s ease-out forwards;
-  opacity: 0;
+    animation: hl-fade 0.5s ease-out forwards;
+    opacity: 0;
 }
 
 @keyframes hl-fade {
-  0% { opacity: 0; transform: translateY(10px); }
-  100% { opacity: 1; transform: translateY(0); }
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
 }
 /* end typical effect from Half-Life */
 
-/* start ammo pickup */
-.ammo-pickup {
-  animation: ammo-pickup 1s ease-out forwards;
-}
-
-@keyframes ammo-pickup {
-  0% { transform: scale(0.8); opacity: 0; }
-  50% { transform: scale(1.1); opacity: 1; }
-  100% { transform: scale(1); opacity: 1; }
-}
-/* end ammo pickup */
-
-/* start low health warning */
-.low-health-warning {
-  animation: low-health 1.5s infinite alternate;
-}
-
-@keyframes low-health {
-  0% { box-shadow: 0 0 5px rgba(255, 50, 0, 0.5); }
-  100% { box-shadow: 0 0 15px rgba(255, 50, 0, 0.8); }
-}
-/* end low health warning */
-
-/* start weapon switch */
-.tab-switch {
-  animation: weapon-switch 0.3s ease-out;
-}
-
-@keyframes weapon-switch {
-  0% { transform: translateX(-20px); opacity: 0; }
-  100% { transform: translateX(0); opacity: 1; }
-}
-/* end weapon switch */
-
 @keyframes hlFadePulse {
-  0%, 100% {
-    opacity: 0.3;
-  }
-  50% {
-    opacity: 0.5;
-  }
+    0%, 100% {
+        opacity: 0.3;
+    }
+    50% {
+        opacity: 0.5;
+    }
 }
 
 .hl-fade-pulse {
-  animation: hlFadePulse 10s ease-in-out infinite;
+    animation: hlFadePulse 10s ease-in-out infinite;
 }
 
 .pulse-glow {
-  animation: pulseOrange 2s infinite ease-in-out;
-  text-shadow:
-          0 0 3px #cc8800,
-          0 0 6px #cc8800,
-          0 0 10px #dd9933;
+    animation: pulseOrange 2s infinite ease-in-out;
+    text-shadow:
+            0 0 3px oklch(0.75 0.18 70),
+            0 0 6px oklch(0.75 0.18 70),
+            0 0 10px oklch(0.8 0.16 75);
 }
 
 @keyframes pulseOrange {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.7; }
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
 }
 
 .glitch-text {
-  position: relative;
-  color: #ffbb33;
-  animation: flickerOrange 3s infinite alternate;
+    position: relative;
+    color: oklch(0.85 0.14 80);
+    animation: flickerOrange 3s infinite alternate;
 }
 
 .glitch-text::before,
 .glitch-text::after {
-  content: attr(data-text);
-  position: absolute;
-  left: 0;
-  width: 100%;
-  overflow: hidden;
-  clip: rect(0, 900px, 0, 0);
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    clip: rect(0, 900px, 0, 0);
 }
 
 .glitch-text::before {
-  animation: glitchTopOrange 2s infinite linear alternate-reverse;
-  color: #ffaa00;
-  z-index: -1;
-  clip-path: inset(0 0 70% 0);
-  left: 2px;
+    animation: glitchTopOrange 2s infinite linear alternate-reverse;
+    color: oklch(0.85 0.15 70);
+    z-index: -1;
+    clip-path: inset(0 0 70% 0);
+    left: 2px;
 }
 
 .glitch-text::after {
-  animation: glitchBottomOrange 3s infinite linear alternate;
-  color: #ffcc55;
-  z-index: -1;
-  clip-path: inset(60% 0 0 0);
-  left: -2px;
+    animation: glitchBottomOrange 3s infinite linear alternate;
+    color: oklch(0.87 0.13 75);
+    z-index: -1;
+    clip-path: inset(60% 0 0 0);
+    left: -2px;
 }
 
 .active-glitch {
-  animation-duration: 1.5s;
+    animation-duration: 1.5s;
 }
 
 @keyframes glitchTopOrange {
-  0% {
-    clip-path: inset(0 0 70% 0);
-    transform: translate(0);
-  }
-  50% {
-    clip-path: inset(10px 0 60% 0);
-    transform: translate(-2px, -2px);
-  }
-  100% {
-    clip-path: inset(0 0 70% 0);
-    transform: translate(0);
-  }
+    0% {
+        clip-path: inset(0 0 70% 0);
+        transform: translate(0);
+    }
+    50% {
+        clip-path: inset(10px 0 60% 0);
+        transform: translate(-2px, -2px);
+    }
+    100% {
+        clip-path: inset(0 0 70% 0);
+        transform: translate(0);
+    }
 }
 
 @keyframes glitchBottomOrange {
-  0% {
-    clip-path: inset(60% 0 0 0);
-    transform: translate(0);
-  }
-  50% {
-    clip-path: inset(55% 0 0 0);
-    transform: translate(2px, 2px);
-  }
-  100% {
-    clip-path: inset(60% 0 0 0);
-    transform: translate(0);
-  }
+    0% {
+        clip-path: inset(60% 0 0 0);
+        transform: translate(0);
+    }
+    50% {
+        clip-path: inset(55% 0 0 0);
+        transform: translate(2px, 2px);
+    }
+    100% {
+        clip-path: inset(60% 0 0 0);
+        transform: translate(0);
+    }
 }
 
 @keyframes flickerOrange {
-  0%, 100% { opacity: 1; }
-  10% { opacity: 0.8; }
-  20% { opacity: 0.95; }
-  30% { opacity: 0.9; }
-  50% { opacity: 0.85; }
-  70% { opacity: 0.95; }
-  90% { opacity: 0.8; }
+    0%, 100% { opacity: 1; }
+    10% { opacity: 0.8; }
+    20% { opacity: 0.95; }
+    30% { opacity: 0.9; }
+    50% { opacity: 0.85; }
+    70% { opacity: 0.95; }
+    90% { opacity: 0.8; }
 }
 
 /* start glitch scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+    width: 10px;
+    height: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #111;
+    background: oklch(0.08 0.02 260);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #ffaa00;
-  border-radius: 5px;
-  box-shadow: 0 0 5px #ffaa00, 0 0 10px #ffbb33;
-  animation: scrollbar-glitch-pulse 1.5s infinite alternate;
+    background: oklch(0.85 0.15 70);
+    border-radius: 5px;
+    box-shadow: 0 0 5px oklch(0.85 0.15 70), 0 0 10px oklch(0.85 0.14 80);
+    animation: scrollbar-glitch-pulse 1.5s infinite alternate;
 }
 
 @keyframes scrollbar-glitch-pulse {
-  0%   { box-shadow: 0 0 5px #ffaa00; }
-  50%  { box-shadow: -2px 2px 8px #ffcc55; }
-  100% { box-shadow: 2px -2px 8px #ffaa00; }
+    0%   { box-shadow: 0 0 5px oklch(0.85 0.15 70); }
+    50%  { box-shadow: -2px 2px 8px oklch(0.87 0.13 75); }
+    100% { box-shadow: 2px -2px 8px oklch(0.85 0.15 70); }
 }
 /* end glitch scrollbar */
 
 /* Firefox scrollbar (limited styling) */
 * {
-  scrollbar-width: thin;
-  scrollbar-color: #ffaa00 #111;
+    scrollbar-width: thin;
+    scrollbar-color: oklch(0.85 0.15 70) oklch(0.08 0.02 260);
 }
+
+/* start button hl */
+.btn-hl {
+    color: white;
+    transition: all 0.5s;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-hl::before {
+    content: '';
+    background-color: oklch(0.85 0.14 80);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    position: absolute;
+    transform: translateX(-100%) rotate(45deg);
+    transition: all 0.5s;
+}
+
+.btn-hl:hover::before {
+    transform: translateX(100%) rotate(45deg);
+}
+/* end button hl */

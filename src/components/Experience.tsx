@@ -9,7 +9,7 @@ type ExperienceProps = {
 export default function ExperienceComponent({ experience, onSelect }: ExperienceProps) {
   return (
       <div
-          className="ml-2 my-1 mx-1 rounded cursor-pointer flex justify-between items-center hover:bg-gray-700 hover:text-white transition duration-200 ease-in-out"
+          className="ml-2 my-1 mx-1 rounded cursor-pointer flex justify-between items-center hover:bg-orange-600/10 btn-hl"
           onClick={onSelect}
       >
         <span className="text-lg text-left glitch-text">{experience.title}</span>

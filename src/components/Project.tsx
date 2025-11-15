@@ -25,7 +25,7 @@ const ProjectComponent = ({ project, onSelect }: {
 
     return (
         <div
-            className="flex items-center gap-3 p-2 hover:bg-orange-600/10 rounded cursor-pointer"
+            className="flex items-center gap-3 p-2 hover:bg-orange-600/10 rounded cursor-pointer btn-hl"
             onClick={onSelect}
         >
             <div className="relative w-16 h-16 flex-shrink-0 flex items-center justify-center">

@@ -327,7 +327,7 @@ export default function Home() {
                         <div className="hl-content">
                             <ul className="space-y-4">
                                 {currentData.sysdevops.map((item, idx) => (
-                                    <li key={idx} className="p-3 hover:bg-gray-800 rounded-lg transition-colors">
+                                    <li key={idx} className="p-3 transition-colors rounded cursor-pointer hover:bg-orange-600/10 btn-hl">
                                         <div>
                                             <div className="flex justify-between items-center">
                                                 <h4 className="text-orange-400 text-lg font-bold glitch-text">{item.title}</h4>
