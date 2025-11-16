@@ -295,7 +295,6 @@ body {
 /* start button hl */
 .btn-hl {
     color: white;
-    transition: all 0.5s;
     position: relative;
     overflow: hidden;
 }
@@ -305,14 +304,16 @@ body {
     background-color: oklch(0.85 0.14 80);
     top: 0;
     left: 0;
-    width: 100%;
+    width: 200%;
     height: 50px;
     position: absolute;
     transform: translateX(-100%) rotate(45deg);
-    transition: all 0.5s;
 }
 
-.btn-hl:hover::before {
+.btn-hl:hover::before,
+.btn-hl:focus::before {
+    left: 100%;
     transform: translateX(100%) rotate(45deg);
+    transition: all 2.2s;
 }
 /* end button hl */
