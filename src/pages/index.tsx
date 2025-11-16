@@ -528,7 +528,7 @@ export default function Home() {
                     {isMobile && menuOpen && (
                         <div className="absolute top-16 left-0 right-0 z-50 bg-[#0a0a0a] border-b-2 border-orange-600">
                             <MobileHalfLifeMenu
-                                tabs={["Developer PHP", "Developer C#", "System Administration & DevOps", "Skills", "Books", "ToDo", "GitHub Stats"]}
+                                tabs={["Developer PHP", "System Administration & DevOps", "Skills", "Books", "ToDo", "GitHub Stats"]}
                                 activeTab={activeTab}
                                 onTabChange={handleMobileTabChange}
                             />
