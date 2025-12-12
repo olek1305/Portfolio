@@ -43,7 +43,6 @@ body {
     background-color: oklch(0.12 0.02 260);
     color: oklch(0.88 0.02 260);
     font-family: 'HalfLife', sans-serif;
-    overflow: hidden;
 }
 
 .hl-container {

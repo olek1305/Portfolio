@@ -25,7 +25,7 @@ const ImageLightbox = ({ src, alt, onClose }: {
             >
                 ✕
             </button>
-            <div className="relative w-full h-full max-w-5xl max-h-[90vh]">
+            <div className="relative w-[70vw] h-[70vh]">
                 <Image
                     src={src}
                     alt={alt || "Enlarged image view"}
