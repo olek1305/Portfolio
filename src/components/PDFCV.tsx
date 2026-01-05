@@ -108,14 +108,20 @@ interface PDFCVProps {
     cvData: CVData;
 }
 
+// Truncate text to max length
+const truncateText = (text: string, maxLength: number): string => {
+    if (text.length <= maxLength) return text;
+    return text.substring(0, maxLength).trim() + '...';
+};
+
 const PDFCV: React.FC<PDFCVProps> = ({ cvData }) => {
     return (
         <Document>
             <Page size="A4" style={styles.page}>
                 {/* HEADER */}
-                <Text style={styles.header}>ALEKSANDER ZAK, BYDGOSZCZ POLAND</Text>
-                <Text style={styles.header}>
-                    Aleksander Zak, PHP & System Administration & DevOps
+                <Text style={styles.header}>ALEKSANDER ZAK</Text>
+                <Text style={{ textAlign: 'center', fontSize: 10, marginBottom: 4, color: '#666' }}>
+                    PHP Developer | DevOps | Bydgoszcz, Poland
                 </Text>
                 <Text style={styles.contactLinkStyle}>EMAIL: olek1305@gmail.com</Text>
                 <Text style={{ textAlign: 'center', fontSize: 9 }}>
@@ -185,7 +191,7 @@ const PDFCV: React.FC<PDFCVProps> = ({ cvData }) => {
                                             ? styles.groupedProjectContent
                                             : styles.itemContent
                                     }>
-                                        {project.info}
+                                        {truncateText(project.info, 120)}
                                     </Text>
                                     {project.skills && project.skills.length > 0 && (
                                         <View style={styles.skillsContainer}>
@@ -227,14 +233,14 @@ const PDFCV: React.FC<PDFCVProps> = ({ cvData }) => {
 
                         {/* SysAdm & DEVOPS SECTION */}
                         <View style={styles.section}>
-                            <Text style={styles.sectionHeader}>System Administration & DevOps EXPERIENCE</Text>
-                            {cvData.sysdevops.map((item: SysDevOps, index: number) => (
+                            <Text style={styles.sectionHeader}>DEVOPS & SYSADMIN</Text>
+                            {cvData.sysdevops.slice(0, 4).map((item: SysDevOps, index: number) => (
                                 <View key={index} style={styles.item} wrap={false}>
                                     <View style={styles.itemHeader}>
                                         <Text style={styles.itemTitle}>{item.title}</Text>
                                         <Text style={styles.itemDate}>{item.date || 'Not specified'}</Text>
                                     </View>
-                                    <Text style={styles.itemContent}>{item.info}</Text>
+                                    <Text style={styles.itemContent}>{truncateText(item.info, 100)}</Text>
                                     {item.skills && item.skills.length > 0 && (
                                         <View style={styles.skillsContainer}>
                                             {item.skills.slice(0, 8).map((skill: string, i: number) => (
@@ -253,18 +259,7 @@ const PDFCV: React.FC<PDFCVProps> = ({ cvData }) => {
                 {/* FOOTER - GDPR */}
                 <View style={{ marginTop: 8, borderTop: '1pt solid #eee', paddingTop: 4 }}>
                     <Text style={{ fontSize: 7, textAlign: 'center', color: '#666' }}>
-                        I agree to the processing of personal data
-                        provided in this document for realising the
-                        recruitment process pursuant to the Personal
-                        Data Protection Act of 10 May 2018 (Journal
-                        of Laws 2018, item 1000) and in agreement
-                        with Regulation (EU) 2016/679 of the
-                        European Parliament and of the Council of 27
-                        April 2016 on the protection of natural
-                        persons with regard to the processing of
-                        personal data and on the free movement of
-                        such data, and repealing Directive 95/46/EC
-                        (General Data Protection Regulation).
+                        I consent to processing my personal data for recruitment purposes (GDPR 2016/679).
                     </Text>
                 </View>
 
