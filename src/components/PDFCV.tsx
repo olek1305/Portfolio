@@ -258,7 +258,7 @@ const PDFCV: React.FC<PDFCVProps> = ({ cvData }) => {
                                         <Text style={styles.itemTitle}>{item.title}</Text>
                                         <Text style={styles.itemDate}>{item.date || 'Not specified'}</Text>
                                     </View>
-                                    <Text style={styles.itemContent}>{truncateText(item.info, 100)}</Text>
+                                    <Text style={styles.itemContent}>{truncateText(item.info || '', 100)}</Text>
                                     {item.skills && item.skills.length > 0 && (
                                         <View style={styles.skillsContainer}>
                                             {item.skills.slice(0, 8).map((skill: string, i: number) => (
