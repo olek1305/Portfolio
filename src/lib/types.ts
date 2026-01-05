@@ -28,6 +28,14 @@ export type SysDevOps = {
     skills?: string[];
 };
 
+export type Job = {
+    title: string;
+    company: string;
+    date: string;
+    info?: string;
+    fileName?: string;
+};
+
 export interface ToDo {
     title: string;
     done: boolean;
@@ -45,6 +53,7 @@ export interface ProjectForCV extends Project {
 }
 
 export interface CVData {
+    jobs: Job[];
     experience: ExperienceForCV[];
     projects: ProjectForCV[];
     sysdevops: SysDevOps[];
@@ -52,6 +61,7 @@ export interface CVData {
 }
 
 export type TabData = {
+    jobs?: Job[];
     experience?: Experience[];
     projects?: Project[];
     skills?: Skill[];

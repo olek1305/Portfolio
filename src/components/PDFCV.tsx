@@ -1,6 +1,6 @@
 import React from 'react';
 import { Document, Page, Text, View, StyleSheet, PDFDownloadLink, Font } from '@react-pdf/renderer';
-import { CVData, ExperienceForCV, ProjectForCV, SysDevOps, Skill } from '@/lib/types';
+import { CVData, ExperienceForCV, ProjectForCV, SysDevOps, Skill, Job } from '@/lib/types';
 
 Font.register({
     family: 'Helvetica',
@@ -137,9 +137,27 @@ const PDFCV: React.FC<PDFCVProps> = ({ cvData }) => {
                     PORTFOLIO: https://portfolio-rho-three-26.vercel.app/
                 </Text>
 
+                {/* EMPLOYMENT SECTION */}
+                {cvData.jobs && cvData.jobs.length > 0 && (
+                    <View style={styles.section}>
+                        <Text style={styles.sectionHeader}>EMPLOYMENT</Text>
+                        {cvData.jobs.map((job: Job, index: number) => (
+                            <View key={index} style={styles.item} wrap={false}>
+                                <View style={styles.itemHeader}>
+                                    <Text style={styles.itemTitle}>
+                                        {job.title} • {job.company}
+                                    </Text>
+                                    <Text style={styles.itemDate}>{job.date || 'Not specified'}</Text>
+                                </View>
+                                {job.info && <Text style={styles.itemContent}>{job.info}</Text>}
+                            </View>
+                        ))}
+                    </View>
+                )}
+
                 {/* EXPERIENCE SECTION */}
                 <View style={styles.section}>
-                    <Text style={styles.sectionHeader}>PROFESSIONAL EXPERIENCE</Text>
+                    <Text style={styles.sectionHeader}>EDUCATION & COURSES</Text>
                     {cvData.experience.map((exp: ExperienceForCV, index: number) => (
                         <View key={index} style={styles.item} wrap={false}>
                             <View style={styles.itemHeader}>

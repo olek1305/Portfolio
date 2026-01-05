@@ -28,6 +28,7 @@ import phpData from './data/PHP.json';
 import sysDevOpsData from './data/SysDevOpsData.json';
 import skillsData from './data/Skills.json';
 import booksData from './data/Books.json';
+import jobsData from './data/Jobs.json';
 
 const components = {
     h1: (props: HTMLAttributes<HTMLHeadingElement>) => (
@@ -160,6 +161,9 @@ export default function Home() {
             case "Skills":
                 setCurrentData(skillsData);
                 break;
+            case "Jobs":
+                setCurrentData(jobsData);
+                break;
             case "Books":
                 setCurrentData(booksData);
                 break;
@@ -291,6 +295,30 @@ export default function Home() {
 
     const renderContentForTab = (tab: string) => {
         switch (tab) {
+            case "Jobs":
+                return currentData.jobs && currentData.jobs.length > 0 && (
+                    <div className="hl-container relative">
+                        <h3 className="hl-title pulse-glow">Employment ({currentData.jobs.length})</h3>
+                        <div className="hl-content">
+                            <ul className="space-y-4">
+                                {currentData.jobs.map((job, idx) => (
+                                    <li
+                                        key={idx}
+                                        className="p-3 transition-colors rounded cursor-pointer hover:bg-orange-600/10 btn-hl"
+                                        onClick={() => handleSelectMarkdown("jobs", job.title, job.fileName)}
+                                    >
+                                        <div className="flex justify-between items-center">
+                                            <h4 className="text-orange-400 text-lg font-bold glitch-text">{job.company}</h4>
+                                            <p className="text-orange-400 text-sm glitch-text">{job.date}</p>
+                                        </div>
+                                        <p className="text-orange-100">{job.title}</p>
+                                        {job.info && <p className="text-gray-400 text-sm mt-1">{job.info}</p>}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                );
             case "Developer PHP":
             // case "Developer Python":
                 return (
@@ -547,7 +575,8 @@ export default function Home() {
                     {!isMobile && (
                         <div className="w-64 bg-[#0a0a0a] border-r-2 border-orange-600 p-4 flex-shrink-0">
                             <HalfLifeMenu
-                                tabs={["Developer PHP",
+                                tabs={["Jobs",
+                                    "Developer PHP",
                                     // "Developer Python",
                                     "System Administration & DevOps",
                                     "Skills"
@@ -578,7 +607,7 @@ export default function Home() {
                     {isMobile && menuOpen && (
                         <div className="absolute top-16 left-0 right-0 z-50 bg-[#0a0a0a] border-b-2 border-orange-600">
                             <MobileHalfLifeMenu
-                                tabs={["Developer PHP", "System Administration & DevOps", "Skills", "GitHub Stats"]}
+                                tabs={["Jobs", "Developer PHP", "System Administration & DevOps", "Skills", "GitHub Stats"]}
                                 activeTab={activeTab}
                                 onTabChange={handleMobileTabChange}
                             />

@@ -1,10 +1,11 @@
 // generate-cv.ts
 import { NextApiRequest, NextApiResponse } from 'next';
-import { CVData, ProjectForCV, ExperienceForCV } from '@/lib/types';
+import { CVData, ProjectForCV, ExperienceForCV, Job } from '@/lib/types';
 
 import skillsData from '@/pages/data/Skills.json';
 import SysDevOpsData from '@/pages/data/SysDevOpsData.json';
 import phpData from '@/pages/data/PHP.json';
+import jobsData from '@/pages/data/Jobs.json';
 
 export default async function handler(
     req: NextApiRequest,
@@ -117,7 +118,17 @@ export default async function handler(
             .sort((a, b) => b.sortValue - a.sortValue)
             .map(({ sortValue, ...exp }) => exp);
 
+        // Sort jobs by date (newest first)
+        const sortedJobs = (jobsData.jobs || [])
+            .map((job: Job) => ({
+                ...job,
+                sortValue: parseDateToNumber(job.date || 'Not specified')
+            }))
+            .sort((a, b) => b.sortValue - a.sortValue)
+            .map(({ sortValue, ...job }) => job);
+
         const cvData: CVData = {
+            jobs: sortedJobs,
             experience: sortedExperience,
             projects: filteredProjects,
             sysdevops: SysDevOpsData.sysdevops || [],
