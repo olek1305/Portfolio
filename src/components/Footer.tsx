@@ -17,8 +17,28 @@ const Footer: React.FC<FooterProps> = ({ cvData }) => {
         });
     };
 
+    // Work status configuration
+    const workStatus = {
+        available: false, // Change to false when busy/employed
+        freelanceCount: 3 // Update with your completed freelance tasks
+    };
+
     return (
-        <footer className="bg-[#0a0a0a] border-t-2 border-orange-600 py-2 px-6 flex justify-center gap-6 items-center">
+        <footer className="bg-[#0a0a0a] border-t-2 border-orange-600 py-2 px-6 flex justify-center gap-4 md:gap-6 items-center flex-wrap">
+            {/* HL1 Style Work Status */}
+            <div className="flex items-center gap-2 hl-hud-status">
+                <div className={`hl-status-dot ${workStatus.available ? 'available' : 'busy'}`}></div>
+                <span className="text-orange-400 text-sm">
+                    {workStatus.available ? 'AVAILABLE' : 'BUSY'}
+                </span>
+            </div>
+
+            {/* HL1 Style Freelance Counter */}
+            <div className="flex items-center gap-1 border-l border-orange-600/50 pl-4">
+                <span className="text-orange-600 text-xs">FREELANCE COMPLETED:</span>
+                <span className="hl-counter text-orange-400 text-sm">{workStatus.freelanceCount}</span>
+            </div>
+
             {/* CV Download Button */}
             {cvData ? (
                 <DownloadCVButton cvData={cvData} />
