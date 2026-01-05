@@ -459,10 +459,32 @@ export default function Home() {
             {/* Main app container */}
             <div className="bg-[#1a1a1a] text-gray-300 h-screen flex flex-col overflow-hidden font-hl">
                 <Head>
-                    <title>Home - Aleksander Żak | PHP Developer</title>
-                    <meta name="description"
-                          content="Aleksander Żak's portfolio - PHP Developer based in Bydgoszcz, Poland."/>
+                    <title>Aleksander Żak | PHP Developer & DevOps</title>
+                    <meta name="description" content="PHP Developer & DevOps Engineer based in Bydgoszcz, Poland. Specializing in Laravel, Vue.js, Docker, and modern web development."/>
                     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+                    <meta name="keywords" content="PHP Developer, Laravel, Vue.js, DevOps, Docker, Bydgoszcz, Poland, Web Developer, Full Stack"/>
+                    <meta name="author" content="Aleksander Żak"/>
+                    <meta name="robots" content="index, follow"/>
+
+                    {/* Open Graph / Facebook */}
+                    <meta property="og:type" content="website"/>
+                    <meta property="og:url" content="https://portfolio-rho-three-26.vercel.app/"/>
+                    <meta property="og:title" content="Aleksander Żak | PHP Developer & DevOps"/>
+                    <meta property="og:description" content="PHP Developer & DevOps Engineer specializing in Laravel, Vue.js, Docker. Based in Bydgoszcz, Poland."/>
+                    <meta property="og:image" content="https://portfolio-rho-three-26.vercel.app/og-image.png"/>
+
+                    {/* Twitter */}
+                    <meta property="twitter:card" content="summary_large_image"/>
+                    <meta property="twitter:url" content="https://portfolio-rho-three-26.vercel.app/"/>
+                    <meta property="twitter:title" content="Aleksander Żak | PHP Developer & DevOps"/>
+                    <meta property="twitter:description" content="PHP Developer & DevOps Engineer specializing in Laravel, Vue.js, Docker. Based in Bydgoszcz, Poland."/>
+                    <meta property="twitter:image" content="https://portfolio-rho-three-26.vercel.app/og-image.png"/>
+
+                    {/* Canonical */}
+                    <link rel="canonical" href="https://portfolio-rho-three-26.vercel.app/"/>
+
+                    {/* Favicon */}
+                    <link rel="icon" href="/favicon.ico" sizes="any"/>
                 </Head>
 
                 {/* Mobile Header */}

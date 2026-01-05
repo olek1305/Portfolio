@@ -65,7 +65,7 @@ const Footer: React.FC<FooterProps> = ({ cvData }) => {
                     ▼ Email
                 </button>
                 {showCopiedMessage && (
-                    <div className="ammo-pickup absolute -top-8 left-0 right-0 mx-auto w-fit bg-orange-600 text-black px-2 py-1 rounded-md text-xs">
+                    <div className="ammo-pickup absolute -top-10 left-1/2 -translate-x-1/2 w-max bg-orange-600 text-black px-3 py-1 rounded text-xs font-bold tracking-wide animate-bounce">
                         Copied!
                     </div>
                 )}
