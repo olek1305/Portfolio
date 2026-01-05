@@ -661,26 +661,36 @@ export default function Home() {
                                 </div>
                             )}
 
-                            {/* Empty state - Lambda animation */}
+                            {/* Empty state - Deus Ex style Lambda animation */}
                             {!showGitHubStats && !showMain && (
-                                <div className="h-full flex flex-col items-center justify-center">
-                                    <div className="relative">
-                                        {/* Lambda symbol */}
+                                <div className="h-full flex flex-col items-center justify-center overflow-hidden relative">
+                                    {/* Background rotating Lambda */}
+                                    <div className="absolute inset-0 flex items-center justify-center">
+                                        <span className="text-[20rem] font-bold text-orange-600/10 select-none lambda-bg">
+                                            λ
+                                        </span>
+                                    </div>
+
+                                    {/* Middle layer - glowing pulse */}
+                                    <div className="absolute inset-0 flex items-center justify-center">
+                                        <span className="text-[16rem] font-bold text-orange-600/20 blur-md select-none lambda-glow">
+                                            λ
+                                        </span>
+                                    </div>
+
+                                    {/* Front Lambda with glitch */}
+                                    <div className="relative z-10 lambda-glitch">
                                         <span
-                                            className="text-[12rem] font-bold text-orange-600/20 glitch-text select-none"
+                                            className="text-[10rem] font-bold text-orange-600/30 glitch-text select-none"
                                             data-text="λ"
                                         >
                                             λ
                                         </span>
-                                        {/* Glow effect */}
-                                        <div className="absolute inset-0 flex items-center justify-center">
-                                            <span className="text-[12rem] font-bold text-orange-600/10 blur-xl animate-pulse select-none">
-                                                λ
-                                            </span>
-                                        </div>
                                     </div>
-                                    <p className="text-orange-600/40 text-sm mt-4 tracking-widest">
-                                        SELECT FROM MENU
+
+                                    {/* Text below */}
+                                    <p className="relative z-10 text-orange-600/50 text-sm mt-8 tracking-[0.3em] uppercase">
+                                        Select from menu
                                     </p>
                                 </div>
                             )}

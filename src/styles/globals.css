@@ -357,3 +357,40 @@ body {
     0% { text-shadow: 0 0 0.3rem oklch(0.85 0.15 70), 0 0 0.6rem oklch(0.85 0.15 70 / 0.3); }
     100% { text-shadow: 0 0 0.6rem oklch(0.85 0.15 70), 0 0 1.2rem oklch(0.85 0.15 70 / 0.6); }
 }
+
+/* Deus Ex style Lambda animation */
+@keyframes lambdaRotate {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.05); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+
+@keyframes lambdaFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes lambdaPulse {
+    0%, 100% { opacity: 0.15; filter: blur(0px); }
+    50% { opacity: 0.25; filter: blur(2px); }
+}
+
+@keyframes lambdaGlitch {
+    0%, 90%, 100% { transform: translate(0); }
+    92% { transform: translate(-5px, 2px); }
+    94% { transform: translate(5px, -2px); }
+    96% { transform: translate(-3px, -1px); }
+    98% { transform: translate(3px, 1px); }
+}
+
+.lambda-bg {
+    animation: lambdaRotate 60s linear infinite;
+}
+
+.lambda-glow {
+    animation: lambdaPulse 4s ease-in-out infinite, lambdaFloat 6s ease-in-out infinite;
+}
+
+.lambda-glitch {
+    animation: lambdaGlitch 10s ease-in-out infinite;
+}
