@@ -560,8 +560,15 @@ export default function Home() {
                                 }}
                                 githubOpen={showGitHubStats}
                                 onToggleGithub={() => {
-                                    setShowGitHubStats(!showGitHubStats);
-                                    setShowMain(showGitHubStats);
+                                    if (showGitHubStats) {
+                                        // Hiding GitHub - show Lambda (empty state)
+                                        setShowGitHubStats(false);
+                                        setShowMain(false);
+                                    } else {
+                                        // Showing GitHub
+                                        setShowGitHubStats(true);
+                                        setShowMain(false);
+                                    }
                                 }}
                             />
                         </div>
@@ -651,6 +658,30 @@ export default function Home() {
                                         )}
                                     </div>
 
+                                </div>
+                            )}
+
+                            {/* Empty state - Lambda animation */}
+                            {!showGitHubStats && !showMain && (
+                                <div className="h-full flex flex-col items-center justify-center">
+                                    <div className="relative">
+                                        {/* Lambda symbol */}
+                                        <span
+                                            className="text-[12rem] font-bold text-orange-600/20 glitch-text select-none"
+                                            data-text="λ"
+                                        >
+                                            λ
+                                        </span>
+                                        {/* Glow effect */}
+                                        <div className="absolute inset-0 flex items-center justify-center">
+                                            <span className="text-[12rem] font-bold text-orange-600/10 blur-xl animate-pulse select-none">
+                                                λ
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <p className="text-orange-600/40 text-sm mt-4 tracking-widest">
+                                        SELECT FROM MENU
+                                    </p>
                                 </div>
                             )}
                         </div>
