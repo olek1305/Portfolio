@@ -49,7 +49,7 @@ const HalfLifeMenu: React.FC<HalfLifeMenuProps> = ({
                     }
             focus:outline-none`}
                 >
-                    {githubOpen ? "▼ GitHub Stats" : "▲ GitHub Stats"}
+                    {githubOpen ? "◄ Hide GitHub" : "► GitHub Stats"}
                 </button>
             </nav>
         </div>
