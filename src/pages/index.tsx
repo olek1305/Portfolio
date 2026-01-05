@@ -99,6 +99,28 @@ const useIsMobile = () => {
     return isMobile;
 };
 
+// Responsive above 1080p as 1080p
+const useViewportScale = () => {
+    useEffect(() => {
+        const updateViewport = () => {
+            const viewport = document.querySelector('meta[name="viewport"]');
+            if (!viewport) return;
+
+            const screenWidth = window.screen.width;
+
+            if (screenWidth > 1920) {
+                viewport.setAttribute('content', 'width=1920');
+            } else {
+                viewport.setAttribute('content', 'width=device-width, initial-scale=1');
+            }
+        };
+
+        updateViewport();
+        window.addEventListener('resize', updateViewport);
+        return () => window.removeEventListener('resize', updateViewport);
+    }, []);
+};
+
 export default function Home() {
     const [MdxComponent, setMdxComponent] = useState<React.FC | null>(null);
     const [isClient, setIsClient] = useState(false);
@@ -112,6 +134,7 @@ export default function Home() {
     const [cvData, setCvData] = useState<CVData | null>(null);
     const [menuOpen, setMenuOpen] = useState(false);
     const isMobile = useIsMobile();
+    useViewportScale();
 
     // Handle mobile-specific settings
     useEffect(() => {
