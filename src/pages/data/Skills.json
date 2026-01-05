@@ -5,7 +5,6 @@
     { "name": "Symfony", "category": "Frameworks" },
     { "name": "RabbitMQ", "category": "Tools" },
     { "name": "Redis", "category": "Tools" },
-    { "name": "Valkey", "category": "Tools" },
     { "name": "Docker", "category": "Tools" },
     { "name": "Pest", "category": "Tools" },
     { "name": "PHPUnit", "category": "Tools" },
@@ -15,20 +14,13 @@
     { "name": "Vue.js", "category": "Frameworks", "fileName": "vue" },
     { "name": "React", "category": "Frameworks" },
     { "name": "Next.js", "category": "Frameworks", "fileName": "nextjs" },
-    { "name": "JQuery", "category": "Libraries" },
-    { "name": "YajraBox", "category": "Frameworks" },
-    { "name": "Mapbox", "category": "Frameworks" },
     { "name": "CI/CD", "category": "Tools", "fileName": "ci-cd" },
-    { "name": "E-commerce", "category": "Domains" },
     { "name": "GitHub", "category": "Tools" },
     { "name": "MySQL", "category": "Databases" },
     { "name": "PostgreSQL", "category": "Databases" },
-    { "name": "MongoDB", "category": "Databases" },
     { "name": "Python", "category": "Languages" },
     { "name": "Django", "category": "Frameworks" },
     { "name": "Tailwind", "category": "CSS Frameworks" },
-    { "name": "Bootstrap", "category": "CSS Frameworks" },
-    { "name": "Ubuntu", "category": "Operating Systems" },
-    { "name": "Debian", "category": "Operating Systems" }
+    { "name": "Linux", "category": "Operating Systems" }
   ]
 }
