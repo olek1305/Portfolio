@@ -381,54 +381,65 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, onClose, className 
 
               {/* Repositories Tab Content */}
               {activeTab === 'repos' && (
-                  <div className="space-y-4 repos-tab">
-                    {stats.repositories.slice(0, 5).map((repo) => (
-                        <div key={repo.id} className="p-4 rounded hover:bg-orange-600/10 cursor-pointer btn-hl">
-                          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start">
-                            <a
-                                href={repo.html_url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-orange-400 hover:underline font-medium flex items-center font-hl mb-2 sm:mb-0"
-                            >
-                              {repo.name}
-                              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  <div className="space-y-3 repos-tab">
+                    {stats.repositories.slice(0, 6).map((repo) => (
+                        <a
+                            key={repo.id}
+                            href={repo.html_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="block bg-[#0a0a0a] p-4 rounded-lg border border-orange-600/30 hover:border-orange-400 hover:bg-orange-600/5 transition-all duration-200 group"
+                        >
+                          <div className="flex justify-between items-start mb-2">
+                            <div className="flex items-center gap-2">
+                              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-orange-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
                               </svg>
-                            </a>
-                            <div className="flex space-x-3 text-sm">
-                      <span className="flex items-center text-orange-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                        </svg>
-                        {repo.stargazers_count}
-                      </span>
-                              <span className="flex items-center text-orange-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-                        </svg>
-                                {repo.forks_count}
-                      </span>
+                              <span className="text-orange-400 font-medium font-hl group-hover:text-orange-300">
+                                {repo.name}
+                              </span>
                             </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-500 group-hover:text-orange-400 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                            </svg>
                           </div>
-                          <p className="text-sm mt-2 text-orange-400 font-bold glitch-text">{repo.description || 'No description'}</p>
-                          <div className="flex flex-col sm:flex-row sm:justify-between mt-3 font-hl">
-                            <div className="mb-1 sm:mb-0 text-xs bg-orange-600/20 px-2 py-0.5 rounded glitch-text">{repo.language || 'Unknown'}</div>
-                            <div className="text-xs bg-orange-600/20 px-2 py-0.5 rounded glitch-text">Updated: {new Date(repo.updated_at).toLocaleDateString()}</div>
+
+                          <p className="text-sm text-gray-400 mb-3 line-clamp-2">{repo.description || 'No description available'}</p>
+
+                          <div className="flex flex-wrap items-center gap-3 text-xs">
+                            {repo.language && (
+                              <span className="flex items-center gap-1 text-gray-300">
+                                <span className="w-2.5 h-2.5 rounded-full bg-orange-400"></span>
+                                {repo.language}
+                              </span>
+                            )}
+                            <span className="flex items-center gap-1 text-gray-400">
+                              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                              </svg>
+                              {repo.stargazers_count}
+                            </span>
+                            <span className="flex items-center gap-1 text-gray-400">
+                              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                              </svg>
+                              {repo.forks_count}
+                            </span>
+                            <span className="text-gray-500 ml-auto">
+                              {new Date(repo.updated_at).toLocaleDateString()}
+                            </span>
                           </div>
-                        </div>
+                        </a>
                     ))}
-                    {stats.repositories.length > 5 && (
-                        <div className="text-center">
-                          <a
-                              href={`https://github.com/${username}?tab=repositories`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-orange-400 hover:underline inline-block px-4 py-2 font-hl"
-                          >
-                            View all {stats.repositories.length} repositories
-                          </a>
-                        </div>
+                    {stats.repositories.length > 6 && (
+                        <a
+                            href={`https://github.com/${username}?tab=repositories`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="block text-center py-3 text-orange-400 hover:text-orange-300 border border-orange-600/30 rounded-lg hover:border-orange-400 hover:bg-orange-600/5 transition-all font-hl"
+                        >
+                          View all {stats.repositories.length} repositories →
+                        </a>
                     )}
                   </div>
               )}
