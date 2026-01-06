@@ -1,5 +1,5 @@
 import React from 'react';
-import { Document, Page, Text, View, StyleSheet, PDFDownloadLink, Font } from '@react-pdf/renderer';
+import { Document, Page, Text, View, StyleSheet, BlobProvider, Font } from '@react-pdf/renderer';
 import { CVData, ExperienceForCV, ProjectForCV, SysDevOps, Skill, Job } from '@/lib/types';
 
 Font.register({
@@ -292,26 +292,31 @@ const PDFCV: React.FC<PDFCVProps> = ({ cvData }) => {
     );
 };
 
-interface DownloadCVButtonProps {
+interface ViewCVButtonProps {
     cvData: CVData | null;
 }
 
-export const DownloadCVButton: React.FC<DownloadCVButtonProps> = ({ cvData }) => {
+export const ViewCVButton: React.FC<ViewCVButtonProps> = ({ cvData }) => {
     if (!cvData) {
         return <span className="text-orange-500 text-sm">▼ Preparing resume...</span>;
     }
 
     return (
-        <PDFDownloadLink
-            document={<PDFCV cvData={cvData} />}
-            fileName="aleksander-zak-cv.pdf"
-            className="text-orange-500 text-sm hover:text-white no-underline"
-        >
-            {({ loading }: { loading: boolean }) =>
-                loading ? 'Generating CV...' : '▼ Download CV (PDF)'
-            }
-        </PDFDownloadLink>
+        <BlobProvider document={<PDFCV cvData={cvData} />}>
+            {({ url, loading }) => (
+                <button
+                    onClick={() => url && window.open(url, '_blank')}
+                    disabled={loading || !url}
+                    className="text-orange-500 text-sm hover:text-white no-underline cursor-pointer disabled:opacity-50 disabled:cursor-wait bg-transparent border-none"
+                >
+                    {loading ? 'Generating CV...' : '▼ View CV (PDF)'}
+                </button>
+            )}
+        </BlobProvider>
     );
 };
+
+// Keep backwards compatibility
+export const DownloadCVButton = ViewCVButton;
 
 export default PDFCV;
