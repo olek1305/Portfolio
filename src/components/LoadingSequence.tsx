@@ -158,7 +158,16 @@ const LoadingSequence = ({ isLoading }: LoadingSequenceProps) => {
         return "text-green-500";
     };
 
-    const lineHeight = 22;
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 640);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
+    const lineHeight = isMobile ? 18 : 22;
     const containerHeight = lineStates.length * lineHeight;
 
     return (
@@ -189,7 +198,7 @@ const LoadingSequence = ({ isLoading }: LoadingSequenceProps) => {
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.2, ease: "easeOut" }}
-                            className="flex items-center h-[22px]"
+                            className="flex items-center h-[18px] sm:h-[22px]"
                         >
                             {/* Prefix */}
                             <span className="text-gray-600 mr-2 w-4 text-right text-xs">
