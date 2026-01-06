@@ -75,12 +75,6 @@
       "info": "Practice project using RabbitMQ and Redis."
     },
     {
-      "name": "Portfolio",
-      "skills": ["Typescript", "React", "Next.js", "CI/CD"],
-      "date": "Ongoing",
-      "info": "My personal portfolio website."
-    },
-    {
       "name": "Rezervo",
       "skills": ["PHP", "Vue.js", "Laravel", "Tailwind", "JavaScript", "Inertia.js", "MySQL", "Docker", "Redis", "CI/CD", "Pest"],
       "date": "01.2025",

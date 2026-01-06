@@ -466,7 +466,7 @@ export default function Home() {
             {isLoading && (
                 <div className="fixed inset-0 bg-black z-50 flex items-center justify-center p-4">
                     <div className="border-2 border-orange-600 bg-gray-900 p-6 rounded-md max-w-2xl w-full">
-                        <div className="text-center mb-4">
+                        <div className="text-center mb-2">
                             <div className="text-orange-400 text-xl font-mono mb-1">
                                 PORTFOLIO
                             </div>

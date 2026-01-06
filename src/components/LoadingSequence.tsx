@@ -145,14 +145,14 @@ const LoadingSequence = ({ isLoading }: LoadingSequenceProps) => {
         };
     }, [currentLineIndex, isLoading, startTime]);
 
-    const lineHeight = 24;
-    const lineSpacing = 4;
+    const lineHeight = 20;
+    const lineSpacing = 0;
     const containerHeight = lineStates.length * (lineHeight + lineSpacing);
 
     return (
         <div className="w-full max-w-lg">
             <motion.div
-                className="text-orange-400 font-mono text-sm space-y-1 overflow-hidden"
+                className="text-orange-400 font-mono text-sm overflow-hidden"
                 initial={{ height: 0 }}
                 animate={{ height: containerHeight }}
                 transition={{
