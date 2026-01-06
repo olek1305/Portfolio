@@ -475,7 +475,9 @@ export default function Home() {
                             </div>
                         </div>
 
-                        <LoadingSequence isLoading={isLoading}/>
+                        <div className="flex justify-center">
+                            <LoadingSequence isLoading={isLoading}/>
+                        </div>
                     </div>
                 </div>
             )}
