@@ -476,10 +476,6 @@ export default function Home() {
                         </div>
 
                         <LoadingSequence isLoading={isLoading}/>
-
-                        <div className="mt-6 text-xs text-gray-500 font-mono text-center">
-                            © 2025 Aleksander Żak. All rights reserved.
-                        </div>
                     </div>
                 </div>
             )}
