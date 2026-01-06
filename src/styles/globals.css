@@ -74,10 +74,11 @@ body {
     position: absolute;
     top: -0.625rem;
     left: 0.625rem;
-    background-color: oklch(0.12 0.02 260);
-    padding: 0 0.3125rem;
+    background-color: #121212;
+    padding: 0 0.5rem;
     color: oklch(0.8 0.12 60);
     font-size: 0.875rem;
+    z-index: 2;
 }
 
 @keyframes bounce-fade {

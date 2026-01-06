@@ -409,7 +409,7 @@ export default function Home() {
                     <div className="hl-container relative">
                         <h3 className="hl-title pulse-glow">Skills ({currentData.skills.length})</h3>
                         <div className="hl-content">
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-2 p-2">
+                            <div className="grid grid-cols-2 md:grid-cols-2 2xl:grid-cols-3 gap-2 p-2">
                                 {currentData.skills.map((skill, idx) => (
                                     <SkillComponent
                                         key={idx}
