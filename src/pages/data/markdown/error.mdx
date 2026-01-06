@@ -1,1 +1,23 @@
-file is missing
+<div className="h-full flex flex-col items-center justify-center py-8 sm:py-16">
+    <div className="relative mb-2 sm:mb-4">
+        <span className="text-[4rem] sm:text-[6rem] font-bold text-orange-600/30 select-none leading-none">λ</span>
+        <div className="absolute inset-0 flex items-center justify-center">
+            <span className="text-2xl sm:text-4xl text-red-500">!</span>
+        </div>
+    </div>
+
+    <div className="text-center space-y-2 sm:space-y-3 max-w-md px-4">
+        <h1 className="text-lg sm:text-2xl font-bold text-orange-400 font-mono tracking-wider">
+            DATA NOT FOUND
+        </h1>
+
+        <span className="block text-red-400/80 font-mono text-[10px] sm:text-xs">
+            Content doesn't exist yet
+        </span>
+
+        <div className="flex items-center justify-center gap-2 text-gray-500 text-xs sm:text-sm">
+            <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-red-500 rounded-full animate-pulse"></span>
+            <span className="font-mono">OFFLINE</span>
+        </div>
+    </div>
+</div>

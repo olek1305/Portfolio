@@ -190,6 +190,8 @@ export default function Home() {
 
             // Handle skills category separately
             if (category === "skills") {
+                setShowGitHubStats(false);
+                setShowMain(true);
                 const skillFileName = fileName || name.toLowerCase().replace(/\s+/g, "-");
                 return loadMarkdownFile(`skills/${skillFileName}.mdx`);
             }

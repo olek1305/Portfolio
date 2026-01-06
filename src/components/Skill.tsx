@@ -61,7 +61,6 @@ const SkillComponent: React.FC<SkillProps> = ({
                         alt={`${skill.name} icon`}
                         width={iconOnly ? 48 : 40}
                         height={iconOnly ? 48 : 40}
-                        quality={100}
                         className={`object-contain mx-auto ${scaleClass}`}
                         onError={() => setIconExists(false)}
                     />
