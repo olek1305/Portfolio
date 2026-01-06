@@ -121,7 +121,7 @@ const PDFCV: React.FC<PDFCVProps> = ({ cvData }) => {
                 {/* HEADER */}
                 <Text style={styles.header}>ALEKSANDER ZAK</Text>
                 <Text style={{ textAlign: 'center', fontSize: 10, marginBottom: 4, color: '#666' }}>
-                    PHP Developer | DevOps | Bydgoszcz, Poland
+                    PHP Developer | Bydgoszcz, Poland
                 </Text>
                 <Text style={styles.contactLinkStyle}>EMAIL: olek1305@gmail.com</Text>
                 <Text style={{ textAlign: 'center', fontSize: 9 }}>
