@@ -485,7 +485,7 @@ export default function Home() {
             )}
 
             {/* Main app container */}
-            <div className="bg-[#1a1a1a] text-gray-300 h-screen flex flex-col overflow-hidden font-hl">
+            <div className="bg-[#1a1a1a] text-gray-300 h-screen flex flex-col overflow-hidden font-hl cyber-grid">
                 <Head>
                     <title>Aleksander Żak | PHP Developer</title>
                     <meta name="description" content="PHP Developer based in Bydgoszcz, Poland. Specializing in Laravel, Vue.js, Docker, and modern web development."/>
