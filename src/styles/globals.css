@@ -395,3 +395,13 @@ body {
 .lambda-glitch {
     animation: lambdaGlitch 10s ease-in-out infinite;
 }
+
+/* Tab switch animation - quick flash */
+@keyframes tabFlash {
+    0% { opacity: 0.3; }
+    100% { opacity: 1; }
+}
+
+.tab-switch {
+    animation: tabFlash 0.12s ease-out forwards;
+}
