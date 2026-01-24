@@ -280,15 +280,28 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, onClose, className 
               {/* User Profile Header */}
               <div className="flex flex-col sm:flex-row items-center mb-4">
                 <div className="relative mb-4 sm:mb-0 sm:mr-4">
-                  <Image
-                      src={stats.user.avatar_url}
-                      alt={`${stats.user.name}'s GitHub avatar`}
-                      width={80}
-                      height={80}
-                      className="rounded-full border-2 border-orange-400"
-                      unoptimized={true}
-                  />
-                  <div className="absolute bottom-0 right-0 bg-green-400 rounded-full h-4 w-4 border-2 border-[#0a0a0a]"></div>
+                  <div
+                    className="rounded-full p-1"
+                    style={{ background: 'linear-gradient(135deg, rgb(251,150,56) 0%, rgb(166,95,30) 100%)' }}
+                  >
+                    <div className="relative rounded-full overflow-hidden">
+                      <Image
+                          src={stats.user.avatar_url}
+                          alt={`${stats.user.name}'s GitHub avatar`}
+                          width={80}
+                          height={80}
+                          className="rounded-full border-2 border-[#0a0a0a] grayscale"
+                          unoptimized={true}
+                      />
+                      <div
+                        className="absolute inset-0 rounded-full pointer-events-none"
+                        style={{
+                          background: 'linear-gradient(135deg, rgba(251,150,56,0.4) 0%, rgba(166,95,30,0.5) 100%)',
+                          mixBlendMode: 'overlay'
+                        }}
+                      />
+                    </div>
+                  </div>
                 </div>
                 <div className="text-center sm:text-left">
                   <h2
