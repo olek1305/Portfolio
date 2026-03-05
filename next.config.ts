@@ -8,6 +8,22 @@ const withMDX = createMDX({
 const nextConfig: NextConfig = {
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
   reactStrictMode: true,
+  async headers() {
+    const isPreview = process.env.VERCEL_ENV === 'preview';
+    const robotsTag = isPreview ? 'noindex, nofollow' : 'index, follow';
+
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          {
+            key: 'X-Robots-Tag',
+            value: robotsTag,
+          },
+        ],
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       {
