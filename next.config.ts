@@ -8,6 +8,7 @@ const withMDX = createMDX({
 const nextConfig: NextConfig = {
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
   reactStrictMode: true,
+  productionBrowserSourceMaps: true,
   async headers() {
     const isPreview = process.env.VERCEL_ENV === 'preview';
     const robotsTag = isPreview ? 'noindex, nofollow' : 'index, follow';

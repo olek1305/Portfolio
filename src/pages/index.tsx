@@ -615,7 +615,7 @@ export default function Home() {
                     )}
 
                     {/* Main Content */}
-                    <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
+                    <main className="flex-1 flex flex-col md:flex-row overflow-hidden">
                         {/* Left Panel - Show on mobile when not viewing GitHub Stats */}
                         {isMobile && !showGitHubStats && (
                             <div className="w-full bg-[#121212] p-4 overflow-y-auto border-b border-orange-600/30">
@@ -724,7 +724,7 @@ export default function Home() {
                                 </div>
                             )}
                         </div>
-                    </div>
+                    </main>
                 </div>
 
                 {/* Footer */}

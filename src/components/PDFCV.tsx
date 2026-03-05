@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Document, Page, Text, View, StyleSheet, BlobProvider, Font } from '@react-pdf/renderer';
 import { CVData, ExperienceForCV, ProjectForCV, SysDevOps, Skill, Job } from '@/lib/types';
 
@@ -294,9 +294,62 @@ const PDFCV: React.FC<PDFCVProps> = ({ cvData }) => {
 
 interface ViewCVButtonProps {
     cvData: CVData | null;
+    autoOpenOnReady?: boolean;
+    onPdfReady?: (url: string) => void;
+    onAutoOpenComplete?: () => void;
 }
 
-export const ViewCVButton: React.FC<ViewCVButtonProps> = ({ cvData }) => {
+interface ViewCVButtonInnerProps {
+    url: string | null;
+    loading: boolean;
+    autoOpenOnReady: boolean;
+    onPdfReady?: (url: string) => void;
+    onAutoOpenComplete?: () => void;
+}
+
+const ViewCVButtonInner: React.FC<ViewCVButtonInnerProps> = ({
+    url,
+    loading,
+    autoOpenOnReady,
+    onPdfReady,
+    onAutoOpenComplete
+}) => {
+    const openedRef = useRef(false);
+
+    useEffect(() => {
+        if (!autoOpenOnReady) {
+            openedRef.current = false;
+            return;
+        }
+
+        if (!loading && url && !openedRef.current) {
+            openedRef.current = true;
+            if (onPdfReady) {
+                onPdfReady(url);
+            } else {
+                window.open(url, "_blank");
+            }
+            onAutoOpenComplete?.();
+        }
+    }, [autoOpenOnReady, loading, onAutoOpenComplete, onPdfReady, url]);
+
+    return (
+        <button
+            onClick={() => url && window.open(url, "_blank")}
+            disabled={loading || !url}
+            className="text-orange-500 text-sm hover:text-white no-underline cursor-pointer disabled:opacity-50 disabled:cursor-wait bg-transparent border-none"
+        >
+            {loading ? "Generating CV..." : "▼ View CV (PDF)"}
+        </button>
+    );
+};
+
+export const ViewCVButton: React.FC<ViewCVButtonProps> = ({
+    cvData,
+    autoOpenOnReady = false,
+    onPdfReady,
+    onAutoOpenComplete
+}) => {
     if (!cvData) {
         return <span className="text-orange-500 text-sm">▼ Preparing resume...</span>;
     }
@@ -304,18 +357,17 @@ export const ViewCVButton: React.FC<ViewCVButtonProps> = ({ cvData }) => {
     return (
         <BlobProvider document={<PDFCV cvData={cvData} />}>
             {({ url, loading }) => (
-                <button
-                    onClick={() => url && window.open(url, '_blank')}
-                    disabled={loading || !url}
-                    className="text-orange-500 text-sm hover:text-white no-underline cursor-pointer disabled:opacity-50 disabled:cursor-wait bg-transparent border-none"
-                >
-                    {loading ? 'Generating CV...' : '▼ View CV (PDF)'}
-                </button>
+                <ViewCVButtonInner
+                    url={url}
+                    loading={loading}
+                    autoOpenOnReady={autoOpenOnReady}
+                    onPdfReady={onPdfReady}
+                    onAutoOpenComplete={onAutoOpenComplete}
+                />
             )}
         </BlobProvider>
     );
 };
-
 // Keep backwards compatibility
 export const DownloadCVButton = ViewCVButton;
 
