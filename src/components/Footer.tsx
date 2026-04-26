@@ -1,6 +1,7 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import TransitionEffect from "@/components/TransitionEffect";
+import NightmareMode from "@/components/NightmareMode";
 import type { CVData } from "@/lib/types";
 
 interface FooterProps {
@@ -24,7 +25,16 @@ const Footer: React.FC<FooterProps> = ({ cvData }) => {
     const [showCopiedMessage, setShowCopiedMessage] = useState(false);
     const [cvModuleEnabled, setCvModuleEnabled] = useState(false);
     const [autoOpenCV, setAutoOpenCV] = useState(false);
+    const [nightmareMode, setNightmareMode] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
     const pendingWindowRef = useRef<Window | null>(null);
+
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
+        checkMobile();
+        window.addEventListener("resize", checkMobile);
+        return () => window.removeEventListener("resize", checkMobile);
+    }, []);
 
     const handleCopyEmail = () => {
         navigator.clipboard.writeText("olek1305@gmail.com").then(() => {
@@ -109,7 +119,21 @@ const Footer: React.FC<FooterProps> = ({ cvData }) => {
                 )}
             </div>
 
+            {!isMobile && (
+                <button
+                    onClick={() => setNightmareMode(true)}
+                    className="text-red-500 hover:text-red-400 text-sm font-mono tracking-wider border-l border-orange-600/50 pl-4"
+                >
+                    NIGHTMARE
+                </button>
+            )}
+
             <TransitionEffect />
+
+            <NightmareMode
+                isActive={nightmareMode}
+                onToggle={() => setNightmareMode(false)}
+            />
         </footer>
     );
 };
