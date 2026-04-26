@@ -19,10 +19,12 @@ const HalfLifeMenu: React.FC<HalfLifeMenuProps> = ({
         <div className="relative w-full max-w-xs min-h-[400px] p-6 bg-transparent text-[#ff9900] tracking-widest select-none overflow-hidden ">
 
             {/* Menu items */}
-            <nav className="relative z-10 flex flex-col gap-5">
+            <nav className="relative z-10 flex flex-col gap-5" role="tablist" aria-label="Portfolio sections">
                 {tabs.map((tab) => (
                     <button
                         key={tab}
+                        role="tab"
+                        aria-selected={activeTab === tab}
                         onClick={() => onTabChange(tab)}
                         className={`relative text-2xl transition-all duration-300 ease-in-out
               ${
@@ -30,24 +32,26 @@ const HalfLifeMenu: React.FC<HalfLifeMenuProps> = ({
                                 ? "text-[#ffbb33] glitch-text active-glitch"
                                 : "hover:text-[#ffcc55] hover:glitch-text"
                         }
-              focus:outline-none`}
+              focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-2 focus:ring-offset-black rounded`}
                     >
                         {tab}
                         {activeTab === tab && (
-                            <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-[#ffbb33] animate-pulse"></span>
+                            <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-[#ffbb33] animate-pulse" aria-hidden="true"></span>
                         )}
                     </button>
                 ))}
 
                 <button
                     onClick={onToggleGithub}
+                    aria-expanded={githubOpen}
+                    aria-label={githubOpen ? "Hide GitHub Stats" : "Show GitHub Stats"}
                     className={`relative text-xl transition-all duration-300 ease-in-out mt-4
             ${
                         githubOpen
                             ? "text-[#ffbb33] glitch-text active-glitch"
                             : "hover:text-[#ffcc55] hover:glitch-text"
                     }
-            focus:outline-none`}
+            focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-2 focus:ring-offset-black rounded`}
                 >
                     {githubOpen ? "◄ Hide GitHub" : "► GitHub Stats"}
                 </button>

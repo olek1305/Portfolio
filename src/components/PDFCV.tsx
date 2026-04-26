@@ -108,7 +108,13 @@ interface PDFCVProps {
     cvData: CVData;
 }
 
-// Truncate text to max length
+const contactInfo = {
+    email: process.env.NEXT_PUBLIC_EMAIL || 'contact@example.com',
+    phone: process.env.NEXT_PUBLIC_PHONE || '',
+    github: process.env.NEXT_PUBLIC_GITHUB_URL || 'https://github.com',
+    location: process.env.NEXT_PUBLIC_LOCATION || 'Poland',
+};
+
 const truncateText = (text: string, maxLength: number): string => {
     if (text.length <= maxLength) return text;
     return text.substring(0, maxLength).trim() + '...';
@@ -121,18 +127,20 @@ const PDFCV: React.FC<PDFCVProps> = ({ cvData }) => {
                 {/* HEADER */}
                 <Text style={styles.header}>ALEKSANDER ZAK</Text>
                 <Text style={{ textAlign: 'center', fontSize: 10, marginBottom: 4, color: '#666' }}>
-                    PHP Developer | Bydgoszcz, Poland
+                    PHP Developer | {contactInfo.location}
                 </Text>
-                <Text style={styles.contactLinkStyle}>EMAIL: olek1305@gmail.com</Text>
+                <Text style={styles.contactLinkStyle}>EMAIL: {contactInfo.email}</Text>
                 <Text style={{ textAlign: 'center', fontSize: 9 }}>
-                    Github: https://github.com/olek1305
+                    Github: {contactInfo.github}
                 </Text>
-                <Text style={{ textAlign: 'center', fontSize: 9 }}>
-                    TEL: 794 928 618,{' '}
-                    <Text style={{ color: '#e64d00' }}>
-                        I&#39;m deaf, please contact me by SMS or email.
+                {contactInfo.phone && (
+                    <Text style={{ textAlign: 'center', fontSize: 9 }}>
+                        TEL: {contactInfo.phone},{' '}
+                        <Text style={{ color: '#e64d00' }}>
+                            I&#39;m deaf, please contact me by SMS or email.
+                        </Text>
                     </Text>
-                </Text>
+                )}
                 <Text style={{ textAlign: 'center', marginBottom: 2, fontSize: 9 }}>
                     PORTFOLIO: https://portfolio-rho-three-26.vercel.app/
                 </Text>

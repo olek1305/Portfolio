@@ -464,6 +464,14 @@ export default function Home() {
 
     return (
         <div className="relative ">
+            {/* Skip to content link for accessibility */}
+            <a
+                href="#main-content"
+                className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:bg-orange-600 focus:text-white focus:px-4 focus:py-2 focus:rounded"
+            >
+                Skip to main content
+            </a>
+
             {/* Loading screen */}
             {isLoading && (
                 <div className="fixed inset-0 bg-black z-50 flex items-center justify-center p-4">
@@ -615,7 +623,7 @@ export default function Home() {
                     )}
 
                     {/* Main Content */}
-                    <main className="flex-1 flex flex-col md:flex-row overflow-hidden">
+                    <main id="main-content" className="flex-1 flex flex-col md:flex-row overflow-hidden">
                         {/* Left Panel - Show on mobile when not viewing GitHub Stats */}
                         {isMobile && !showGitHubStats && (
                             <div className="w-full bg-[#121212] p-4 overflow-y-auto border-b border-orange-600/30">

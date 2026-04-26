@@ -18,11 +18,20 @@ Next.js 15 portfolio with Pages Router, MDX content, and Half-Life/Deus Ex inspi
 ### Core Structure
 
 - **`src/pages/index.tsx`** - Main SPA, handles all tabs (Jobs, Experience, Projects, Skills, Books, SysDevOps, ToDo), dynamic MDX loading, and GitHub Stats panel
+- **`src/hooks/usePortfolioState.ts`** - Custom hook with portfolio state management (tabs, MDX loading, CV data)
 - **`src/pages/data/`** - Content storage:
   - JSON files (`Skills.json`, `PHP.json`, `Jobs.json`, etc.) define items with metadata
   - `markdown/` subdirectories (`skills/`, `projects/`, `experiences/`, `jobs/`) contain MDX files loaded dynamically via `import()`
   - `error.mdx` - Fallback when markdown not found (3D lambda animation)
 - **`src/lib/types.ts`** - Shared TypeScript types (Experience, Project, Skill, Job, Book, etc.)
+
+### Environment Variables
+
+Contact info for CV is stored in environment variables (set in Vercel dashboard for production):
+- `NEXT_PUBLIC_EMAIL` - Contact email
+- `NEXT_PUBLIC_PHONE` - Phone number
+- `NEXT_PUBLIC_GITHUB_URL` - GitHub profile URL
+- `NEXT_PUBLIC_LOCATION` - Location (city, country)
 
 ### Key Components
 
@@ -31,6 +40,7 @@ Next.js 15 portfolio with Pages Router, MDX content, and Half-Life/Deus Ex inspi
 - **`PDFCV.tsx`** - CV generation using @react-pdf/renderer
 - **`LoadingSequence.tsx`** - Boot sequence loading animation
 - **`ErrorDisplay.tsx`** - 3D rotating lambda with matrix rain effect (error state)
+- **`NightmareMode.tsx`** - Flashlight effect mode (desktop only)
 
 ### Styling
 
