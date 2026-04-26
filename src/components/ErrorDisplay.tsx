@@ -465,8 +465,8 @@ const ErrorDisplay = () => {
                     text-shadow: 0 0 8px rgba(251,150,56,0.4);
                 }
 
-                .hud.tl { top: 16px; left: 16px; }
-                .hud.tr { top: 16px; right: 16px; text-align: right; }
+                .hud.tl { top: 48px; left: 16px; }
+                .hud.tr { top: 48px; right: 16px; text-align: right; }
                 .hud.bl { bottom: 16px; left: 16px; }
                 .hud.br { bottom: 16px; right: 16px; text-align: right; }
 

@@ -668,7 +668,7 @@ export default function Home() {
                                                 setShowMain(false);
                                                 setShowGitHubStats(true);
                                             }}
-                                            className="absolute top-2 right-2 text-orange-400 hover:text-white z-10"
+                                            className="absolute top-2 right-2 text-orange-400 hover:text-white z-50 bg-black/70 rounded p-1 backdrop-blur-sm border border-orange-400/30 hover:border-orange-400/60 transition-colors"
                                             aria-label="Show GitHub Stats"
                                         >
                                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none"
