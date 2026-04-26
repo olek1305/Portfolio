@@ -10,23 +10,6 @@
     font-display: swap;
 }
 
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    background:
-            repeating-linear-gradient(
-                    0deg,
-                    oklch(0.85 0.1 70 / 0.06),
-                    oklch(0.85 0.1 70 / 0.06) 0.125rem,
-                    transparent 0.125rem,
-                    transparent 0.25rem
-            );
-    mix-blend-mode: screen;
-    z-index: 9999;
-}
-
 .skill-icon {
     transition: all 0.2s ease-in-out;
 }
@@ -59,15 +42,8 @@ body {
     position: absolute;
     inset: 0;
     border: 0.0625rem solid oklch(0.85 0.15 70 / 0.2);
-    box-shadow: 0 0 0.5rem oklch(0.85 0.15 70 / 0.3);
     pointer-events: none;
-    animation: borderPulse 2s infinite alternate;
     z-index: 1;
-}
-
-@keyframes borderPulse {
-    0% { box-shadow: 0 0 0.125rem oklch(0.85 0.15 70 / 0.2); }
-    100% { box-shadow: 0 0 0.625rem oklch(0.87 0.18 75 / 0.4); }
 }
 
 .hl-title {
@@ -429,3 +405,4 @@ body {
     pointer-events: none;
     z-index: 0;
 }
+

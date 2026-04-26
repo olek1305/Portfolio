@@ -19,6 +19,7 @@ import BookComponent from "@/components/Book";
 import ImageLightbox from "@/components/ImageLightbox";
 import Footer from "@/components/Footer";
 import LoadingSequence from "@/components/LoadingSequence"
+import Background from "@/components/Background";
 
 
 // Data
@@ -281,7 +282,7 @@ export default function Home() {
             setShowMain(false);
         } else {
             setShowGitHubStats(false);
-            setShowMain(true);
+            setShowMain(false);
         }
 
         setTimeout(() => setTabChanged(false), 300);
@@ -326,7 +327,7 @@ export default function Home() {
                 return (
                     <div className="space-y-4">
                         {currentData.experience && currentData.experience.length > 0 && (
-                            <div className="hl-container relative">
+                            <div className="hl-container relative !bg-transparent">
                                 <h3 className="hl-title pulse-glow">
                                     {tab} Experience ({currentData.experience.length})
                                 </h3>
@@ -353,7 +354,7 @@ export default function Home() {
                         )}
 
                         {currentData.projects && currentData.projects.length > 0 && (
-                            <div className="hl-container relative">
+                            <div className="hl-container relative !bg-transparent">
                                 <h3 className="hl-title pulse-glow">
                                     {tab} Projects ({currentData.projects.length})
                                 </h3>
@@ -375,7 +376,7 @@ export default function Home() {
                 );
             case "System Administration & DevOps":
                 return currentData.sysdevops && currentData.sysdevops.length > 0 && (
-                    <div className="hl-container relative">
+                    <div className="hl-container relative !bg-transparent">
                         <h3 className="hl-title pulse-glow">DevOps Topics ({currentData.sysdevops.length})</h3>
                         <div className="hl-content">
                             <ul className="space-y-4">
@@ -408,7 +409,7 @@ export default function Home() {
                 );
             case "Skills":
                 return currentData.skills && currentData.skills.length > 0 && (
-                    <div className="hl-container relative">
+                    <div className="hl-container relative !bg-transparent">
                         <h3 className="hl-title pulse-glow">Skills ({currentData.skills.length})</h3>
                         <div className="hl-content">
                             <div className="grid grid-cols-2 md:grid-cols-2 2xl:grid-cols-3 gap-2 p-2">
@@ -416,8 +417,6 @@ export default function Home() {
                                     <SkillComponent
                                         key={idx}
                                         skill={skill}
-                                        onSelect={() => handleSelectMarkdown("skills", skill.name, skill.fileName)}
-                                        hasDetails={!!skill.fileName || true}
                                         iconOnly={false}
                                     />
                                 ))}
@@ -463,7 +462,10 @@ export default function Home() {
     };
 
     return (
-        <div className="relative ">
+        <div className="relative">
+            {/* Hex-grid radar background */}
+            <Background />
+
             {/* Skip to content link for accessibility */}
             <a
                 href="#main-content"
@@ -492,8 +494,8 @@ export default function Home() {
                 </div>
             )}
 
-            {/* Main app container */}
-            <div className="bg-[#1a1a1a] text-gray-300 h-screen flex flex-col overflow-hidden font-hl cyber-grid">
+            {/* Main app container — transparent so the Background canvas shows through */}
+            <div className="text-gray-300 h-screen flex flex-col overflow-hidden font-hl relative z-[1]">
                 <Head>
                     <title>Aleksander Żak | PHP Developer</title>
                     <meta name="description" content="PHP Developer based in Bydgoszcz, Poland. Specializing in Laravel, Vue.js, Docker, and modern web development."/>
@@ -526,7 +528,7 @@ export default function Home() {
                 {/* Mobile Header */}
                 {isMobile && (
                     <header
-                        className="bg-[#0a0a0a] border-b-2 border-orange-600 py-3 px-6 flex justify-between items-center">
+                        className="bg-[#0a0a0a]/70 border-b-2 border-orange-600 py-3 px-6 flex justify-between items-center">
                         <div
                             className="text-orange-400 text-xl cursor-pointer hover:text-white glitch-text active-glitch"
                             data-text="Aleksander Żak"
@@ -561,7 +563,7 @@ export default function Home() {
 
                 {/* Desktop Header */}
                 {!isMobile && (
-                    <header className="bg-[#0a0a0a] border-b-2 border-orange-600 py-3 px-6">
+                    <header className="bg-[#0a0a0a]/70 border-b-2 border-orange-600 py-3 px-6">
                         <div
                             className="text-orange-400 text-2xl cursor-pointer hover:text-white glitch-text active-glitch"
                             data-text="Aleksander Żak, PHP Developer"
@@ -581,7 +583,7 @@ export default function Home() {
                 <div className="flex flex-1 overflow-hidden">
                     {/* Desktop Menu */}
                     {!isMobile && (
-                        <div className="w-64 bg-[#0a0a0a] border-r-2 border-orange-600 p-4 flex-shrink-0">
+                        <div className="w-64 bg-[#0a0a0a]/70 border-r-2 border-orange-600 p-4 flex-shrink-0">
                             <HalfLifeMenu
                                 tabs={["Jobs",
                                     "Developer PHP",
@@ -626,7 +628,7 @@ export default function Home() {
                     <main id="main-content" className="flex-1 flex flex-col md:flex-row overflow-hidden">
                         {/* Left Panel - Show on mobile when not viewing GitHub Stats */}
                         {isMobile && !showGitHubStats && (
-                            <div className="w-full bg-[#121212] p-4 overflow-y-auto border-b border-orange-600/30">
+                            <div className="w-full bg-[#121212]/50 p-4 overflow-y-auto border-b border-orange-600/30">
                                 <div className={tabChanged ? "tab-switch" : ""}>
                                     {renderContentForTab(activeTab)}
                                 </div>
@@ -635,15 +637,15 @@ export default function Home() {
 
                         {/* Desktop Left Panel */}
                         {!isMobile && (
-                            <div className="w-1/3 bg-[#121212] p-4 overflow-y-auto border-r border-orange-600/30">
+                            <div className="w-1/3 bg-[#121212]/50 p-4 overflow-y-auto border-r border-orange-600/30">
                                 <div className={tabChanged ? "tab-switch" : ""}>
                                     {renderContentForTab(activeTab)}
                                 </div>
                             </div>
                         )}
 
-                        {/* Right Content */}
-                        <div className={`${isMobile ? 'w-full' : 'w-2/3'} bg-[#1a1a1a] p-4 overflow-y-auto`}>
+                        {/* Right Content — transparent so the hex-grid background is visible */}
+                        <div className={`${isMobile ? 'w-full' : 'w-2/3'} p-4 overflow-y-auto`}>
                             {showGitHubStats && isClient && (
                                 <div className="relative h-full">
                                     <ErrorBoundary
@@ -698,39 +700,6 @@ export default function Home() {
                                 </div>
                             )}
 
-                            {/* Empty state - Deus Ex style Lambda animation */}
-                            {!showGitHubStats && !showMain && (
-                                <div className="h-full flex flex-col items-center justify-center overflow-hidden relative">
-                                    {/* Background rotating Lambda */}
-                                    <div className="absolute inset-0 flex items-center justify-center">
-                                        <span className="text-[20rem] font-bold text-orange-600/10 select-none lambda-bg">
-                                            λ
-                                        </span>
-                                    </div>
-
-                                    {/* Middle layer - glowing pulse */}
-                                    <div className="absolute inset-0 flex items-center justify-center">
-                                        <span className="text-[16rem] font-bold text-orange-600/20 blur-md select-none lambda-glow">
-                                            λ
-                                        </span>
-                                    </div>
-
-                                    {/* Front Lambda with glitch */}
-                                    <div className="relative z-10 lambda-glitch">
-                                        <span
-                                            className="text-[10rem] font-bold text-orange-600/30 glitch-text select-none"
-                                            data-text="λ"
-                                        >
-                                            λ
-                                        </span>
-                                    </div>
-
-                                    {/* Text below */}
-                                    <p className="relative z-10 text-orange-600/50 text-sm mt-8 tracking-[0.3em] uppercase">
-                                        Select from menu
-                                    </p>
-                                </div>
-                            )}
                         </div>
                     </main>
                 </div>

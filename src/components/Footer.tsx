@@ -68,7 +68,7 @@ const Footer: React.FC<FooterProps> = ({ cvData }) => {
     };
 
     return (
-        <footer className="bg-[#0a0a0a] border-t-2 border-orange-600 py-2 px-6 flex justify-center gap-4 md:gap-6 items-center flex-wrap">
+        <footer className="bg-[#0a0a0a]/70 border-t-2 border-orange-600 py-2 px-6 flex justify-center gap-4 md:gap-6 items-center flex-wrap">
             <div className="flex items-center gap-2 hl-hud-status">
                 <div className={`hl-status-dot ${workStatus.available ? "available" : "busy"}`}></div>
                 <span className="text-orange-400 text-sm">{workStatus.available ? "AVAILABLE" : "BUSY"}</span>
