@@ -1,4 +1,4 @@
-import React, {ImgHTMLAttributes, HTMLAttributes, useState, useEffect, useCallback} from "react";
+import React, {ImgHTMLAttributes, HTMLAttributes, useState, useEffect, useCallback, useRef} from "react";
 import { MDXProvider } from "@mdx-js/react";
 import Head from "next/head";
 import Image from "next/image";
@@ -20,6 +20,7 @@ import ImageLightbox from "@/components/ImageLightbox";
 import Footer from "@/components/Footer";
 import LoadingSequence from "@/components/LoadingSequence"
 import Background from "@/components/Background";
+import ErrorDisplay from "@/components/ErrorDisplay";
 
 
 // Data
@@ -135,6 +136,9 @@ export default function Home() {
     const [currentData, setCurrentData] = useState<TabData>(phpData);
     const [cvData, setCvData] = useState<CVData | null>(null);
     const [menuOpen, setMenuOpen] = useState(false);
+    const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+    const [showProjectFallback, setShowProjectFallback] = useState(false);
+    const mdxContainerRef = useRef<HTMLDivElement>(null);
     const isMobile = useIsMobile();
     useViewportScale();
 
@@ -188,6 +192,8 @@ export default function Home() {
             if (category !== "projects" && category !== "System Administration & DevOps") {
                 setSelectedProject(null);
             }
+            setSelectedCategory(category);
+            setShowProjectFallback(false);
 
             // Handle skills category separately
             if (category === "skills") {
@@ -249,6 +255,23 @@ export default function Home() {
             clearTimeout(timer2);
         };
     }, [handleSelectMarkdown]);
+
+    // Auto-detect projects without images and show ErrorDisplay fallback below MDX
+    useEffect(() => {
+        if (!MdxComponent || selectedCategory !== "projects") {
+            setShowProjectFallback(false);
+            return;
+        }
+        const timer = setTimeout(() => {
+            const container = mdxContainerRef.current;
+            if (!container) return;
+            const hasMedia =
+                container.querySelector(".slideshow-container") ||
+                container.querySelector("img");
+            setShowProjectFallback(!hasMedia);
+        }, 50);
+        return () => clearTimeout(timer);
+    }, [MdxComponent, selectedCategory]);
 
     /**
      * Helper function to load markdown files with error handling
@@ -691,9 +714,16 @@ export default function Home() {
 
                                     <div className="h-full overflow-auto">
                                         {isClient && MdxComponent && (
-                                            <MDXProvider components={components}>
-                                                <MdxComponent/>
-                                            </MDXProvider>
+                                            <div ref={mdxContainerRef}>
+                                                <MDXProvider components={components}>
+                                                    <MdxComponent/>
+                                                </MDXProvider>
+                                            </div>
+                                        )}
+                                        {showProjectFallback && (
+                                            <div className="mt-4 h-[400px]">
+                                                <ErrorDisplay/>
+                                            </div>
                                         )}
                                     </div>
 
